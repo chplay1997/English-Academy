@@ -1,3 +1,5 @@
+import CoreLayout from '../CoreLayout'
+
 export default function Blog() {
-  return <>Day la trang blog</>
+  return <CoreLayout>Coming soon</CoreLayout>
 }

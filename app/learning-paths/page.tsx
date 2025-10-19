@@ -1,3 +1,5 @@
+import CoreLayout from '../CoreLayout'
+
 export default function LearningPaths() {
-  return <>Đây là trang lộ trình</>
+  return <CoreLayout>Coming soon</CoreLayout>
 }

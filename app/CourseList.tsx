@@ -1,9 +1,12 @@
+'use client'
 import { Card, CardContent } from '@/components/ui/card'
 import { Clock, User } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 interface Course {
   id: number
   title: string
+  slug: string
   subtitle: string
   author: string
   students: number
@@ -17,6 +20,7 @@ const courses: Course[] = [
   {
     id: 1,
     title: 'TOEIC FOUNDATION',
+    slug: 'toeic-foundation',
     subtitle: 'Nền tảng tiếng Anh cho người mất gốc – ôn lại phát âm, ngữ pháp cơ bản và từ vựng chủ đề thi thật.',
     author: 'Anonymous',
     students: 620,
@@ -28,6 +32,7 @@ const courses: Course[] = [
   {
     id: 2,
     title: 'TOEIC INTERMEDIATE',
+    slug: 'toeic-intermediate',
     subtitle: 'Củng cố kỹ năng Nghe – Đọc, luyện chiến lược làm bài và tăng tốc điểm từ 450–700+.',
     author: 'Anonymous',
     students: 480,
@@ -39,6 +44,7 @@ const courses: Course[] = [
   {
     id: 3,
     title: 'TOEIC ADVANCED',
+    slug: 'toeic-advanced',
     subtitle: 'Khóa luyện đề chuyên sâu, kỹ thuật tăng tốc 800+ với bộ đề cập nhật theo định dạng mới nhất.',
     author: 'Anonymous',
     students: 312,
@@ -50,6 +56,12 @@ const courses: Course[] = [
 ]
 
 export default function CourseList() {
+  const router = useRouter()
+
+  const handleClick = (slug: string) => {
+    router.push(`/learning/${slug}`)
+  }
+
   return (
     <section className="md:px-[66px] md:py-[24] p">
       <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
@@ -59,6 +71,7 @@ export default function CourseList() {
       <div className="grid gap-6 md:grid-cols-4">
         {courses.map(course => (
           <Card
+            onClick={() => handleClick(course.slug)}
             key={course.id}
             className="overflow-hidden rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 pt-0 cursor-pointer"
           >
