@@ -44,12 +44,10 @@ export default function CoursePage() {
           <div className="w-full relative bg-black px-[16%]">
             <div className="relative pt-[56.25%]">
               <iframe
-                src={`https://player.vimeo.com/video/${currentVimeoID}?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479`}
-                frameBorder="0"
+                src={`https://player.vimeo.com/video/${currentVimeoID}?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479`}
                 allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
                 referrerPolicy="strict-origin-when-cross-origin"
-                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
-                title="1"
+                className="absolute top-[0] left-[0] size-full"
               />
               <script src="https://player.vimeo.com/api/player.js" />
             </div>
