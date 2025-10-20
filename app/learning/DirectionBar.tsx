@@ -1,24 +1,13 @@
-import {
-  ArrowLeft,
-  ArrowRight,
-  ChevronLeft,
-  ChevronRight,
-  CircleQuestionMark,
-  Menu,
-  NotebookPen,
-  Search,
-} from 'lucide-react'
+import { ArrowRight, ChevronLeft, ChevronRight, Menu } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import ProgressCircle from '@/components/ui/progress-circle'
 
 interface ProgressBarProps {
-  title?: string
-  description?: string
-  progress?: number
+  title: string
+  handleTogleOpen: any
+  open: boolean
 }
 
-export default function DirectionBar({ title = 'hihihihi', description, progress }: ProgressBarProps) {
+export default function DirectionBar({ title, handleTogleOpen, open }: ProgressBarProps) {
   return (
     <div
       className="border-b-1 h-[50px] flex justify-center items-center px-[28] fixed w-full z-4 bottom-0 left-0 right-0"
@@ -36,11 +25,10 @@ export default function DirectionBar({ title = 'hihihihi', description, progress
       </div>
 
       <div className="absolute right-0 flex justify-end items-center gap-[8]">
-        <span>1. Khái niệm kỹ thuật cần biết</span>
+        <span>{title}</span>
 
-        <Button variant="ghost">
-          <Menu />
-          {/* <ArrowRight /> */}
+        <Button variant="ghost" onClick={handleTogleOpen}>
+          {open ? <ArrowRight /> : <Menu />}
         </Button>
       </div>
     </div>

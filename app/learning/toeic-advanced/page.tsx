@@ -3,7 +3,7 @@ import ProgressBar from '../ProgressBar'
 export default function ToeicAdvanced() {
   return (
     <>
-      <ProgressBar />
+      {/* <ProgressBar /> */}
       Đây là trang learning
     </>
   )
