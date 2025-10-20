@@ -6,36 +6,39 @@ import { CircleCheck, CirclePlay, Disc, Heart, Plus } from 'lucide-react'
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { ICourseContent, courseContent } from './constant'
-import { useSearchParams, notFound, useRouter } from 'next/navigation'
+import { useSearchParams, notFound, useRouter, useParams } from 'next/navigation'
 
-export default function ToeicFoundation() {
+export default function CoursePage() {
+  const { slug } = useParams<{ slug: string }>()
   const [open, setOpen] = useState(true)
   const router = useRouter()
   const searchParams = useSearchParams()
-  const id = searchParams.get('id') || courseContent.data[0].details[0].vimeoID
+  const currentCourse = courseContent[slug] || []
+
+  const id = searchParams.get('id') || currentCourse[0]?.details?.[0]?.vimeoID
   const [currentVimeoID, setCurrentVimeoID] = useState(id)
+
+  const courseTitle = slug?.replaceAll('-', ' ').replace(/\b\w/g, char => char.toUpperCase())
 
   const handleSetCurrentVimeoID = (newID: string) => {
     setCurrentVimeoID(newID)
-    router.replace(`?id=${newID}`) // hoặc router.push nếu bạn muốn có history
+    router.push(`?id=${newID}`)
   }
 
-  const currentData = courseContent.data
+  const currentData = currentCourse
     .flatMap(lesson => lesson.details) // gộp tất cả details thành 1 mảng
     .find(item => item.vimeoID === currentVimeoID)
-  const lesson = courseContent.data.find(lesson => lesson.details.some(detail => detail.vimeoID === currentVimeoID))
-
-  console.log('currentData: ', currentData)
+  const lesson = currentCourse.find(lesson => lesson.details.some(detail => detail.vimeoID === currentVimeoID))
 
   const handleTogleOpen = () => {
     setOpen(prev => !prev)
   }
 
-  if (!currentData || !lesson) return notFound()
+  if (!currentData || !lesson || !currentCourse) return notFound()
 
   return (
     <>
-      <ProgressBar title={courseContent.titleCourse} completed={1} total={3} />
+      <ProgressBar title={courseTitle} completed={1} total={3} />
       <main>
         <div className={`fixed z-2 ${open ? 'w-[77%]' : 'w-full'} top-[50px] left-[0] bottom-[50px] overflow-y-auto`}>
           <div className="w-full relative bg-black px-[16%]">
@@ -89,7 +92,7 @@ export default function ToeicFoundation() {
           <div className="overflow-y-auto overflow-x-hidden h-full pb-[50]">
             {/* TODO: Update defaultValue later */}
             <Accordion type="single" collapsible className="w-full" defaultValue="item-1">
-              {courseContent.data.map(data => {
+              {currentCourse.map(data => {
                 const { details, duration, progress, title } = data
                 return (
                   <AccordionItem value={title} key={title}>
