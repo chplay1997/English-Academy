@@ -2,7 +2,7 @@ import { Search } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
-export default function Header() {
+export default function HeaderBar() {
   return (
     <div
       className="border-b-1 bg-white h-[66px] flex justify-between items-center px-[28] fixed w-full z-1"
