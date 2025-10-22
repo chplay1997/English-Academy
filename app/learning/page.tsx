@@ -1,3 +1,7 @@
 export default function Learning() {
-  return <>Đây là trang learning</>
+  return (
+    <>
+      <h1>Đây là trang learning</h1>
+    </>
+  )
 }
