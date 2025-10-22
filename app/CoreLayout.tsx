@@ -1,6 +1,3 @@
-import { GraduationCap, Search } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import Footer from './Footer'
 import Navbar from './Navbar'
 import Header from './Header'

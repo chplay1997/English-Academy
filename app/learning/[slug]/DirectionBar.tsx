@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 
 interface ProgressBarProps {
   title: string
-  handleTogleOpen: any
+  handleTogleOpen: () => void
   open: boolean
 }
 

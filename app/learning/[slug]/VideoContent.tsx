@@ -3,6 +3,7 @@ import { Heart, Plus } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import Player from '@vimeo/player'
+import Script from 'next/script'
 
 interface IVideoContent {
   title: string
@@ -58,7 +59,7 @@ export default function VideoContent({ title, vimeoID, open }: IVideoContent) {
             referrerPolicy="strict-origin-when-cross-origin"
             className="absolute top-[0] left-[0] size-full"
           />
-          <script src="https://player.vimeo.com/api/player.js" />
+          <Script src="https://player.vimeo.com/api/player.js" />
         </div>
       </div>
 

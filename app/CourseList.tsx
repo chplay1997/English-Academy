@@ -2,6 +2,7 @@
 import { Card, CardContent } from '@/components/ui/card'
 import { Clock, User } from 'lucide-react'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 
 interface Course {
   id: number
@@ -91,7 +92,7 @@ export default function CourseList() {
               </div>
 
               <div className="flex items-center gap-2 text-sm text-gray-600">
-                <img
+                <Image
                   src="https://fullstack.edu.vn/images/f8_avatar.png"
                   alt={course.author}
                   className="w-6 h-6 rounded-full"

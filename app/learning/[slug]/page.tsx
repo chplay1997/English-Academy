@@ -4,7 +4,7 @@ import DirectionBar from './DirectionBar'
 import ProgressBar from './ProgressBar'
 import { CircleCheck, CirclePlay, Disc } from 'lucide-react'
 import { useState } from 'react'
-import { ICourseContent, courseContent } from './constant'
+import { courseContent } from './constant'
 import { useSearchParams, notFound, useRouter, useParams } from 'next/navigation'
 import VideoContent from './VideoContent'
 
