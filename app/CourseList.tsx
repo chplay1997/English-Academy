@@ -92,11 +92,11 @@ export default function CourseList() {
               </div>
 
               <div className="flex items-center gap-2 text-sm text-gray-600">
-                <Image
+                {/* <Image
                   src="https://fullstack.edu.vn/images/f8_avatar.png"
                   alt={course.author}
                   className="w-6 h-6 rounded-full"
-                />
+                /> */}
                 <span>{course.author}</span>
                 <span className="flex items-center gap-1 ml-2">
                   <User size={14} /> {course.students}
