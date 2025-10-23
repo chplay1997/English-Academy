@@ -1,5 +1,5 @@
-import CourseList from './CourseList'
-import CoreLayout from './CoreLayout'
+import CourseList from './components/CourseList'
+import CoreLayout from './components/CoreLayout'
 
 export default function Home() {
   return (

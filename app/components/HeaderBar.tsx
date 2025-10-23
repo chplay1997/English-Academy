@@ -2,7 +2,7 @@
 
 import { Search } from 'lucide-react'
 import { Input } from '@/components/ui/input'
-import UserProfileDropdown from './components/UserProfileDropdown'
+import UserProfileDropdown from './UserProfileDropdown'
 
 export default function HeaderBar() {
   return (

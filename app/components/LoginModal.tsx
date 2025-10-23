@@ -15,12 +15,11 @@ interface ILoginModal {
 export default function LoginModal({ open, setOpen }: ILoginModal) {
   const router = useRouter()
 
-  const handleGoogleLogin = async () => {
-    console.log('run here')
+  const handleGoogleLogin = async (type: string) => {
     try {
-      await signIn('google', { callbackUrl: '/' })
+      await signIn(type, { callbackUrl: '/' })
     } catch (error) {
-      console.error('Google login failed:', error)
+      console.error(`${type} login failed:`, error)
     }
   }
 
@@ -45,13 +44,17 @@ export default function LoginModal({ open, setOpen }: ILoginModal) {
           <Button
             variant="outline"
             className="w-full flex items-center justify-center gap-2 py-6 text-base"
-            onClick={handleGoogleLogin}
+            onClick={() => handleGoogleLogin('google')}
           >
             <FcGoogle className="text-xl" /> Đăng nhập với Google
           </Button>
 
           {/* Nút Facebook — tạm thời chưa dùng */}
-          <Button variant="outline" className="w-full flex items-center justify-center gap-2 py-6 text-base">
+          <Button
+            variant="outline"
+            className="w-full flex items-center justify-center gap-2 py-6 text-base"
+            onClick={() => handleGoogleLogin('facebook')}
+          >
             <FaFacebook className="text-blue-600 text-xl" /> Đăng nhập với Facebook
           </Button>
         </div>

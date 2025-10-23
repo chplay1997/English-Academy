@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Button } from '@/components/ui/button'
 import { User, LogOut, Settings, Bookmark, FileText, LayoutDashboard } from 'lucide-react'
-import LoginModal from '../LoginModal'
+import LoginModal from './LoginModal'
 import { useState } from 'react'
 
 export default function UserProfileDropdown() {
