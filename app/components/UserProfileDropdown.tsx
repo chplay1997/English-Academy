@@ -14,13 +14,19 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Button } from '@/components/ui/button'
 import { User, LogOut, Settings, Bookmark, FileText, LayoutDashboard } from 'lucide-react'
-import LoginModal from './LoginModal'
+import LoginModal, { TModalType } from './LoginModal'
 import { useState } from 'react'
 
 export default function UserProfileDropdown() {
   const { data: session, status } = useSession()
+  const [type, setType] = useState<TModalType>('login')
 
   const [open, setOpen] = useState(false)
+
+  const handleOpenModal = (type: TModalType) => {
+    setType(type)
+    setOpen(true)
+  }
 
   // Display skeleton or nothing while loading
   if (status === 'loading') {
@@ -36,7 +42,7 @@ export default function UserProfileDropdown() {
   if (status === 'unauthenticated' || !session) {
     return (
       <div className="flex justify-between items-center gap-[8]">
-        <Button variant="ghost" className="rounded-[99px]">
+        <Button variant="ghost" className="rounded-[99px]" onClick={() => handleOpenModal('register')}>
           Đăng ký
         </Button>
 
@@ -44,11 +50,11 @@ export default function UserProfileDropdown() {
           variant="secondary"
           className="text-white border-none hover:opacity-90 rounded-[99px]"
           style={{ background: 'linear-gradient(to right bottom, #ff8f26, #ff5117)' }}
-          onClick={() => setOpen(true)}
+          onClick={() => handleOpenModal('login')}
         >
           Đăng nhập
         </Button>
-        <LoginModal open={open} setOpen={setOpen} />
+        <LoginModal type={type} setType={setType} open={open} setOpen={setOpen} />
       </div>
     )
   }
