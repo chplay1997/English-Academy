@@ -1,6 +1,8 @@
+'use client'
+
 import { Search } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import UserProfileDropdown from './components/UserProfileDropdown'
 
 export default function HeaderBar() {
   return (
@@ -19,20 +21,7 @@ export default function HeaderBar() {
         </span>
         <Input className="pl-10" placeholder="Search..." />
       </div>
-
-      <div className="flex justify-between items-center gap-[8]">
-        <Button variant="ghost" className="rounded-[99px]">
-          Đăng ký
-        </Button>
-
-        <Button
-          variant="secondary"
-          className="text-white border-none hover:opacity-90 rounded-[99px]"
-          style={{ background: 'linear-gradient(to right bottom, #ff8f26, #ff5117)' }}
-        >
-          Đăng nhập
-        </Button>
-      </div>
+      <UserProfileDropdown />
     </div>
   )
 }

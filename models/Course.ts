@@ -1,15 +1,15 @@
-import mongoose, { Schema, models, model } from 'mongoose'
+import mongoose, { Schema, Document } from 'mongoose'
 
-const courseSchema = new Schema(
-  {
-    title: { type: String, required: true },
-    description: { type: String },
-    level: { type: String, enum: ['beginner', 'intermediate', 'advanced'], default: 'beginner' },
-  },
-  { timestamps: true }
-)
+export interface ICourse extends Document {
+  title: string
+  level: string
+  description?: string
+}
 
-// tránh lỗi “OverwriteModelError” khi HMR
-const Course = models.Course || model('Course', courseSchema)
+const CourseSchema = new Schema<ICourse>({
+  title: { type: String, required: true },
+  level: { type: String, required: true },
+  description: String,
+})
 
-export default Course
+export default mongoose.models.Course || mongoose.model<ICourse>('Course', CourseSchema)

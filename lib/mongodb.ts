@@ -1,25 +1,23 @@
-import mongoose from 'mongoose'
+import { MongoClient } from 'mongodb'
 
-const MONGODB_URI = process.env.MONGODB_URI as string
+const uri = process.env.MONGODB_URI!
+if (!uri) throw new Error('❌ Missing MONGODB_URI')
 
-if (!MONGODB_URI) {
-  throw new Error('❌ Missing MONGODB_URI environment variable')
-}
+const options = {}
 
-let isConnected = false // tránh connect nhiều lần
+let client = new MongoClient(uri, options)
+let clientPromise: Promise<MongoClient>
 
-export async function connectDB() {
-  if (isConnected) return
+console.log('connect db now.......................', uri)
 
-  try {
-    const db = await mongoose.connect(MONGODB_URI, {
-      dbName: 'english_academy', // tùy tên DB bạn muốn
-    })
-
-    isConnected = !!db.connections[0].readyState
-    console.log('✅ MongoDB connected successfully')
-  } catch (error) {
-    console.error('❌ MongoDB connection error:', error)
-    throw new Error('Failed to connect to MongoDB')
+if (process.env.NODE_ENV === 'development') {
+  // Reuse client in dev mode to avoid multiple connections
+  if (!(global as any)._mongoClientPromise) {
+    ;(global as any)._mongoClientPromise = client.connect()
   }
+  clientPromise = (global as any)._mongoClientPromise
+} else {
+  clientPromise = client.connect()
 }
+
+export default clientPromise
