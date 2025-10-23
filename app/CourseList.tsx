@@ -2,7 +2,6 @@
 import { Card, CardContent } from '@/components/ui/card'
 import { Clock, User } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import Image from 'next/image'
 
 interface Course {
   id: number

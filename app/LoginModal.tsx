@@ -1,15 +1,12 @@
 'use client'
 
-import { useState } from 'react'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { FcGoogle } from 'react-icons/fc'
 import { FaFacebook } from 'react-icons/fa'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { signIn } from 'next-auth/react' // 👈 thêm dòng này
-
+import { signIn } from 'next-auth/react'
 interface ILoginModal {
   open: boolean
   setOpen: (open: boolean) => void
@@ -21,7 +18,7 @@ export default function LoginModal({ open, setOpen }: ILoginModal) {
   const handleGoogleLogin = async () => {
     console.log('run here')
     try {
-      await signIn('google', { callbackUrl: '/' }) // 👈 login Google, sau khi xong quay lại trang chủ
+      await signIn('google', { callbackUrl: '/' })
     } catch (error) {
       console.error('Google login failed:', error)
     }
