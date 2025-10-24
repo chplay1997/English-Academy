@@ -12,15 +12,13 @@ interface ProgressBarProps {
 export default function ProgressBar({ title, completed = 0, total = 1 }: ProgressBarProps) {
   return (
     <div className="h-[50px] flex justify-between items-center px-[28] fixed w-full z-4 text-white bg-[#29303b]">
-      <div className="flex items-center gap-2">
-        <Link href="/#">
-          <Button variant="ghost" className="rounded-[99px]">
-            <ArrowLeft className="w-5 h-5" />
-          </Button>
-        </Link>
+      <Link href="/#" className="flex items-center gap-2">
+        <Button variant="ghost" className="rounded-[99px]">
+          <ArrowLeft className="w-5 h-5" />
+        </Button>
         <div className="bg-[#f05123] text-white font-bold text-lg h-[30] w-[30] text-center rounded-md">EA</div>
         <span className="font-semibold ">{title}</span>
-      </div>
+      </Link>
 
       <div className="flex justify-between items-center gap-[8]">
         <div className="flex items-center gap-2 text-sm text-white">

@@ -63,7 +63,7 @@ export default function CourseList() {
   }
 
   return (
-    <section className="md:px-[66px] md:py-[24] p">
+    <section className="md:px-[66px] md:py-[24]">
       <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
         Khóa học <span className="bg-blue-500 text-white text-sm px-2 py-0.5 rounded-md">MỚI</span>
       </h2>
@@ -91,11 +91,6 @@ export default function CourseList() {
               </div>
 
               <div className="flex items-center gap-2 text-sm text-gray-600">
-                {/* <Image
-                  src="https://fullstack.edu.vn/images/f8_avatar.png"
-                  alt={course.author}
-                  className="w-6 h-6 rounded-full"
-                /> */}
                 <span>{course.author}</span>
                 <span className="flex items-center gap-1 ml-2">
                   <User size={14} /> {course.students}
