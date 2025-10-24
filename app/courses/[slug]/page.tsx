@@ -3,7 +3,6 @@ import CoreLayout from '../../components/CoreLayout'
 import { Button } from '@/components/ui/button'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Clock, BookOpen, Layers, Zap } from 'lucide-react'
-import Link from 'next/link'
 import { useState } from 'react'
 import Script from 'next/script'
 
@@ -51,6 +50,10 @@ export default function Courses() {
 
   const handleValueChange = (newValues: string[]) => {
     setOpenItems(newValues)
+  }
+
+  const handleRegisterCourse = () => {
+    console.log('Register course')
   }
 
   const toggleButtonText = openItems.length > 0 ? 'Thu nhỏ tất cả' : 'Mở rộng tất cả'
@@ -118,10 +121,10 @@ export default function Courses() {
 
               <h3 className="text-4xl font-normal text-[#f05123] text-center mb-4 opacity-80">{price}</h3>
               <Button
-                asChild
+                onClick={handleRegisterCourse}
                 className="text-sm font-bold px-6 py-1 bg-[#0093fc] hover:bg-[#0093fc] hover:opacity-70 transition-colors rounded-full"
               >
-                <Link href="/register">ĐĂNG KÝ HỌC</Link>
+                ĐĂNG KÝ HỌC
               </Button>
 
               <div className="mt-6 space-y-3 text-sm">

@@ -64,8 +64,6 @@ export default function UserProfileDropdown() {
   const defaultUserImage = '/images/default-avatar.png'
   const userImage = user?.image || defaultUserImage
 
-  console.log(userImage)
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

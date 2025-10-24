@@ -1,31 +1,40 @@
 import { connectDB } from '@/lib/mongoose'
-import Course from '@/models/Course'
-import { NextResponse } from 'next/server'
+import { Course } from '@/models/course.model'
+import { redis } from '@/lib/redis'
+import { rateLimiter } from '@/lib/rate-limit'
 
-// 🟢 GET /api/courses → lấy danh sách khóa học
-export async function GET() {
-  try {
-    await connectDB()
+export async function GET(req: Request) {
+  // Retrieve the IP address of the client (or fallback)
+  const ip = req.headers.get('x-forwarded-for') || 'anonymous'
 
-    console.log('Courses fetched successfully')
-    const courses = await Course.find()
-    courses.push({ data: 'test' })
-    return NextResponse.json(courses)
-  } catch (err) {
-    console.error(err)
-    return NextResponse.json({ error: 'Failed to fetch courses' }, { status: 500 })
+  // Check rate limit
+  const { success } = await rateLimiter.check(ip)
+
+  if (!success) {
+    return new Response(JSON.stringify({ error: '⛔ Too many requests. Try again later.' }), {
+      status: 429,
+      headers: { 'Content-Type': 'application/json' },
+    })
   }
-}
 
-// 🔵 POST /api/courses → thêm khóa học mới
-export async function POST(req: Request) {
-  try {
-    await connectDB()
-    const data = await req.json()
-    const newCourse = await Course.create(data)
-    return NextResponse.json(newCourse, { status: 201 })
-  } catch (err) {
-    console.error(err)
-    return NextResponse.json({ error: 'Failed to create course' }, { status: 500 })
+  const cacheKey = 'courses:home'
+  const cached = await redis.get(cacheKey)
+
+  if (cached) {
+    const json = typeof cached === 'string' ? cached : JSON.stringify(cached)
+    return new Response(json, {
+      headers: { 'Content-Type': 'application/json' },
+    })
   }
+
+  await connectDB()
+
+  const data = await Course.find().lean()
+
+  // Cache for 1 minute
+  await redis.set(cacheKey, JSON.stringify(data), { ex: 60 })
+
+  return new Response(JSON.stringify(data), {
+    headers: { 'Content-Type': 'application/json' },
+  })
 }

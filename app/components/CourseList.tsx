@@ -1,65 +1,17 @@
 'use client'
 import { Card, CardContent } from '@/components/ui/card'
+import { ICourse } from '@/models/course.model'
 import { Clock, User } from 'lucide-react'
+import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 
-interface Course {
-  id: number
-  title: string
-  slug: string
-  subtitle: string
-  author: string
-  students: number
-  duration: string
-  oldPrice: string
-  newPrice: string
-  color: string // gradient background
-}
-
-const courses: Course[] = [
-  {
-    id: 1,
-    title: 'TOEIC FOUNDATION',
-    slug: 'toeic-foundation',
-    subtitle: 'Nền tảng tiếng Anh cho người mất gốc – ôn lại phát âm, ngữ pháp cơ bản và từ vựng chủ đề thi thật.',
-    author: 'Anonymous',
-    students: 0,
-    duration: '40 giờ học',
-    oldPrice: '1.999.000đ',
-    newPrice: 'Free',
-    color: 'bg-gradient-to-br from-blue-500 to-indigo-600',
-  },
-  {
-    id: 2,
-    title: 'TOEIC INTERMEDIATE',
-    slug: 'toeic-intermediate',
-    subtitle: 'Củng cố kỹ năng Nghe – Đọc, luyện chiến lược làm bài và tăng tốc điểm từ 450–700+.',
-    author: 'Anonymous',
-    students: 0,
-    duration: '55 giờ học',
-    oldPrice: '2.999.000đ',
-    newPrice: 'Free',
-    color: 'bg-gradient-to-br from-yellow-400 to-orange-500',
-  },
-  {
-    id: 3,
-    title: 'TOEIC ADVANCED',
-    slug: 'toeic-advanced',
-    subtitle: 'Khóa luyện đề chuyên sâu, kỹ thuật tăng tốc 800+ với bộ đề cập nhật theo định dạng mới nhất.',
-    author: 'Anonymous',
-    students: 0,
-    duration: '60 giờ học',
-    oldPrice: '9.999.000đ',
-    newPrice: 'Free',
-    color: 'bg-gradient-to-br from-pink-500 to-rose-600',
-  },
-]
-
-export default function CourseList() {
+export default function CourseList({ courses }: { courses: ICourse[] }) {
   const router = useRouter()
+  const { data: session, status } = useSession()
 
+  const path = status === 'unauthenticated' || !session ? '/courses' : '/learning'
   const handleClick = (slug: string) => {
-    router.push(`/learning/${slug}`)
+    router.push(`${path}/${slug}`)
   }
 
   return (
@@ -72,7 +24,7 @@ export default function CourseList() {
         {courses.map(course => (
           <Card
             onClick={() => handleClick(course.slug)}
-            key={course.id}
+            key={course.slug}
             className="overflow-hidden rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 pt-0 cursor-pointer"
           >
             {/* Header */}
