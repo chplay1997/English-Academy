@@ -8,7 +8,7 @@ export interface ILesson extends Document {
   duration?: number
   isPreview: boolean
   video?: {
-    vimeoId?: string
+    vimeoId: string
     thumbnail?: string
   }
   reading?: {

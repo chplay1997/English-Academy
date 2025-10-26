@@ -25,8 +25,6 @@ export default function CourseClient({ courseData, slug }: ICourseClientProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
 
-  console.log('courseData 11111: ', courseData, typeof courseData)
-
   const id = searchParams.get('id') || courseData.sections?.[0]?.lessons?.[0]?.video?.vimeoId || ''
   const [currentVimeoID, setCurrentVimeoID] = useState(id)
 
@@ -37,11 +35,10 @@ export default function CourseClient({ courseData, slug }: ICourseClientProps) {
     router.push(`?id=${newID}`)
   }
 
-  const currentLesson = courseData.sections.find((section: any) =>
-    section.lessons.find((lesson: any) => lesson.video.vimeoId === currentVimeoID)
+  const currentLesson = courseData.sections.find(section =>
+    section.lessons.find(lesson => lesson?.video?.vimeoId === currentVimeoID)
   )
 
-  console.log('currentLesson: ', currentVimeoID, currentLesson)
   if (!courseData || !currentLesson || !currentVimeoID) return notFound()
 
   return (
@@ -73,20 +70,22 @@ export default function CourseClient({ courseData, slug }: ICourseClientProps) {
                     </div>
                   </AccordionTrigger>
 
-                  {lessons.map(({ duration, status, title, video: { vimeoId } }: any) => (
+                  {lessons.map(({ duration, title, video }, index) => (
                     <AccordionContent
-                      key={vimeoId}
+                      key={video?.vimeoId || index}
                       className={`flex flex-col pb-0 hover:no-underline ${
-                        vimeoId !== currentVimeoID && 'cursor-pointer hover:bg-[#f1f1f1]'
+                        video?.vimeoId !== currentVimeoID && 'cursor-pointer hover:bg-[#f1f1f1]'
                       }`}
-                      onClick={() => vimeoId !== currentVimeoID && handleSetCurrentVimeoID(vimeoId)}
+                      onClick={() =>
+                        video?.vimeoId !== currentVimeoID && video?.vimeoId && handleSetCurrentVimeoID(video.vimeoId)
+                      }
                     >
-                      <div className={`py-[10] ${vimeoId === currentVimeoID ? 'bg-[#f0512333]' : ''}`}>
+                      <div className={`py-[10] ${video?.vimeoId === currentVimeoID ? 'bg-[#f0512333]' : ''}`}>
                         <div className="ml-[30] flex justify-between items-center">
                           <div className="flex flex-col gap-[4px]">
                             <h3>{title}</h3>
                             <p className="flex items-center gap-[6]">
-                              {vimeoId === id ? (
+                              {video?.vimeoId === id ? (
                                 <Disc size="11" className="text-[#f05123cc]" />
                               ) : (
                                 <CirclePlay size="11" />

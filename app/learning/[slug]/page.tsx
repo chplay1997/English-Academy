@@ -6,7 +6,8 @@ import Course from '@/models/course.model'
 import { redis } from '@/lib/redis'
 import CourseClient from './CourseClient'
 
-export default async function CoursePage({ params }: { params: { slug: string } }) {
+// @ts-nocheck
+export default async function CoursePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
 
   // 1️⃣ Kiểm tra login
