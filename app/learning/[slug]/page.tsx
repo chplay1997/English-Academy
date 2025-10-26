@@ -26,7 +26,7 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
     courseData = typeof cached === 'string' ? JSON.parse(cached) : cached
   } else {
     // ✅ Truy vấn Course và populate đầy đủ
-    courseData = await Course.findOne({ slug })
+    const data = await Course.findOne({ slug })
       .populate({
         path: 'sections',
         options: { sort: { order: 1 } },
@@ -37,13 +37,14 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
       })
       .lean()
 
-    if (!courseData) return notFound()
+    if (!data) return notFound()
+
+    const stringifyData = JSON.stringify(data)
+    courseData = JSON.parse(stringifyData)
 
     // ✅ Cache lại trong Redis 2 phút
-    await redis.set(cacheKey, JSON.stringify(courseData), { ex: 120 })
+    await redis.set(cacheKey, stringifyData, { ex: 120 })
   }
-
-  console.log('📘 Course data loaded:', courseData.title)
 
   // 3️⃣ Truyền xuống Client component
   return <CourseClient courseData={courseData} slug={slug} />

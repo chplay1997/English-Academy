@@ -31,10 +31,12 @@ export async function GET(req: Request) {
 
   const data = await Course.find().lean()
 
-  // Cache for 1 minute
-  await redis.set(cacheKey, JSON.stringify(data), { ex: 60 })
+  const serializableData = JSON.stringify(data)
 
-  return new Response(JSON.stringify(data), {
+  // Cache for 1 minute
+  await redis.set(cacheKey, serializableData, { ex: 60 })
+
+  return new Response(serializableData, {
     headers: { 'Content-Type': 'application/json' },
   })
 }

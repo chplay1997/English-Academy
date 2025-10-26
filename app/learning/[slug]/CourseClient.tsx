@@ -93,7 +93,8 @@ export default function CourseClient({ courseData, slug }: ICourseClientProps) {
                               <span className="text-[11px]">{duration}</span>
                             </p>
                           </div>
-                          {status === 'completed' && <CircleCheck className="mr-[12] text-[#5db85c]" size="14" />}
+                          {/* TODO: add status */}
+                          {/* {status === 'completed' && <CircleCheck className="mr-[12] text-[#5db85c]" size="14" />} */}
                         </div>
                       </div>
                     </AccordionContent>
