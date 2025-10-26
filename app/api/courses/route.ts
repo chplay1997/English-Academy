@@ -1,5 +1,5 @@
 import { connectDB } from '@/lib/mongoose'
-import { Course } from '@/models/course.model'
+import Course from '@/models/course.model'
 import { redis } from '@/lib/redis'
 import { rateLimiter } from '@/lib/rate-limit'
 

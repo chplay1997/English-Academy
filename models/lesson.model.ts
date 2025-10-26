@@ -1,33 +1,101 @@
 import mongoose, { Schema, Document } from 'mongoose'
 
-export interface Detail {
+export interface ILesson extends Document {
+  sectionId: mongoose.Types.ObjectId
   title: string
-  duration: string
-  vimeoID: string
-  status?: string
+  type: 'video' | 'reading' | 'quiz' | 'assignment' | 'live'
+  order: number
+  duration?: number
+  isPreview: boolean
+  video?: {
+    vimeoId?: string
+    thumbnail?: string
+  }
+  reading?: {
+    content?: string
+    attachments?: {
+      name?: string
+      url?: string
+      type?: 'pdf' | 'image' | 'file' | 'link'
+    }[]
+  }
+  quiz?: {
+    questions: {
+      question: string
+      options: string[]
+      correctIndex: number
+    }[]
+  }
+  assignment?: {
+    description?: string
+    deadline?: Date
+  }
+  live?: {
+    meetingUrl?: string
+    startTime?: Date
+    endTime?: Date
+  }
 }
 
-export interface LessonDocument extends Document {
-  courseSlug: string
-  title: string
-  progress?: string
-  duration: string
-  details: Detail[]
-}
+const lessonSchema = new Schema<ILesson>(
+  {
+    sectionId: { type: Schema.Types.ObjectId, ref: 'Section', required: true },
+    title: { type: String, required: true },
+    type: {
+      type: String,
+      enum: ['video', 'reading', 'quiz', 'assignment', 'live'],
+      default: 'video',
+    },
+    order: { type: Number, default: 1 },
+    duration: Number,
 
-const DetailSchema = new Schema<Detail>({
-  title: String,
-  duration: String,
-  vimeoID: String,
-  status: String,
-})
+    // 🎥 Video lesson
+    video: {
+      vimeoId: String,
+      thumbnail: String,
+    },
 
-const LessonSchema = new Schema<LessonDocument>({
-  courseSlug: { type: String, required: true },
-  title: { type: String, required: true },
-  progress: String,
-  duration: { type: String, required: true },
-  details: [DetailSchema],
-})
+    // 📖 Reading lesson
+    reading: {
+      content: String,
+      attachments: [
+        {
+          name: String,
+          url: String,
+          type: { type: String, enum: ['pdf', 'image', 'file', 'link'] },
+        },
+      ],
+    },
 
-export const Lesson = mongoose.models.Lesson || mongoose.model<LessonDocument>('Lesson', LessonSchema)
+    // 🧠 Quiz lesson
+    quiz: {
+      questions: [
+        {
+          question: String,
+          options: [String],
+          correctIndex: Number,
+        },
+      ],
+    },
+
+    // 📝 Assignment lesson
+    assignment: {
+      description: String,
+      deadline: Date,
+    },
+
+    // 🔴 Live session
+    live: {
+      meetingUrl: String,
+      startTime: Date,
+      endTime: Date,
+    },
+
+    isPreview: { type: Boolean, default: false },
+  },
+  { timestamps: true }
+)
+
+const Lesson = mongoose.models.Lesson || mongoose.model<ILesson>('Lesson', lessonSchema)
+
+export default Lesson

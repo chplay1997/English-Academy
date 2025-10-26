@@ -14,6 +14,14 @@ export default function CourseList({ courses }: { courses: ICourse[] }) {
     router.push(`${path}/${slug}`)
   }
 
+  console.log(courses)
+
+  const listColor = [
+    'bg-gradient-to-br from-blue-500 to-indigo-600',
+    'bg-gradient-to-br from-yellow-400 to-orange-500',
+    'bg-gradient-to-br from-pink-500 to-rose-600',
+  ]
+
   return (
     <section className="md:px-[66px] md:py-[24]">
       <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
@@ -21,14 +29,14 @@ export default function CourseList({ courses }: { courses: ICourse[] }) {
       </h2>
 
       <div className="grid gap-6 md:grid-cols-4">
-        {courses.map(course => (
+        {courses.map((course, index) => (
           <Card
             onClick={() => handleClick(course.slug)}
             key={course.slug}
             className="overflow-hidden rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 pt-0 cursor-pointer"
           >
             {/* Header */}
-            <div className={`h-40 ${course.color} flex flex-col justify-center px-6 text-center`}>
+            <div className={`h-40 ${listColor[index]} flex flex-col justify-center px-6 text-center`}>
               <h3 className="text-white text-2xl font-bold drop-shadow">{course.title}</h3>
               <p className="text-white/90 text-sm drop-shadow">{course.subtitle}</p>
             </div>
@@ -45,10 +53,12 @@ export default function CourseList({ courses }: { courses: ICourse[] }) {
               <div className="flex items-center gap-2 text-sm text-gray-600">
                 <span>{course.author}</span>
                 <span className="flex items-center gap-1 ml-2">
-                  <User size={14} /> {course.students}
+                  {/* Update later */}
+                  <User size={14} /> {0}
                 </span>
                 <span className="flex items-center gap-1 ml-2">
-                  <Clock size={14} /> {course.duration}
+                  {/* Update later */}
+                  <Clock size={14} /> {0}
                 </span>
               </div>
             </CardContent>

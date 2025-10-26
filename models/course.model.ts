@@ -1,53 +1,44 @@
 import mongoose, { Schema, Document } from 'mongoose'
-import { LessonDocument } from './lesson.model'
 
-export type CourseSlug = 'toeic-foundation' | 'toeic-intermediate' | 'toeic-advanced'
-
-export interface ICourse {
+export interface ICourse extends Document {
   title: string
-  slug: CourseSlug
-  subtitle: string
-  author: string
-  students: number
-  duration: string
-  oldPrice?: string
-  newPrice?: string
-  color?: string
+  slug: string
+  subtitle?: string
+  author?: string
+  oldPrice?: number
+  newPrice?: number
+  currency?: 'VND' | 'USD' | 'EUR'
+  thumbnail?: string
+  category?: string
+  level?: 'beginner' | 'intermediate' | 'advanced'
+  language?: string
+  order: number
+  sections: mongoose.Types.ObjectId[]
 }
 
-export interface CourseDocument extends Document, ICourse {
-  createdAt: Date
-}
-
-const CourseSchema = new Schema<CourseDocument>(
+const courseSchema = new Schema<ICourse>(
   {
     title: { type: String, required: true },
-    slug: { type: String, unique: true, required: true },
-    subtitle: { type: String, required: true },
-    author: { type: String, required: true },
-    students: { type: Number, default: 0 },
-    duration: { type: String, required: true },
-    oldPrice: String,
-    newPrice: String,
-    color: String,
+    slug: { type: String, required: true, unique: true },
+    subtitle: String,
+    author: { type: String, default: 'Anonymous' },
+    oldPrice: Number,
+    newPrice: Number,
+    currency: { type: String, enum: ['VND', 'USD', 'EUR'], default: 'VND' },
+    thumbnail: String,
+    category: String,
+    level: {
+      type: String,
+      enum: ['beginner', 'intermediate', 'advanced'],
+      default: 'beginner',
+    },
+    language: { type: String, default: 'vi' },
+    order: { type: Number, default: 1 },
+    sections: [{ type: Schema.Types.ObjectId, ref: 'Section' }],
   },
   { timestamps: true }
 )
 
-// Automatically calculate the total duration from the Lesson table
-CourseSchema.pre('save', async function (next) {
-  const Lesson = mongoose.model<LessonDocument>('Lesson')
-  const lessons = await Lesson.find({ courseSlug: this.slug })
+const Course = mongoose.models.Course || mongoose.model<ICourse>('Course', courseSchema)
 
-  if (lessons.length > 0) {
-    const totalMins = lessons.reduce((acc, cur) => {
-      const mins = parseInt(cur.duration.replace('m', '')) || 0
-      return acc + mins
-    }, 0)
-    this.duration = `${totalMins}m`
-  }
-
-  next()
-})
-
-export const Course = mongoose.models.Course || mongoose.model<CourseDocument>('Course', CourseSchema)
+export default Course
