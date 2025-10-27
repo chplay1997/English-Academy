@@ -7,35 +7,29 @@ import { CircleCheck, CirclePlay, Disc } from 'lucide-react'
 import DirectionBar from './DirectionBar'
 import ProgressBar from './ProgressBar'
 import VideoContent from './VideoContent'
-import { ICourse } from '@/models/course.model'
-import { ISection } from '@/models/section.model'
-import { ILesson } from '@/models/lesson.model'
-
-export interface ICourseClient extends Omit<ICourse, 'sections'> {
-  sections: (Omit<ISection, 'lessons'> & { lessons: ILesson[] })[]
-}
+import { formatSecondsToTime } from '@/lib/utils'
+import { ICourseData } from '@/lib/data'
 
 export interface ICourseClientProps {
-  courseData: ICourseClient
+  courseData: ICourseData
   slug: string
 }
 
 export default function CourseClient({ courseData, slug }: ICourseClientProps) {
+  const { sections = [], lessonIdCompleted = [], videoLessonsCount, title } = courseData
   const [open, setOpen] = useState(true)
   const router = useRouter()
   const searchParams = useSearchParams()
 
-  const id = searchParams.get('id') || courseData.sections?.[0]?.lessons?.[0]?.video?.vimeoId || ''
+  const id = searchParams.get('id') || sections[0]?.lessons?.[0]?.video?.vimeoId || ''
   const [currentVimeoID, setCurrentVimeoID] = useState(id)
-
-  const courseTitle = slug?.replaceAll('-', ' ').replace(/\b\w/g, char => char.toUpperCase())
 
   const handleSetCurrentVimeoID = (newID: string) => {
     setCurrentVimeoID(newID)
     router.push(`?id=${newID}`)
   }
 
-  const currentLesson = courseData.sections.find(section =>
+  const currentLesson = sections.find(section =>
     section.lessons.find(lesson => lesson?.video?.vimeoId === currentVimeoID)
   )
 
@@ -43,7 +37,7 @@ export default function CourseClient({ courseData, slug }: ICourseClientProps) {
 
   return (
     <>
-      <ProgressBar title={courseTitle} completed={1} total={3} />
+      <ProgressBar title={title} completed={lessonIdCompleted.length} total={videoLessonsCount} />
       <VideoContent title={courseData.title} vimeoID={currentVimeoID} open={open} />
 
       <div
@@ -58,21 +52,24 @@ export default function CourseClient({ courseData, slug }: ICourseClientProps) {
           <Accordion type="single" collapsible className="w-full" defaultValue="item-1">
             {courseData.sections.map(section => {
               const { lessons, title } = section
+              const totalLessons = lessons.length
+              const completedLessons = lessons.filter(lesson => lessonIdCompleted.includes(lesson._id))
+              const totalDuration = lessons.reduce((total, lesson) => total + (lesson.duration || 0), 0)
+
               return (
                 <AccordionItem value={title} key={title}>
                   <AccordionTrigger className="sticky py-[8] px-[20] bg-[#f7f8fa] hover:no-underline cursor-pointer hover:bg-[#edeff1]">
                     <div className="flex flex-col gap-[10]">
                       <h3>{title}</h3>
                       <span className="text-xs font-normal">
-                        {/* TODO: add progress and duration */}
-                        {/* {progress} | {duration} */}
+                        {completedLessons.length}/{totalLessons} | {formatSecondsToTime(totalDuration)}
                       </span>
                     </div>
                   </AccordionTrigger>
 
-                  {lessons.map(({ duration, title, video }, index) => (
+                  {lessons.map(({ duration, title, video, _id }, index) => (
                     <AccordionContent
-                      key={video?.vimeoId || index}
+                      key={_id || index}
                       className={`flex flex-col pb-0 hover:no-underline ${
                         video?.vimeoId !== currentVimeoID && 'cursor-pointer hover:bg-[#f1f1f1]'
                       }`}
@@ -90,11 +87,12 @@ export default function CourseClient({ courseData, slug }: ICourseClientProps) {
                               ) : (
                                 <CirclePlay size="11" />
                               )}
-                              <span className="text-[11px]">{duration}</span>
+                              <span className="text-[11px]">{formatSecondsToTime(duration || 0)}</span>
                             </p>
                           </div>
-                          {/* TODO: add status */}
-                          {/* {status === 'completed' && <CircleCheck className="mr-[12] text-[#5db85c]" size="14" />} */}
+                          {lessonIdCompleted.includes(_id) && (
+                            <CircleCheck className="mr-[12] text-[#5db85c]" size="14" />
+                          )}
                         </div>
                       </div>
                     </AccordionContent>

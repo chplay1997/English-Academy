@@ -4,7 +4,6 @@ const EnrollmentSchema = new mongoose.Schema(
   {
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     courseSlug: { type: String, required: true },
-    enrolledAt: { type: Date, default: Date.now },
   },
   { timestamps: true }
 )
