@@ -1,15 +1,19 @@
-import { ArrowLeft, CircleQuestionMark, NotebookPen } from 'lucide-react'
+'use client'
+import { ArrowLeft, CircleQuestionMark } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import ProgressCircle from '@/components/ui/progress-circle'
 import Link from 'next/link'
+import { IUserLessonNote } from '@/models/userLessonNote.model'
+import { NotesSheet } from './NotesSheet'
 
 interface ProgressBarProps {
   title: string
   completed: number
   total: number
+  userLessonNote: IUserLessonNote[]
 }
 
-export default function ProgressBar({ title, completed = 0, total = 1 }: ProgressBarProps) {
+export default function ProgressBar({ title, completed = 0, total = 1, userLessonNote }: ProgressBarProps) {
   return (
     <div className="h-[50px] flex justify-between items-center px-[28] fixed w-full z-4 text-white bg-[#29303b]">
       <Link href="/#" className="flex items-center gap-2">
@@ -37,12 +41,9 @@ export default function ProgressBar({ title, completed = 0, total = 1 }: Progres
           </div>
         </div>
 
-        <Button variant="ghost" className="rounded-[99px]">
-          <NotebookPen />
-          Ghi chú
-        </Button>
+        <NotesSheet userLessonNote={userLessonNote} />
 
-        <Button variant="ghost" className="rounded-[99px]">
+        <Button variant="ghost" className="rounded-[99px]" disabled>
           <CircleQuestionMark />
           Hướng dẫn
         </Button>

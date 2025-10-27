@@ -4,7 +4,7 @@ import { formatMsToHoursAndMinutes } from '@/lib/utils'
 import { CirclePlay, Clock, Users } from 'lucide-react'
 import Link from 'next/link'
 
-interface ICourseClient extends Omit<ICourse, 'sections'> {
+export interface ICourseClient extends Omit<ICourse, 'sections'> {
   duration: number
   students: number
   videoLessons: number

@@ -8,7 +8,6 @@ import { Spinner } from '@/components/ui/spinner'
 
 export function RegisterCourse() {
   const { data: session, status } = useSession()
-  const userId = session?.user?.id
   const params = useParams()
   const courseSlug = params.slug
   const router = useRouter()

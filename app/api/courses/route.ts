@@ -1,12 +1,9 @@
 import { connectDB } from '@/lib/mongoose'
 import { redis } from '@/lib/redis'
 import { rateLimiter } from '@/lib/rate-limit'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/lib/auth.config'
-import mongoose from 'mongoose'
 
 export async function GET(req: Request) {
-  // 🧩 1. Rate limit
+  // Rate limit
   const ip = req.headers.get('x-forwarded-for') || 'anonymous'
   const { success } = await rateLimiter.check(ip)
   if (!success) {
@@ -16,16 +13,12 @@ export async function GET(req: Request) {
     })
   }
 
-  // 🧩 2. Lấy userId từ session
-  const session = await getServerSession(authOptions)
-  const userId = session?.user?.id ? new mongoose.Types.ObjectId(session.user.id) : null
-
-  // 🧩 3. Kết nối DB & import models
+  // Connect to DB & import models
   await connectDB()
   const { default: Course } = await import('@/models/course.model')
-  const { default: Section } = await import('@/models/section.model')
-  const { default: Lesson } = await import('@/models/lesson.model')
-  const { default: Enrollment } = await import('@/models/enrollment.model')
+  // const { default: Section } = await import('@/models/section.model')
+  // const { default: Lesson } = await import('@/models/lesson.model')
+  // const { default: Enrollment } = await import('@/models/enrollment.model')
 
   const cacheKey = 'courses:home'
   const cached = await redis.get(cacheKey)
@@ -34,7 +27,7 @@ export async function GET(req: Request) {
     return new Response(json, { headers: { 'Content-Type': 'application/json' } })
   }
 
-  // 🧩 4. Lấy danh sách khóa học (aggregate)
+  // Get courses (aggregate)
   const courses = await Course.aggregate([
     {
       $lookup: {
@@ -87,21 +80,8 @@ export async function GET(req: Request) {
     },
   ])
 
-  // 🧩 5. Nếu user login → check xem đã đăng ký chưa
-  let enrolledCourses = new Set<string>()
-  if (userId) {
-    const userEnrollments = await Enrollment.find({ userId }).select('courseSlug').lean()
-    enrolledCourses = new Set(userEnrollments.map(e => e.courseSlug))
-  }
-
-  // 🧩 6. Thêm flag isEnrolled cho từng course
-  const dataWithEnrollFlag = courses.map(c => ({
-    ...c,
-    isEnrolled: enrolledCourses.has(c.slug),
-  }))
-
-  // 🧩 7. Cache lại trong Redis
-  const serializableData = JSON.stringify(dataWithEnrollFlag)
+  // Cache in Redis
+  const serializableData = JSON.stringify(courses)
   await redis.set(cacheKey, serializableData, { ex: 60 })
 
   return new Response(serializableData, {

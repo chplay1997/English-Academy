@@ -1,4 +1,13 @@
-import mongoose from 'mongoose'
+import mongoose, { Document } from 'mongoose'
+
+export interface IUserLessonNote extends Document {
+  userId: string
+  courseSlug: string
+  sectionOrder: number
+  lessonOrder: number
+  second: number
+  content: string
+}
 
 const UserLessonNoteSchema = new mongoose.Schema(
   {
@@ -6,11 +15,12 @@ const UserLessonNoteSchema = new mongoose.Schema(
     courseSlug: { type: String, required: true },
     sectionOrder: { type: Number, required: true },
     lessonOrder: { type: Number, required: true },
-    second: { type: Number, required: true }, // thời điểm trong video
-    content: { type: String, required: true },
+    second: { type: Number, required: true },
+    content: { type: String, required: true, maxlength: 255 },
   },
   { timestamps: true }
 )
 
-const UserLessonNote = mongoose.models.UserLessonNote || mongoose.model('UserLessonNote', UserLessonNoteSchema)
+const UserLessonNote =
+  mongoose.models.UserLessonNote || mongoose.model<IUserLessonNote>('UserLessonNote', UserLessonNoteSchema)
 export default UserLessonNote

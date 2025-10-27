@@ -4,12 +4,15 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth.config'
 import { getCourseData } from '@/lib/data'
 
-// @ts-nocheck
 export default async function CoursePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
 
   const session = await getServerSession(authOptions)
   const userId = session?.user?.id
+
+  if (!userId) {
+    redirect('/')
+  }
 
   const course = await getCourseData(slug, userId)
 
@@ -17,14 +20,18 @@ export default async function CoursePage({ params }: { params: Promise<{ slug: s
     throw new Error('Failed to fetch courses')
   }
 
-  // When user has registered course, redirect to learning page
+  // When user hasn't registered course, redirect to courses page
   if (!course.isEnrolled) {
     redirect(`/courses/${slug}`)
   }
 
+  const { default: UserLessonNote } = await import('@/models/userLessonNote.model')
+  const userLessonNote = await UserLessonNote.find({ userId, courseSlug: slug })
+
   const stringifyData = JSON.stringify(course)
   const courseData = JSON.parse(stringifyData)
 
-  // 3️⃣ Truyền xuống Client component
-  return <CourseClient courseData={courseData} slug={slug} />
+  const serializedUserLessonNote = userLessonNote ? JSON.parse(JSON.stringify(userLessonNote)) : null
+
+  return <CourseClient courseData={courseData} userLessonNote={serializedUserLessonNote} />
 }
