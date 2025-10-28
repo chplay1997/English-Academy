@@ -19,8 +19,10 @@ export interface ICourseData extends Omit<CourseBase, 'sections'> {
 export async function getCourseData(slug: string, userId?: string): Promise<ICourseData | null> {
   const cacheKey = `course:${slug}-${userId}`
   const cached = await redis.get(cacheKey)
+
   if (cached) {
-    return cached as ICourseData
+    const json = typeof cached === 'string' ? cached : JSON.stringify(cached)
+    return JSON.parse(json) as ICourseData
   }
 
   await connectDB()
