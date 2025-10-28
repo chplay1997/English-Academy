@@ -16,9 +16,9 @@ export async function GET(req: Request) {
   // Connect to DB & import models
   await connectDB()
   const { default: Course } = await import('@/models/course.model')
-  // const { default: Section } = await import('@/models/section.model')
-  // const { default: Lesson } = await import('@/models/lesson.model')
-  // const { default: Enrollment } = await import('@/models/enrollment.model')
+  const { default: Section } = await import('@/models/section.model')
+  const { default: Lesson } = await import('@/models/lesson.model')
+  const { default: Enrollment } = await import('@/models/enrollment.model')
 
   const cacheKey = 'courses:home'
   const cached = await redis.get(cacheKey)
