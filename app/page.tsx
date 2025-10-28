@@ -4,6 +4,7 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth.config'
 import Enrollment from '@/models/enrollment.model'
 import mongoose from 'mongoose'
+import { connectDB } from '@/lib/mongoose'
 
 export default async function Home() {
   const session = await getServerSession(authOptions)
@@ -21,6 +22,8 @@ export default async function Home() {
 
   let enrolledCourses = new Set<string>()
   if (userId) {
+    await connectDB()
+
     const userEnrollments = await Enrollment.find({ userId }).select('courseSlug').lean()
     enrolledCourses = new Set(userEnrollments.map(e => e.courseSlug))
   }
