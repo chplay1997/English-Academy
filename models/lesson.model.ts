@@ -35,6 +35,8 @@ export interface ILesson extends Document {
     startTime?: Date
     endTime?: Date
   }
+  updatedAt: Date
+  createdAt: Date
 }
 
 const lessonSchema = new Schema<ILesson>(

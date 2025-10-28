@@ -1,14 +1,9 @@
 'use client'
-import { useState } from 'react'
-import { useRouter, useSearchParams, notFound, useParams } from 'next/navigation'
+import { useParams } from 'next/navigation'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { CircleCheck, CirclePlay, Disc } from 'lucide-react'
-import DirectionBar from './DirectionBar'
-import ProgressBar from './ProgressBar'
-import VideoContent from './VideoContent'
 import { formatSecondsToTime } from '@/lib/utils'
 import { ICourseData } from '@/lib/data/getCourseData'
-import { LessonNoteForm } from './LessionNote'
 
 interface ICourseSidebarProps {
   courseData: ICourseData

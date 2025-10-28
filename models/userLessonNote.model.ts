@@ -7,6 +7,8 @@ export interface IUserLessonNote extends Document {
   lessonOrder: number
   second: number
   content: string
+  createdAt: Date
+  updatedAt: Date
 }
 
 const UserLessonNoteSchema = new mongoose.Schema(
