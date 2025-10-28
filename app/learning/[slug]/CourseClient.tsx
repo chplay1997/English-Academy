@@ -19,6 +19,7 @@ export default function CourseClient({ courseData, userLessonNote }: ICourseClie
   const [open, setOpen] = useState(true)
   const router = useRouter()
   const searchParams = useSearchParams()
+  const [lessonNote, setLessonNote] = useState<IUserLessonNote[]>(userLessonNote)
 
   const id = searchParams.get('id') || sections[0]?.lessons?.[0]?.video?.vimeoId || ''
   const [currentVimeoID, setCurrentVimeoID] = useState(id)
@@ -40,7 +41,8 @@ export default function CourseClient({ courseData, userLessonNote }: ICourseClie
         title={title}
         completed={lessonIdCompleted.length}
         total={videoLessonsCount}
-        userLessonNote={userLessonNote}
+        lessonNote={lessonNote}
+        setLessonNote={setLessonNote}
       />
 
       <CourseMainContent
@@ -49,6 +51,7 @@ export default function CourseClient({ courseData, userLessonNote }: ICourseClie
         open={open}
         sectionOrder={currentLesson.order}
         lessonOrder={currentLesson.order}
+        setLessonNote={setLessonNote}
       />
 
       <CourseSidebar

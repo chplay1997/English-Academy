@@ -6,17 +6,50 @@ import { NotebookPen } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { NoteItem } from './NoteItem'
 import { IUserLessonNote } from '@/models/userLessonNote.model'
+import { Dispatch, SetStateAction, useState } from 'react'
+import { toast } from 'sonner'
 
 interface INotesSheetProps {
-  userLessonNote: IUserLessonNote[]
+  lessonNote: IUserLessonNote[]
+  setLessonNote: Dispatch<SetStateAction<IUserLessonNote[]>>
 }
 
 export function NotesSheet(props: INotesSheetProps) {
-  const { userLessonNote } = props
+  const { lessonNote, setLessonNote } = props
+  const [editingId, setEditingId] = useState<string | null>(null)
 
-  console.log('userLessonNote', userLessonNote)
-  const handleEdit = (id: number) => console.log(`Sửa note ${id}`)
-  const handleDelete = (id: number) => console.log(`Xóa note ${id}`)
+  const handleEdit = async (id: string, content: string) => {
+    const res = await fetch('/api/notes', {
+      method: 'PATCH',
+      body: JSON.stringify({
+        noteId: id,
+        content,
+      }),
+    })
+
+    const data = await res.json()
+    if (data.success) {
+      setLessonNote(prev => {
+        const newPrev = prev.filter(note => note._id !== id)
+        return [...newPrev, data.updatedNote]
+      })
+      toast.success('Note updated successfully', { position: 'bottom-center' })
+    } else {
+      toast.error('Failed to update note', { position: 'bottom-center' })
+    }
+  }
+  const handleDelete = async (id: string) => {
+    const res = await fetch(`/api/notes?noteId=${id}`, {
+      method: 'DELETE',
+    })
+    const data = await res.json()
+    if (data.success) {
+      setLessonNote(prev => prev.filter(note => note._id !== id))
+      toast.success('Note deleted successfully', { position: 'bottom-center' })
+    } else {
+      toast.error('Failed to delete note', { position: 'bottom-center' })
+    }
+  }
 
   return (
     <Sheet>
@@ -55,15 +88,18 @@ export function NotesSheet(props: INotesSheetProps) {
         </div>
 
         <div className="flex-1 overflow-y-auto px-4 divide-y divide-gray-100">
-          {userLessonNote.map(note => (
+          {lessonNote.map(note => (
             <NoteItem
               key={note._id as string}
+              id={note._id as string}
               time={note.second}
               lessonOrder={note.lessonOrder}
               sectionOrder={note.sectionOrder}
               content={note.content}
-              onEdit={() => handleEdit(note.id)}
-              onDelete={() => handleDelete(note.id)}
+              onSubmit={handleEdit}
+              onDelete={handleDelete}
+              setEditingId={setEditingId}
+              editingId={editingId}
             />
           ))}
         </div>

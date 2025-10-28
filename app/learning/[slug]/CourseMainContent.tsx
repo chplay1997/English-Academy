@@ -1,7 +1,8 @@
 'use client'
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import VideoContent from './VideoContent'
 import { LessonNoteForm } from './LessionNote'
+import { IUserLessonNote } from '@/models/userLessonNote.model'
 
 interface ICourseMainContentProps {
   title: string
@@ -9,6 +10,7 @@ interface ICourseMainContentProps {
   open: boolean
   sectionOrder: number
   lessonOrder: number
+  setLessonNote: Dispatch<SetStateAction<IUserLessonNote[]>>
 }
 
 export default function CourseMainContent({
@@ -17,6 +19,7 @@ export default function CourseMainContent({
   open,
   sectionOrder,
   lessonOrder,
+  setLessonNote,
 }: ICourseMainContentProps) {
   const [openNote, setOpenNote] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
@@ -33,11 +36,13 @@ export default function CourseMainContent({
       />
 
       <LessonNoteForm
+        isFullWidth={!open}
         currentTime={currentTime}
         setOpenNote={setOpenNote}
         openNote={openNote}
         sectionOrder={sectionOrder}
         lessonOrder={lessonOrder}
+        setLessonNote={setLessonNote}
       />
     </>
   )

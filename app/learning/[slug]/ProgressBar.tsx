@@ -5,15 +5,17 @@ import ProgressCircle from '@/components/ui/progress-circle'
 import Link from 'next/link'
 import { IUserLessonNote } from '@/models/userLessonNote.model'
 import { NotesSheet } from './NotesSheet'
+import { Dispatch, SetStateAction } from 'react'
 
 interface ProgressBarProps {
   title: string
   completed: number
   total: number
-  userLessonNote: IUserLessonNote[]
+  lessonNote: IUserLessonNote[]
+  setLessonNote: Dispatch<SetStateAction<IUserLessonNote[]>>
 }
 
-export default function ProgressBar({ title, completed = 0, total = 1, userLessonNote }: ProgressBarProps) {
+export default function ProgressBar({ title, completed = 0, total = 1, lessonNote, setLessonNote }: ProgressBarProps) {
   return (
     <div className="h-[50px] flex justify-between items-center px-[28] fixed w-full z-4 text-white bg-[#29303b]">
       <Link href="/#" className="flex items-center gap-2">
@@ -41,7 +43,7 @@ export default function ProgressBar({ title, completed = 0, total = 1, userLesso
           </div>
         </div>
 
-        <NotesSheet userLessonNote={userLessonNote} />
+        <NotesSheet lessonNote={lessonNote} setLessonNote={setLessonNote} />
 
         <Button variant="ghost" className="rounded-[99px]" disabled>
           <CircleQuestionMark />
