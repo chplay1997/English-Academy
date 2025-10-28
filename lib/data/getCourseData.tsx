@@ -23,7 +23,6 @@ export async function getCourseData(slug: string, userId?: string): Promise<ICou
     return cached as ICourseData
   }
 
-  // 🧩 3. Kết nối DB và import models
   await connectDB()
   const { default: Course } = await import('@/models/course.model')
   const { default: Section } = await import('@/models/section.model')
@@ -31,7 +30,7 @@ export async function getCourseData(slug: string, userId?: string): Promise<ICou
   const { default: Enrollment } = await import('@/models/enrollment.model')
   const { default: UserLessonProgress } = await import('@/models/userLessonProgress.model')
 
-  // 🧩 5. Query Course + populate Sections + Lessons
+  // Query Course + populate Sections + Lessons
   const course = await Course.findOne({ slug })
     .populate({
       path: 'sections',
@@ -49,7 +48,7 @@ export async function getCourseData(slug: string, userId?: string): Promise<ICou
     return null
   }
 
-  // 🧩 6. Tính duration cho từng section và cập nhật course
+  // Calculate duration for each section and update course
   const newCourse: Omit<ICourseData, 'isEnrolled' | 'duration' | 'videoLessonsCount' | 'lessonIdCompleted'> = {
     ...course,
     sections: course.sections.map((section: SectionBase) => ({
@@ -58,12 +57,12 @@ export async function getCourseData(slug: string, userId?: string): Promise<ICou
     })),
   }
 
-  // 🧩 6. Tính duration & videoLessonsCount
+  // Calculate duration & videoLessonsCount
   const allLessons: LessonBase[] = course.sections.flatMap((section: SectionBase) => section.lessons || [])
   const duration = allLessons.reduce((sum: number, l) => sum + (l.duration || 0), 0)
   const videoLessonsCount = allLessons.filter(l => l.type === 'video').length
 
-  // 🧩 7. Check enroll (nếu user login)
+  // Check enrollment (if user is logged in)
   let isEnrolled = false
   let lessonIdCompleted = []
 
@@ -74,7 +73,7 @@ export async function getCourseData(slug: string, userId?: string): Promise<ICou
     lessonIdCompleted = userLessonProgress?.lessonIdCompleted || []
   }
 
-  // 🧩 8. Tạo data trả về
+  // Create return data
   const data = {
     ...newCourse,
     duration,
@@ -83,9 +82,9 @@ export async function getCourseData(slug: string, userId?: string): Promise<ICou
     lessonIdCompleted,
   }
 
-  // 🧩 9. Cache Redis (TTL: 60s)
+  // Cache Redis (TTL: 60s)
   const serialized = JSON.stringify(data)
-  // await redis.set(cacheKey, serialized, { ex: 0 })
+  await redis.set(cacheKey, serialized, { ex: 60 })
 
   return data
 }

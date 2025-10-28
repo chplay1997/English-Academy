@@ -2,7 +2,7 @@ import { redirect } from 'next/navigation'
 import CourseClient from './CourseClient'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth.config'
-import { getCourseData } from '@/lib/data'
+import { getCourseData } from '@/lib/data/getCourseData'
 
 export default async function CoursePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params

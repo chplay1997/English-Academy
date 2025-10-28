@@ -68,14 +68,6 @@ export async function POST(request: Request) {
       }
     )
 
-    // if (!progress) {
-    //   progress = await UserLessonProgress.create({
-    //     userId: new mongoose.Types.ObjectId(userId as string),
-    //     lessonIdCompleted,
-    //     courseSlug,
-    //   })
-    // }
-
     return NextResponse.json({ success: true, data: progress })
   } catch (error) {
     return NextResponse.json({ success: false, error: error }, { status: 401 })
