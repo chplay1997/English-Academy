@@ -7,7 +7,7 @@ import DirectionBar from './DirectionBar'
 import ProgressBar from './ProgressBar'
 import VideoContent from './VideoContent'
 import { formatSecondsToTime } from '@/lib/utils'
-import { ICourseData } from '@/lib/data'
+import { ICourseData } from '@/lib/data/getCourseData'
 import { LessonNoteForm } from './LessionNote'
 
 interface ICourseSidebarProps {
