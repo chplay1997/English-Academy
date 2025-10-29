@@ -8,7 +8,7 @@ import { NoteItem } from './NoteItem'
 import { IUserLessonNote } from '@/models/userLessonNote.model'
 import { Dispatch, SetStateAction, useState } from 'react'
 import { toast } from 'sonner'
-import { ICourseData } from '@/lib/data/getCourseData'
+import { ICourseData } from '@/types/course'
 
 interface INotesSheetProps {
   courseData: ICourseData

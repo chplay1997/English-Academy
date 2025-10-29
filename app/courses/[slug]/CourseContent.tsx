@@ -5,7 +5,7 @@ import { useState } from 'react'
 import Script from 'next/script'
 import { StatItem } from './StatItem'
 import { RegisterCourse } from './RegisterCourse'
-import { ICourseData } from '@/lib/data/getCourseData'
+import { ICourseData } from '@/types/course'
 import { formatMsToHoursAndMinutes } from '@/lib/utils'
 
 export function CourseContent({ courseData }: { courseData: ICourseData }) {

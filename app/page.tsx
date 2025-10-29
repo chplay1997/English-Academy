@@ -2,7 +2,7 @@ import CourseList from './components/CourseList'
 import CoreLayout from './components/CoreLayout'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth.config'
-import { getHomeCourseData } from '@/lib/data/getHomeCourseData'
+import { getHomeCourseData } from '@/services/courses/getHomeCourseData'
 
 export default async function Home() {
   const session = await getServerSession(authOptions)

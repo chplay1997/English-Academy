@@ -3,7 +3,7 @@ import { CourseContent } from './CourseContent'
 import { redirect } from 'next/navigation'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth.config'
-import { getCourseData } from '@/lib/data/getCourseData'
+import { getCourseData } from '@/services/course/getCourseData'
 
 interface ICourseData {
   slug: string

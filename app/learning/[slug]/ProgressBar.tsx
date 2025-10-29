@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { IUserLessonNote } from '@/models/userLessonNote.model'
 import { NotesSheet } from './NotesSheet'
 import { Dispatch, SetStateAction } from 'react'
-import { ICourseData } from '@/lib/data/getCourseData'
+import { ICourseData } from '@/types/course'
 
 interface ProgressBarProps {
   courseData: ICourseData

@@ -1,9 +1,9 @@
 'use client'
-import { useParams } from 'next/navigation'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { CircleCheck, CirclePlay, Disc } from 'lucide-react'
 import { formatSecondsToTime } from '@/lib/utils'
-import { ICourseData } from '@/lib/data/getCourseData'
+import { ICourseData } from '@/types/course'
+import { useEffect, useState } from 'react'
 
 interface ICourseSidebarProps {
   courseData: ICourseData
@@ -12,20 +12,24 @@ interface ICourseSidebarProps {
   currentVimeoID: string
   handleSetCurrentVimeoID: (newID: string) => void
   lessonIdCompleted: string[]
-  id: string
 }
 
 export default function CourseSidebar({
   courseData,
   open,
-  setOpen,
   currentVimeoID,
   handleSetCurrentVimeoID,
   lessonIdCompleted,
-  id,
 }: ICourseSidebarProps) {
-  const params = useParams()
-  const slug = params.slug
+  const currentSection = courseData.sections.find(section =>
+    section.lessons.find(lesson => lesson.video?.vimeoId === currentVimeoID)
+  )
+  const currentSectionId = currentSection?._id || courseData.sections[0]?._id || ''
+  const [value, setValue] = useState(currentSectionId)
+
+  useEffect(() => {
+    setValue(currentSectionId)
+  }, [currentSectionId])
 
   return (
     <div
@@ -37,15 +41,22 @@ export default function CourseSidebar({
       </header>
 
       <div className="overflow-y-auto overflow-x-hidden h-full pb-[50]">
-        <Accordion type="single" collapsible className="w-full" defaultValue="item-1">
+        <Accordion
+          type="single"
+          collapsible
+          className="w-full"
+          defaultValue={currentSectionId}
+          value={value}
+          onValueChange={val => setValue(val)}
+        >
           {courseData.sections.map(section => {
-            const { lessons, title } = section
+            const { lessons, title, _id } = section
             const totalLessons = lessons.length
             const completedLessons = lessons.filter(lesson => lessonIdCompleted.includes(lesson._id))
             const totalDuration = lessons.reduce((total, lesson) => total + (lesson.duration || 0), 0)
 
             return (
-              <AccordionItem value={title} key={title}>
+              <AccordionItem value={_id} key={_id}>
                 <AccordionTrigger className="sticky py-[8] px-[20] bg-[#f7f8fa] hover:no-underline cursor-pointer hover:bg-[#edeff1]">
                   <div className="flex flex-col gap-[10]">
                     <h3>{title}</h3>
@@ -70,7 +81,7 @@ export default function CourseSidebar({
                         <div className="flex flex-col gap-[4px]">
                           <h3>{title}</h3>
                           <p className="flex items-center gap-[6]">
-                            {video?.vimeoId === id ? (
+                            {video?.vimeoId === currentVimeoID ? (
                               <Disc size="11" className="text-[#f05123cc]" />
                             ) : (
                               <CirclePlay size="11" />

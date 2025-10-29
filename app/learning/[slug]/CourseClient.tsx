@@ -1,22 +1,20 @@
 'use client'
-
 import { useRef, useState } from 'react'
 import { useRouter, useSearchParams, notFound } from 'next/navigation'
 import DirectionBar from './DirectionBar'
 import ProgressBar from './ProgressBar'
-import { ICourseData } from '@/lib/data/getCourseData'
 import CourseSidebar from './CourseSidebar'
 import CourseMainContent from './CourseMainContent'
 import { IUserLessonNote } from '@/models/userLessonNote.model'
 import Player from '@vimeo/player'
+import { ICourseData } from '@/types/course'
 
 export interface ICourseClientProps {
   courseData: ICourseData
-  userLessonNote: IUserLessonNote[]
 }
 
-export default function CourseClient({ courseData, userLessonNote }: ICourseClientProps) {
-  const { sections, lessonIdCompleted = [], videoLessonsCount, title } = courseData
+export default function CourseClient({ courseData }: ICourseClientProps) {
+  const { sections, lessonIdCompleted = [], videoLessonsCount, title, userLessonNote } = courseData
   const [open, setOpen] = useState(true)
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -93,10 +91,16 @@ export default function CourseClient({ courseData, userLessonNote }: ICourseClie
         currentVimeoID={currentVimeoID}
         handleSetCurrentVimeoID={handleSetCurrentVimeoID}
         lessonIdCompleted={lessonIdCompleted}
-        id={id}
       />
 
-      <DirectionBar handleTogleOpen={() => setOpen(!open)} open={open} title={currentLesson.title} />
+      <DirectionBar
+        vimeoID={currentVimeoID}
+        handleTogleOpen={() => setOpen(!open)}
+        open={open}
+        title={currentLesson.title}
+        courseData={courseData}
+        handleSetCurrentVimeoID={handleSetCurrentVimeoID}
+      />
     </>
   )
 }

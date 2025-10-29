@@ -8,7 +8,7 @@ import { Dispatch, SetStateAction, useState } from 'react'
 import { Spinner } from '@/components/ui/spinner'
 import { PopoverClose } from '@radix-ui/react-popover'
 import { TextEditor } from './TextEditor'
-import { ICourseData } from '@/lib/data/getCourseData'
+import { ICourseData } from '@/types/course'
 import { SheetClose } from '@/components/ui/sheet'
 
 interface NoteItemProps {
