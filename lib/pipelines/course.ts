@@ -50,13 +50,12 @@ export const getCoursePipeline = (slug: string, userId?: string): PipelineStage[
     },
   ]
 
-  // === 3. If user exists, check progress ===
+  // === 3. If user exists, get notes / enrollment / progress ===
   if (userId) {
-    console.log('userId', userId)
     const userObjectId = new Types.ObjectId(userId)
 
     pipeline.push(
-      // Get lesson notes
+      // === a. Get user lesson notes ===
       {
         $lookup: {
           from: 'userlessonnotes',
@@ -73,7 +72,8 @@ export const getCoursePipeline = (slug: string, userId?: string): PipelineStage[
           as: 'userLessonNote',
         },
       },
-      // Get Enrollment
+
+      // === b. Get enrollment ===
       {
         $lookup: {
           from: 'enrollments',
@@ -91,7 +91,7 @@ export const getCoursePipeline = (slug: string, userId?: string): PipelineStage[
         },
       },
 
-      // Get Progress (lessonIdCompleted)
+      // === c. Get user progress ===
       {
         $lookup: {
           from: 'userlessonprogresses',
@@ -104,88 +104,39 @@ export const getCoursePipeline = (slug: string, userId?: string): PipelineStage[
                 },
               },
             },
-            { $project: { _id: 0, lessonIdCompleted: 1 } },
           ],
-          as: 'progress',
+          as: 'userLessonProgress',
         },
       },
 
-      // Combine Enrollment + Progress
+      // === d. Unwrap single progress document ===
+      {
+        $addFields: {
+          userLessonProgress: { $arrayElemAt: ['$userLessonProgress', 0] },
+        },
+      },
+
+      // === e. Compute enrollment flag ===
       {
         $addFields: {
           isEnrolled: { $gt: [{ $size: '$enrollment' }, 0] },
-          lessonIdCompleted: {
-            $ifNull: [{ $arrayElemAt: ['$progress.lessonIdCompleted', 0] }, []],
-          },
         },
       },
 
-      // === 🔥 4. Add isCompleted to each lesson ===
+      // === f. Remove auxiliary arrays ===
       {
-        $addFields: {
-          sections: {
-            $map: {
-              input: '$sections',
-              as: 'section',
-              in: {
-                $mergeObjects: [
-                  '$$section',
-                  {
-                    lessons: {
-                      $map: {
-                        input: '$$section.lessons',
-                        as: 'lesson',
-                        in: {
-                          $mergeObjects: [
-                            '$$lesson',
-                            {
-                              isCompleted: {
-                                $in: ['$$lesson._id', '$lessonIdCompleted'],
-                              },
-                            },
-                          ],
-                        },
-                      },
-                    },
-                  },
-                ],
-              },
-            },
-          },
+        $project: {
+          enrollment: 0,
         },
-      },
-
-      // Remove auxiliary fields
-      { $project: { enrollment: 0, progress: 0 } }
+      }
     )
   } else {
-    // === If no user → default to false ===
+    // === If no user: default values ===
     pipeline.push({
       $addFields: {
         isEnrolled: false,
-        lessonIdCompleted: [],
-        sections: {
-          $map: {
-            input: '$sections',
-            as: 'section',
-            in: {
-              $mergeObjects: [
-                '$$section',
-                {
-                  lessons: {
-                    $map: {
-                      input: '$$section.lessons',
-                      as: 'lesson',
-                      in: {
-                        $mergeObjects: ['$$lesson', { isCompleted: false }],
-                      },
-                    },
-                  },
-                },
-              ],
-            },
-          },
-        },
+        userLessonNote: [],
+        userLessonProgress: null,
       },
     })
   }

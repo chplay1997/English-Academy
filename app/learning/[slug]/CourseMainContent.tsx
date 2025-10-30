@@ -7,33 +7,35 @@ import Player from '@vimeo/player'
 import { formatSecondsToTime } from '@/lib/utils'
 import { Heart, Plus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { ICourseState } from './CourseClient'
+import { notFound } from 'next/navigation'
 
 interface ICourseMainContentProps {
-  title: string
-  vimeoID: string
   open: boolean
-  sectionOrder: number
-  lessonOrder: number
-  setLessonNote: Dispatch<SetStateAction<IUserLessonNote[]>>
+  playerRef: React.RefObject<Player | null>
+  courseState: ICourseState
+  setCourseState: Dispatch<SetStateAction<ICourseState>>
+  loadingVideo: boolean
+  setLoadingVideo: Dispatch<SetStateAction<boolean>>
   currentTime: number
   setCurrentTime: Dispatch<SetStateAction<number>>
-  playerRef: React.RefObject<Player | null>
-  lessonUpdatedAt: Date | string
 }
 
 export default function CourseMainContent({
-  title,
-  vimeoID,
   open,
-  sectionOrder,
-  lessonOrder,
-  setLessonNote,
+  playerRef,
+  courseState,
+  setCourseState,
+  loadingVideo,
+  setLoadingVideo,
   currentTime,
   setCurrentTime,
-  playerRef,
-  lessonUpdatedAt,
 }: ICourseMainContentProps) {
   const [openNote, setOpenNote] = useState(false)
+  const { title, sections, slug, currentLessonId, userLessonProgress } = courseState
+
+  const currentLesson = sections.flatMap(section => section.lessons).find(lesson => lesson._id === currentLessonId)
+  const currentSection = sections.find(section => section.lessons.some(lesson => lesson._id === currentLessonId))
 
   const handleClickAddNote = () => {
     setOpenNote(true)
@@ -44,15 +46,33 @@ export default function CourseMainContent({
     }
   }
 
+  const vimeoID = currentLesson?.video?.vimeoId
+
+  if (!currentLesson || !currentSection) return notFound()
+
   return (
     <>
       <div className={`fixed z-2 ${open ? 'w-[77%]' : 'w-full'} top-[50px] left-[0] bottom-[50px] overflow-y-auto`}>
-        <VideoContent vimeoID={vimeoID} setCurrentTime={setCurrentTime} playerRef={playerRef} />
+        {!!vimeoID && (
+          <VideoContent
+            userLessonProgress={userLessonProgress}
+            vimeoID={vimeoID}
+            setCurrentTime={setCurrentTime}
+            playerRef={playerRef}
+            courseSlug={slug}
+            lessonId={currentLessonId}
+            setCourseState={setCourseState}
+            loadingVideo={loadingVideo}
+            setLoadingVideo={setLoadingVideo}
+          />
+        )}
         <div className="px-[8.5%] min-h-[400px]">
           <div className="flex justify-between items-center">
             <header>
               <h1 className="text-[28px] font-semibold mt-[48px] mb-[8px]">{title}</h1>
-              <p className="text-[13px] mb-[48px]">Cập nhật {new Date(lessonUpdatedAt).toLocaleDateString()}</p>
+              <p className="text-[13px] mb-[48px]">
+                Cập nhật {new Date(currentLesson?.updatedAt).toLocaleDateString()}
+              </p>
             </header>
 
             <Button variant="secondary" onClick={handleClickAddNote}>
@@ -80,9 +100,9 @@ export default function CourseMainContent({
         currentTime={currentTime}
         setOpenNote={setOpenNote}
         openNote={openNote}
-        sectionOrder={sectionOrder}
-        lessonOrder={lessonOrder}
-        setLessonNote={setLessonNote}
+        sectionOrder={currentSection.order}
+        lessonOrder={currentLesson.order}
+        setCourseState={setCourseState}
       />
     </>
   )

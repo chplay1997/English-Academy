@@ -1,105 +1,101 @@
 'use client'
 import { useRef, useState } from 'react'
 import { useRouter, useSearchParams, notFound } from 'next/navigation'
-import DirectionBar from './DirectionBar'
 import ProgressBar from './ProgressBar'
-import CourseSidebar from './CourseSidebar'
 import CourseMainContent from './CourseMainContent'
-import { IUserLessonNote } from '@/models/userLessonNote.model'
 import Player from '@vimeo/player'
 import { ICourseData } from '@/types/course'
+import { SideBar } from './SideBar'
 
 export interface ICourseClientProps {
   courseData: ICourseData
 }
 
+export interface ICourseState extends ICourseData {
+  currentLessonId: string
+}
+
 export default function CourseClient({ courseData }: ICourseClientProps) {
-  const { sections, lessonIdCompleted = [], videoLessonsCount, title, userLessonNote } = courseData
-  const [open, setOpen] = useState(true)
   const router = useRouter()
   const searchParams = useSearchParams()
-  const [lessonNote, setLessonNote] = useState<IUserLessonNote[]>(userLessonNote)
+  const lessonId = searchParams.get('id') || courseData.sections[0]?.lessons?.[0]?._id || ''
+  const [courseState, setCourseState] = useState<ICourseState>({
+    ...courseData,
+    currentLessonId: lessonId,
+  })
+
+  const { sections, currentLessonId } = courseState
+  const [open, setOpen] = useState(true)
+  const [loadingVideo, setLoadingVideo] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
+
   const playerRef = useRef<Player | null>(null)
 
-  const id = searchParams.get('id') || sections[0]?.lessons?.[0]?.video?.vimeoId || ''
-  const [currentVimeoID, setCurrentVimeoID] = useState(id)
+  const allLessonIds = sections.flatMap(section => section.lessons.map(lesson => lesson._id))
 
-  const handleSetCurrentVimeoID = async (newID: string, time?: number) => {
-    setCurrentVimeoID(newID)
+  if (!courseState || !allLessonIds.includes(currentLessonId)) return notFound()
+
+  const handleSetCurrentLessonId = async (newID: string, time?: number) => {
+    if (newID === currentLessonId) {
+      setCurrentTime(time || 0)
+      playerRef.current?.setCurrentTime(time || 0)
+      return
+    }
+    setLoadingVideo(true)
+    setCourseState(prev => ({
+      ...prev,
+      currentLessonId: newID,
+    }))
     router.push(`?id=${newID}`)
 
-    if (playerRef.current) {
-      const isPaused = await playerRef.current?.getPaused()
+    const newLesson = courseState.sections.flatMap(s => s.lessons).find(l => l._id === newID)
+    const newVimeoId = newLesson?.video?.vimeoId
+    if (!playerRef.current || !newVimeoId) return
 
-      playerRef.current
-        .loadVideo(newID)
-        .then(() => {
-          playerRef.current?.setCurrentTime(time || 0)
-          setCurrentTime(time || 0)
+    const isPaused = await playerRef.current.getPaused()
 
-          if (isPaused) {
-            playerRef.current?.pause()
-          } else {
-            playerRef.current?.play()
-          }
-        })
-        .catch(err => {
-          console.error('Load video lỗi:', err)
-        })
-    }
+    playerRef.current
+      .loadVideo(newVimeoId)
+      .then(async () => {
+        setLoadingVideo(false)
+        await playerRef.current?.setCurrentTime(time || 0)
+        setCurrentTime(time || 0)
+        if (isPaused) {
+          playerRef.current?.pause()
+        } else {
+          playerRef.current?.play()
+        }
+      })
+      .catch(error => {
+        console.error('Error loading video:', error)
+      })
   }
-
-  const currentSection = sections.find(section =>
-    section.lessons.some(lesson => lesson.video?.vimeoId === currentVimeoID)
-  )
-
-  const currentLesson = currentSection?.lessons.find(lesson => lesson.video?.vimeoId === currentVimeoID)
-
-  if (!courseData || !currentLesson || !currentVimeoID || !currentSection) return notFound()
 
   return (
     <>
       <ProgressBar
-        onChangeVimeoID={handleSetCurrentVimeoID}
-        sectionOrder={currentSection.order}
-        courseData={courseData}
-        title={title}
-        completed={lessonIdCompleted.length}
-        total={videoLessonsCount}
-        lessonNote={lessonNote}
-        setLessonNote={setLessonNote}
+        courseState={courseState}
+        setCourseState={setCourseState}
+        handleSetCurrentLessonId={handleSetCurrentLessonId}
       />
 
       <CourseMainContent
-        title={courseData.title}
-        vimeoID={currentVimeoID}
+        courseState={courseState}
+        setCourseState={setCourseState}
         open={open}
-        sectionOrder={currentSection.order}
-        lessonOrder={currentLesson.order}
-        setLessonNote={setLessonNote}
+        playerRef={playerRef}
+        loadingVideo={loadingVideo}
+        setLoadingVideo={setLoadingVideo}
         currentTime={currentTime}
         setCurrentTime={setCurrentTime}
-        playerRef={playerRef}
-        lessonUpdatedAt={currentLesson.updatedAt}
       />
 
-      <CourseSidebar
-        courseData={courseData}
+      <SideBar
+        courseState={courseState}
         open={open}
         setOpen={setOpen}
-        currentVimeoID={currentVimeoID}
-        handleSetCurrentVimeoID={handleSetCurrentVimeoID}
-        lessonIdCompleted={lessonIdCompleted}
-      />
-
-      <DirectionBar
-        vimeoID={currentVimeoID}
-        handleTogleOpen={() => setOpen(!open)}
-        open={open}
-        title={currentLesson.title}
-        courseData={courseData}
-        handleSetCurrentVimeoID={handleSetCurrentVimeoID}
+        setCourseState={setCourseState}
+        handleSetCurrentLessonId={handleSetCurrentLessonId}
       />
     </>
   )

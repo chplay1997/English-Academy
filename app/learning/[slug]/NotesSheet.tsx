@@ -8,21 +8,24 @@ import { NoteItem } from './NoteItem'
 import { IUserLessonNote } from '@/models/userLessonNote.model'
 import { Dispatch, SetStateAction, useState } from 'react'
 import { toast } from 'sonner'
-import { ICourseData } from '@/types/course'
+import { ICourseState } from './CourseClient'
+import Player from '@vimeo/player'
 
 interface INotesSheetProps {
-  courseData: ICourseData
-  lessonNote: IUserLessonNote[]
-  setLessonNote: Dispatch<SetStateAction<IUserLessonNote[]>>
-  sectionOrder: number
-  onChangeVimeoID: (id: string, time?: number) => void
+  courseState: ICourseState
+  setCourseState: Dispatch<SetStateAction<ICourseState>>
+  handleSetCurrentLessonId: (newID: string, time?: number) => void
 }
 
 export function NotesSheet(props: INotesSheetProps) {
-  const { courseData, lessonNote, setLessonNote, sectionOrder, onChangeVimeoID } = props
+  const { courseState, setCourseState, handleSetCurrentLessonId } = props
   const [editingId, setEditingId] = useState<string | null>(null)
   const [filter, setFilter] = useState<'current_chapter' | 'all_notes'>('current_chapter')
   const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest')
+
+  const currentSection = courseState.sections.find(section =>
+    section.lessons.some(lesson => lesson._id === courseState.currentLessonId)
+  )
 
   const handleOnchangeFilter = (filter: 'current_chapter' | 'all_notes') => {
     setFilter(filter)
@@ -32,7 +35,9 @@ export function NotesSheet(props: INotesSheetProps) {
     setSortOrder(sortOrder)
   }
 
-  const lessonNoteFilter = lessonNote.filter(note => filter === 'all_notes' || note.sectionOrder === sectionOrder)
+  const lessonNoteFilter = courseState.userLessonNote.filter(
+    note => filter === 'all_notes' || note.sectionOrder === currentSection?.order
+  )
 
   const sortLessonNote = lessonNoteFilter.sort((a, b) => {
     if (sortOrder === 'newest') {
@@ -53,9 +58,12 @@ export function NotesSheet(props: INotesSheetProps) {
 
     const data = await res.json()
     if (data.success) {
-      setLessonNote(prev => {
-        const newPrev = prev.filter(note => note._id !== id)
-        return [...newPrev, data.updatedNote]
+      setCourseState(prev => {
+        const newPrev = prev.userLessonNote.filter(note => note._id !== id)
+        return {
+          ...prev,
+          userLessonNote: [...newPrev, data.updatedNote],
+        }
       })
       toast.success('Note updated successfully', { position: 'bottom-center' })
     } else {
@@ -68,7 +76,13 @@ export function NotesSheet(props: INotesSheetProps) {
     })
     const data = await res.json()
     if (data.success) {
-      setLessonNote(prev => prev.filter(note => note._id !== id))
+      setCourseState(prev => {
+        const newPrev = prev.userLessonNote.filter(note => note._id !== id)
+        return {
+          ...prev,
+          userLessonNote: [...newPrev],
+        }
+      })
       toast.success('Note deleted successfully', { position: 'bottom-center' })
     } else {
       toast.error('Failed to delete note', { position: 'bottom-center' })
@@ -111,10 +125,10 @@ export function NotesSheet(props: INotesSheetProps) {
         </div>
 
         <div className="flex-1 overflow-y-auto px-4 divide-y divide-gray-100">
+          {/* Refactor later */}
           {sortLessonNote.map(note => (
             <NoteItem
-              onChangeVimeoID={onChangeVimeoID}
-              courseData={courseData}
+              courseState={courseState}
               key={note._id as string}
               id={note._id as string}
               time={note.second}
@@ -125,6 +139,7 @@ export function NotesSheet(props: INotesSheetProps) {
               onDelete={handleDelete}
               setEditingId={setEditingId}
               editingId={editingId}
+              handleSetCurrentLessonId={handleSetCurrentLessonId}
             />
           ))}
         </div>

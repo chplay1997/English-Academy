@@ -26,7 +26,7 @@ export async function runSeed() {
 
   const count = await Course.countDocuments()
   if (count > 0) {
-    console.log('✅ Database already seeded.')
+    console.info('✅ Database already seeded.')
     return { message: 'Database already seeded.' }
   }
 
@@ -84,6 +84,6 @@ export async function runSeed() {
     }
   }
 
-  console.log('🎉 Seeded successfully!')
+  console.info('🎉 Seeded successfully!')
   return { message: 'Seeding completed!' }
 }

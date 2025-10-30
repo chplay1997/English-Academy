@@ -38,8 +38,3 @@ export const rateLimiter = new RateLimiter({
   windowSeconds: 60, // allow 60 seconds
   maxRequests: 10, // allow 10 requests per minute / IP
 })
-
-// redis
-//   .set('test:key', 'ping', { ex: 5 })
-//   .then(() => console.log('✅ Redis connected successfully'))
-//   .catch(err => console.error('❌ Redis connection failed:', err))

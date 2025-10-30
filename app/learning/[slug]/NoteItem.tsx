@@ -8,11 +8,13 @@ import { Dispatch, SetStateAction, useState } from 'react'
 import { Spinner } from '@/components/ui/spinner'
 import { PopoverClose } from '@radix-ui/react-popover'
 import { TextEditor } from './TextEditor'
-import { ICourseData } from '@/types/course'
+import { ICourseState } from './CourseClient'
 import { SheetClose } from '@/components/ui/sheet'
+import Player from '@vimeo/player'
+import { useRouter } from 'next/navigation'
 
 interface NoteItemProps {
-  courseData: ICourseData
+  courseState: ICourseState
   time: number
   content: string
   onSubmit: (id: string, content: string) => void
@@ -22,12 +24,12 @@ interface NoteItemProps {
   setEditingId: Dispatch<SetStateAction<string | null>>
   editingId: string | null
   id: string
-  onChangeVimeoID: (id: string, time?: number) => void
+  handleSetCurrentLessonId: (newID: string, time?: number) => void
 }
 
 export function NoteItem(props: NoteItemProps) {
   const {
-    courseData,
+    courseState,
     time,
     content,
     onSubmit,
@@ -37,12 +39,14 @@ export function NoteItem(props: NoteItemProps) {
     setEditingId,
     editingId,
     id,
-    onChangeVimeoID,
+    handleSetCurrentLessonId,
   } = props
   const [loading, setLoading] = useState(false)
   const [editingContent, setEditingContent] = useState(content)
-  const currentSection = courseData.sections.find(section => section.order === sectionOrder)
-  const currentLesson = currentSection?.lessons.find(lesson => lesson.order === lessonOrder)
+  const currentSectionNote = courseState.sections.find(section => section.order === sectionOrder)
+  const currentLessonNote = currentSectionNote?.lessons.find(lesson => lesson.order === lessonOrder)
+
+  const router = useRouter()
 
   const handleDelete = async () => {
     setLoading(true)
@@ -66,17 +70,17 @@ export function NoteItem(props: NoteItemProps) {
     <div className="border-b border-gray-100 py-4">
       <div className="flex justify-between items-start mb-2">
         <div className="flex items-center space-x-2 ">
-          <SheetClose onClick={() => onChangeVimeoID(currentLesson?.video?.vimeoId || '', time)}>
+          <SheetClose onClick={() => handleSetCurrentLessonId(currentLessonNote?._id || '', time)}>
             <Badge className="bg-orange-500 hover:bg-orange-600 text-white font-mono text-sm px-2 py-1 rounded-sm mr-4">
               {formatSecondsToTime(time || 0)}
             </Badge>
           </SheetClose>
 
           <span className="text-base font-semibold line-clamp-1">
-            <SheetClose onClick={() => onChangeVimeoID(currentLesson?.video?.vimeoId || '')}>
-              <span className="text-orange-500 mr-2 cursor-pointer hover:opacity-80">{currentLesson?.title}</span>
+            <SheetClose onClick={() => handleSetCurrentLessonId(currentLessonNote?._id || '')}>
+              <span className="text-orange-500 mr-2 cursor-pointer hover:opacity-80">{currentLessonNote?.title}</span>
             </SheetClose>
-            <span className=" font-normal">{currentSection?.title}</span>
+            <span className=" font-normal">{currentSectionNote?.title}</span>
           </span>
         </div>
 

@@ -4,6 +4,7 @@ import { useParams } from 'next/navigation'
 import { IUserLessonNote } from '@/models/userLessonNote.model'
 import { toast } from 'sonner'
 import { TextEditor } from './TextEditor'
+import { ICourseState } from './CourseClient'
 
 interface ILessonNoteFormProps {
   sectionOrder: number
@@ -11,8 +12,8 @@ interface ILessonNoteFormProps {
   setOpenNote: (openNote: boolean) => void
   openNote: boolean
   currentTime: number
-  setLessonNote: Dispatch<SetStateAction<IUserLessonNote[]>>
   isFullWidth?: boolean
+  setCourseState: Dispatch<SetStateAction<ICourseState>>
 }
 
 export function LessonNoteForm({
@@ -21,7 +22,7 @@ export function LessonNoteForm({
   setOpenNote,
   openNote,
   currentTime,
-  setLessonNote,
+  setCourseState,
   isFullWidth,
 }: ILessonNoteFormProps) {
   const [content, setContent] = useState('')
@@ -40,7 +41,10 @@ export function LessonNoteForm({
     const newNoteData = await newNote.json()
 
     if (newNoteData.success) {
-      setLessonNote((prev: IUserLessonNote[]) => [...prev, newNoteData.newNote])
+      setCourseState(prev => ({
+        ...prev,
+        userLessonNote: [...prev.userLessonNote, newNoteData.newNote],
+      }))
       toast.success('Note has been created', {
         position: 'bottom-center',
       })

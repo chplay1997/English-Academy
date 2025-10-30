@@ -31,7 +31,7 @@ export function RegisterCourse() {
     const data = await res.json()
 
     if (data.success) {
-      console.log('Enrolled successfully')
+      console.info('Enrolled successfully')
       router.push(`/learning/${courseSlug}`)
     } else {
       setLoading(false)

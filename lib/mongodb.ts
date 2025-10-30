@@ -13,7 +13,7 @@ const options = {}
 const client = new MongoClient(uri, options)
 let clientPromise: Promise<MongoClient>
 
-console.log('connect db now.......................', uri)
+console.info('connect db now.......................', uri)
 
 if (process.env.NODE_ENV === 'development') {
   // Reuse client in dev mode to avoid multiple connections

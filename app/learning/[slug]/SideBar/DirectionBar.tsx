@@ -1,32 +1,36 @@
 import { ArrowRight, ChevronLeft, ChevronRight, Menu } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { ICourseData } from '@/types/course'
+import { ICourseState } from '../CourseClient'
 
 interface ProgressBarProps {
-  title: string
   handleTogleOpen: () => void
   open: boolean
-  courseData: ICourseData
-  handleSetCurrentVimeoID: (id: string, time?: number) => void
-  vimeoID: string
+  courseState: ICourseState
+  lockedLessonIndex: number
+  handleSetCurrentLessonId: (id: string) => void
 }
 
 export default function DirectionBar({
-  title,
   handleTogleOpen,
   open,
-  courseData,
-  handleSetCurrentVimeoID,
-  vimeoID,
+  courseState,
+  lockedLessonIndex,
+  handleSetCurrentLessonId,
 }: ProgressBarProps) {
-  const vimeoIds = courseData.sections
+  const { currentLessonId } = courseState
+
+  const lessonIds = courseState.sections
     .flatMap(section => section.lessons)
-    .map(lesson => lesson.video?.vimeoId)
+    .map(lesson => lesson._id)
     .filter(Boolean)
 
-  const index = vimeoIds.indexOf(vimeoID)
-  const prev = index > 0 ? vimeoIds[index - 1] : null
-  const next = index < vimeoIds.length - 1 ? vimeoIds[index + 1] : null
+  const currentLesson = courseState.sections
+    .flatMap(section => section.lessons)
+    .find(lesson => lesson._id === courseState.currentLessonId)
+
+  const index = lessonIds.indexOf(currentLessonId)
+  const prev = index > 0 ? lessonIds[index - 1] : null
+  const next = index < lessonIds.length - 1 && index < lockedLessonIndex - 1 ? lessonIds[index + 1] : null
 
   return (
     <div
@@ -38,7 +42,7 @@ export default function DirectionBar({
           variant="ghost"
           className="rounded-[99px]"
           disabled={!prev}
-          onClick={() => handleSetCurrentVimeoID(prev!)}
+          onClick={() => handleSetCurrentLessonId(prev!)}
         >
           <ChevronLeft className="w-5 h-5" />
           Bài trước
@@ -47,7 +51,7 @@ export default function DirectionBar({
           variant="ghost"
           className="rounded-[99px]"
           disabled={!next}
-          onClick={() => handleSetCurrentVimeoID(next!)}
+          onClick={() => handleSetCurrentLessonId(next!)}
         >
           Bài tiếp theo
           <ChevronRight className="w-5 h-5" />
@@ -55,7 +59,7 @@ export default function DirectionBar({
       </div>
 
       <div className="absolute right-0 flex justify-end items-center gap-[8]">
-        <span>{title}</span>
+        <span>{currentLesson?.title}</span>
 
         <Button variant="ghost" onClick={handleTogleOpen}>
           {open ? <ArrowRight /> : <Menu />}

@@ -2,19 +2,18 @@ import { NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth.config'
 import { connectDB } from '@/lib/mongoose'
-import UserLessonProgress from '@/models/userLessonProgress.model'
+import UserLessonProgress, { IUserLessonProgress } from '@/models/userLessonProgress.model'
 import mongoose from 'mongoose'
+import { ILesson } from '@/models/lesson.model'
 
-// Middleware check auth
+// Authentication middleware
 async function checkAuth() {
   const session = await getServerSession(authOptions)
-  if (!session?.user?.email) {
-    throw new Error('Unauthorized')
-  }
+  if (!session?.user?.id) throw new Error('Unauthorized')
   return session.user
 }
 
-// GET: Lấy tiến độ của user cho courseSlug
+// GET: Get user progress for a courseSlug
 export async function GET(request: Request) {
   try {
     const user = await checkAuth()
@@ -23,53 +22,119 @@ export async function GET(request: Request) {
     const url = new URL(request.url)
     const courseSlug = url.searchParams.get('courseSlug')
 
-    if (!courseSlug) {
-      return NextResponse.json({ success: false, error: 'Missing courseSlug' }, { status: 400 })
-    }
+    if (!courseSlug) return NextResponse.json({ success: false, error: 'Missing courseSlug' }, { status: 400 })
 
-    const progress = await UserLessonProgress.find({
+    const progress = await UserLessonProgress.findOne({
       courseSlug,
       userId: new mongoose.Types.ObjectId(user.id),
-    })
-      .lean()
-      .exec()
+    }).lean()
 
-    return NextResponse.json({ success: true, data: progress })
-  } catch (error) {
-    return NextResponse.json({ success: false, error: error }, { status: 401 })
+    return NextResponse.json({ success: true, data: progress || null })
+  } catch (error: any) {
+    return NextResponse.json({ success: false, error: error.message }, { status: 401 })
   }
 }
 
-// POST: Thêm hoặc đánh dấu lesson hoàn thành
-export async function POST(request: Request) {
+export async function PUT(request: Request) {
   try {
     const user = await checkAuth()
     await connectDB()
 
     const body = await request.json()
-    const { lessonIdCompleted, courseSlug, userId } = body
+    const { courseSlug, lessonId: lessonIdString, lastWatched, duration, completed } = body
 
-    if (!courseSlug || !userId) {
-      return NextResponse.json({ success: false, error: 'Missing lessonIdCompleted or courseSlug' }, { status: 400 })
+    if (!courseSlug || !lessonIdString)
+      return NextResponse.json({ success: false, error: 'Missing courseSlug or lessonId' }, { status: 400 })
+
+    const lessonId = new mongoose.Types.ObjectId(lessonIdString as string)
+    const { default: Lesson } = await import('@/models/lesson.model')
+
+    // --- 1️⃣ Get current lesson information ---
+    const currentLesson = await Lesson.findById(lessonId).lean<ILesson>()
+    if (!currentLesson) {
+      return NextResponse.json({ success: false, error: 'Lesson not found' }, { status: 404 })
     }
 
-    const progress = await UserLessonProgress.findOneAndUpdate(
-      {
-        userId: new mongoose.Types.ObjectId(userId as string),
-        lessonIdCompleted,
-        courseSlug,
-      },
-      {
-        $push: { lessonIdCompleted },
-      },
-      {
-        upsert: true,
-        new: true,
+    // --- 2️⃣ Get all lessons in the same section ---
+    const allLessons = await Lesson.find({ sectionId: currentLesson.sectionId })
+      .sort({ order: 1 })
+      .select('_id order')
+      .lean<ILesson[] & { _id: mongoose.Types.ObjectId }[]>()
+
+    // --- 3️⃣ Find previous and next lessons ---
+    const idx = allLessons.findIndex((l: { _id: mongoose.Types.ObjectId }) => l._id.toString() === lessonId.toString())
+    const prevLesson = idx > 0 ? allLessons[idx - 1] : null
+    const nextLesson = idx < allLessons.length - 1 ? allLessons[idx + 1] : null
+
+    // --- 4️⃣ Get user progress ---
+    const userProgress = await UserLessonProgress.findOne({
+      userId: new mongoose.Types.ObjectId(user.id),
+      courseSlug,
+    }).lean<IUserLessonProgress>()
+
+    // --- 5️⃣ Check learning conditions ---
+    if (idx > 0 && userProgress) {
+      const completedIds = userProgress.lessons.filter(l => l.completed).map(l => l.lessonId.toString())
+
+      const canUpdate =
+        (prevLesson && completedIds.includes(prevLesson._id.toString())) ||
+        (nextLesson && completedIds.includes(nextLesson._id.toString()))
+
+      if (!canUpdate) {
+        return NextResponse.json(
+          { success: false, error: 'You must complete a nearby lesson before continuing this one.' },
+          { status: 403 }
+        )
       }
+    }
+
+    // --- 6️⃣ Calculate progress percentage ---
+    const progressPercent = duration && duration > 0 ? Math.min((lastWatched / duration) * 100, 100) : 0
+
+    // --- 7️⃣ Update or add new ---
+    const updated = await UserLessonProgress.findOneAndUpdate(
+      {
+        userId: new mongoose.Types.ObjectId(user.id),
+        courseSlug,
+        'lessons.lessonId': lessonId,
+      },
+      {
+        $set: {
+          'lessons.$.lastWatched': lastWatched,
+          'lessons.$.duration': duration,
+          'lessons.$.progressPercent': progressPercent,
+          'lessons.$.completed': completed ?? progressPercent >= 90,
+        },
+      },
+      { new: true }
     )
 
-    return NextResponse.json({ success: true, data: progress })
-  } catch (error) {
-    return NextResponse.json({ success: false, error: error }, { status: 401 })
+    if (!updated) {
+      const created = await UserLessonProgress.findOneAndUpdate(
+        {
+          userId: new mongoose.Types.ObjectId(user.id),
+          courseSlug,
+        },
+        {
+          $push: {
+            lessons: {
+              lessonId,
+              lastWatched,
+              duration,
+              progressPercent,
+              completed: completed ?? progressPercent >= 90,
+            },
+          },
+        },
+        { upsert: true, new: true }
+      )
+
+      return NextResponse.json({ success: true, data: created })
+    }
+
+    return NextResponse.json({ success: true, data: updated })
+  } catch (error: any) {
+    console.error('Error in PUT /user-lesson-progress:', error)
+    return NextResponse.json({ success: false, error: error.message }, { status: 500 })
   }
 }
