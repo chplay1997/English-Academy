@@ -5,6 +5,8 @@ import { connectDB } from '@/lib/mongoose'
 import UserLessonProgress, { IUserLessonProgress } from '@/models/userLessonProgress.model'
 import mongoose from 'mongoose'
 import { ILesson } from '@/models/lesson.model'
+import { ICourse } from '@/models/course.model'
+import { ISection } from '@/models/section.model'
 
 // Authentication middleware
 async function checkAuth() {
@@ -35,6 +37,39 @@ export async function GET(request: Request) {
   }
 }
 
+// === Helper: Get ordered lessons in a course ===
+async function getOrderedLessons(courseSlug: string): Promise<ILesson[]> {
+  const { default: Course } = await import('@/models/course.model')
+  const { default: Section } = await import('@/models/section.model')
+  const { default: Lesson } = await import('@/models/lesson.model')
+
+  const course = await Course.findOne({ slug: courseSlug }).select('sections').lean<ICourse>()
+  if (!course) return []
+
+  // Get all sections of this course
+  const sections = await Section.find({ _id: { $in: course.sections } })
+    .select('_id order')
+    .sort({ order: 1 })
+    .lean<ISection[] & { _id: mongoose.Types.ObjectId }>()
+
+  // Get all lessons in those sections
+  const lessons = await Lesson.find({ sectionId: { $in: course.sections } })
+    .select('_id title order sectionId duration type isPreview')
+    .lean<ILesson[] & { sectionId: mongoose.Types.ObjectId }>()
+
+  // Sort: section.order → lesson.order
+  const sectionOrderMap = new Map(sections.map(s => [s?._id?.toString(), s?.order]))
+  lessons.sort((a, b) => {
+    const secA = sectionOrderMap.get(a.sectionId?.toString() ?? '') ?? 0
+    const secB = sectionOrderMap.get(b.sectionId?.toString() ?? '') ?? 0
+    if (secA !== secB) return secA - secB
+    return a.order - b.order
+  })
+
+  return lessons
+}
+
+// === API PUT ===
 export async function PUT(request: Request) {
   try {
     const user = await checkAuth()
@@ -47,38 +82,39 @@ export async function PUT(request: Request) {
       return NextResponse.json({ success: false, error: 'Missing courseSlug or lessonId' }, { status: 400 })
 
     const lessonId = new mongoose.Types.ObjectId(lessonIdString as string)
-    const { default: Lesson } = await import('@/models/lesson.model')
 
-    // --- 1️⃣ Get current lesson information ---
-    const currentLesson = await Lesson.findById(lessonId).lean<ILesson>()
-    if (!currentLesson) {
-      return NextResponse.json({ success: false, error: 'Lesson not found' }, { status: 404 })
-    }
+    // --- 1️⃣ Get all lessons in the course ---
+    const allLessons = await getOrderedLessons(courseSlug)
+    if (!allLessons.length)
+      return NextResponse.json({ success: false, error: 'Course not found or has no lessons' }, { status: 404 })
 
-    // --- 2️⃣ Get all lessons in the same section ---
-    const allLessons = await Lesson.find({ sectionId: currentLesson.sectionId })
-      .sort({ order: 1 })
-      .select('_id order')
-      .lean<ILesson[] & { _id: mongoose.Types.ObjectId }[]>()
+    // --- 2️⃣ Find the current lesson ---
+    const idx = allLessons.findIndex(l => l._id?.toString() === lessonId.toString())
+    if (idx === -1) return NextResponse.json({ success: false, error: 'Lesson not found in course' }, { status: 404 })
 
-    // --- 3️⃣ Find previous and next lessons ---
-    const idx = allLessons.findIndex((l: { _id: mongoose.Types.ObjectId }) => l._id.toString() === lessonId.toString())
     const prevLesson = idx > 0 ? allLessons[idx - 1] : null
     const nextLesson = idx < allLessons.length - 1 ? allLessons[idx + 1] : null
 
-    // --- 4️⃣ Get user progress ---
+    // --- 3️⃣ Get user progress ---
     const userProgress = await UserLessonProgress.findOne({
       userId: new mongoose.Types.ObjectId(user.id),
       courseSlug,
     }).lean<IUserLessonProgress>()
 
-    // --- 5️⃣ Check learning conditions ---
+    // If no progress and not the first lesson → block learning
+    if (!userProgress && idx > 0) {
+      return NextResponse.json(
+        { success: false, error: 'You must complete a nearby lesson before continuing this one.' },
+        { status: 403 }
+      )
+    }
+
+    // --- 4️⃣ Check learning conditions ---
     if (idx > 0 && userProgress) {
       const completedIds = userProgress.lessons.filter(l => l.completed).map(l => l.lessonId.toString())
-
       const canUpdate =
-        (prevLesson && completedIds.includes(prevLesson._id.toString())) ||
-        (nextLesson && completedIds.includes(nextLesson._id.toString()))
+        (prevLesson && prevLesson._id && completedIds.includes(prevLesson._id.toString())) ||
+        (nextLesson && nextLesson._id && completedIds.includes(nextLesson._id.toString()))
 
       if (!canUpdate) {
         return NextResponse.json(
@@ -88,10 +124,10 @@ export async function PUT(request: Request) {
       }
     }
 
-    // --- 6️⃣ Calculate progress percentage ---
+    // --- 5️⃣ Calculate progress percentage ---
     const progressPercent = duration && duration > 0 ? Math.min((lastWatched / duration) * 100, 100) : 0
 
-    // --- 7️⃣ Update or add new ---
+    // --- 6️⃣ Update or create ---
     const updated = await UserLessonProgress.findOneAndUpdate(
       {
         userId: new mongoose.Types.ObjectId(user.id),

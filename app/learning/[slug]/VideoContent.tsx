@@ -72,7 +72,7 @@ export default function VideoContent({
             userLessonProgress: cachedUserLessonProgress,
           }))
         } else {
-          console.error('Update progress failed:', result.error)
+          console.log('Update progress failed:', result.error)
         }
       } catch (err) {
         console.error('Update progress failed:', err)
