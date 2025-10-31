@@ -25,7 +25,7 @@ export default function CourseClient({ courseData }: ICourseClientProps) {
   })
 
   const { sections, currentLessonId } = courseState
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
   const [loadingVideo, setLoadingVideo] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
 
@@ -57,7 +57,6 @@ export default function CourseClient({ courseData }: ICourseClientProps) {
     playerRef.current
       .loadVideo(newVimeoId)
       .then(async () => {
-        setLoadingVideo(false)
         await playerRef.current?.setCurrentTime(time || 0)
         setCurrentTime(time || 0)
         if (isPaused) {

@@ -44,7 +44,7 @@ export function RegisterCourse() {
       <Button
         disabled={loading}
         onClick={handleEnroll}
-        className="text-sm font-bold px-6 py-1 bg-[#0093fc] hover:bg-[#0093fc] hover:opacity-70 transition-colors rounded-full"
+        className="w-full md:w-auto text-sm font-bold px-6 py-1 bg-[#0093fc] hover:bg-[#0093fc] hover:opacity-70 transition-colors rounded-full"
       >
         {loading && <Spinner />}
         ĐĂNG KÝ HỌC

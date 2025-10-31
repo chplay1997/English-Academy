@@ -34,7 +34,7 @@ export default function DirectionBar({
 
   return (
     <div
-      className="border-b-1 h-[50px] flex justify-center items-center px-[28] fixed w-full z-4 bottom-0 left-0 right-0"
+      className="border-b-1 h-[50px] flex justify-center md:justify-end lg:justify-center items-center px-[28] fixed w-full z-4 bottom-0 left-0 right-0"
       style={{ borderColor: '#e8ebed', backgroundColor: '#f0f0f0' }}
     >
       <div className="flex items-center gap-2">
@@ -44,8 +44,10 @@ export default function DirectionBar({
           disabled={!prev}
           onClick={() => handleSetCurrentLessonId(prev!)}
         >
-          <ChevronLeft className="w-5 h-5" />
-          Bài trước
+          <span className="inline-flex items-center">
+            <ChevronLeft size={14} className="mt-0.5" />
+            <span className="text-sm">Bài trước</span>
+          </span>
         </Button>
         <Button
           variant="ghost"
@@ -53,17 +55,19 @@ export default function DirectionBar({
           disabled={!next}
           onClick={() => handleSetCurrentLessonId(next!)}
         >
-          Bài tiếp theo
-          <ChevronRight className="w-5 h-5" />
+          <span className="inline-flex items-center">
+            <span className="text-sm">Bài tiếp theo</span>
+            <ChevronRight size={14} className="mt-0.5" />
+          </span>
         </Button>
       </div>
 
-      <div className="absolute right-0 flex justify-end items-center gap-[8]">
-        <span>{currentLesson?.title}</span>
-
+      <div className="absolute left-0 lg:right-0 lg:left-auto lg:flex-row-reverse flex justify-end items-center gap-[8]">
         <Button variant="ghost" onClick={handleTogleOpen}>
           {open ? <ArrowRight /> : <Menu />}
         </Button>
+
+        <span className="hidden md:block">{currentLesson?.title}</span>
       </div>
     </div>
   )

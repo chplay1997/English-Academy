@@ -65,7 +65,7 @@ export default function UserProfileDropdown() {
   const userImage = user?.image || defaultUserImage
 
   return (
-    <DropdownMenu>
+    <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative rounded-full">
           <Image
@@ -87,25 +87,25 @@ export default function UserProfileDropdown() {
         <DropdownMenuSeparator />
 
         <DropdownMenuGroup>
-          <DropdownMenuItem asChild>
+          <DropdownMenuItem asChild disabled>
             <Link href="/profile" className="flex items-center">
               <User className="mr-2 h-4 w-4" />
               <span>Trang cá nhân</span>
             </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem asChild>
+          <DropdownMenuItem asChild disabled>
             <Link href="/blog/new" className="flex items-center">
               <FileText className="mr-2 h-4 w-4" />
               <span>Viết blog</span>
             </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem asChild>
+          <DropdownMenuItem asChild disabled>
             <Link href="/my-posts" className="flex items-center">
               <LayoutDashboard className="mr-2 h-4 w-4" />
               <span>Bài viết của tôi</span>
             </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem asChild>
+          <DropdownMenuItem asChild disabled>
             <Link href="/saved-posts" className="flex items-center">
               <Bookmark className="mr-2 h-4 w-4" />
               <span>Bài đã lưu</span>
@@ -114,7 +114,7 @@ export default function UserProfileDropdown() {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem asChild>
+        <DropdownMenuItem asChild disabled>
           <Link href="/settings" className="flex items-center">
             <Settings className="mr-2 h-4 w-4" />
             <span>Cài đặt</span>

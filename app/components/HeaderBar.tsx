@@ -8,12 +8,12 @@ import Link from 'next/link'
 export default function HeaderBar() {
   return (
     <div
-      className="border-b-1 bg-white h-[66px] flex justify-between items-center px-[28] fixed w-full z-1"
+      className="border-b-1 bg-white h-16.5 flex justify-between items-center px-4 md:px-7 fixed w-full z-2 gap-2"
       style={{ borderColor: '#e8ebed' }}
     >
       <Link href="/#" className="flex items-center gap-2">
         <div className="bg-[#f05123] text-white font-bold text-lg px-3 py-1 rounded-md">EA</div>
-        <span className="font-semibold ">English Academy</span>
+        <span className="font-semibold hidden md:block">English Academy</span>
       </Link>
 
       <div className="relative w-full max-w-sm">

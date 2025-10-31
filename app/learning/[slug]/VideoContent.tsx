@@ -35,6 +35,7 @@ export default function VideoContent({
 
   // 🔹 Setup player only once
   useEffect(() => {
+    setLoadingVideo(true)
     let lastSent = 0
     let hasCompletedSent = false
     let cachedUserLessonProgress = userLessonProgress
@@ -107,6 +108,7 @@ export default function VideoContent({
     player.on('loaded', async () => {
       lastSent = await player.getCurrentTime()
       hasCompletedSent = false
+      setLoadingVideo(false)
     })
 
     return () => {
@@ -117,7 +119,7 @@ export default function VideoContent({
   }, [])
 
   return (
-    <div className="w-full relative bg-black px-[16%]">
+    <div className="w-full relative bg-black md:px-[8.5%] lg:px-[16%]">
       {loadingVideo && (
         <div className="absolute inset-0 flex items-center justify-center bg-black z-10">
           <Spinner className="h-12 w-12 text-white" />

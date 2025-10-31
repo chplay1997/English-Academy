@@ -32,7 +32,7 @@ export default function CourseMainContent({
   setCurrentTime,
 }: ICourseMainContentProps) {
   const [openNote, setOpenNote] = useState(false)
-  const { title, sections, slug, currentLessonId, userLessonProgress } = courseState
+  const { sections, slug, currentLessonId, userLessonProgress } = courseState
 
   const currentLesson = sections.flatMap(section => section.lessons).find(lesson => lesson._id === currentLessonId)
   const currentSection = sections.find(section => section.lessons.some(lesson => lesson._id === currentLessonId))
@@ -52,7 +52,11 @@ export default function CourseMainContent({
 
   return (
     <>
-      <div className={`fixed z-2 ${open ? 'w-[77%]' : 'w-full'} top-[50px] left-[0] bottom-[50px] overflow-y-auto`}>
+      <div
+        className={`fixed z-2 right-0 ${
+          open ? 'lg:right-[23%]' : ''
+        } top-[50px] left-[0] bottom-[50px] overflow-y-auto`}
+      >
         {!!vimeoID && (
           <VideoContent
             userLessonProgress={userLessonProgress}
@@ -66,11 +70,11 @@ export default function CourseMainContent({
             setLoadingVideo={setLoadingVideo}
           />
         )}
-        <div className="px-[8.5%] min-h-[400px]">
-          <div className="flex justify-between items-center">
+        <div className="px-4 md:px-[8.5%] lg:px-[16%] min-h-[400px]">
+          <div className="flex justify-between items-center flex-wrap ">
             <header>
-              <h1 className="text-[28px] font-semibold mt-[48px] mb-[8px]">{title}</h1>
-              <p className="text-[13px] mb-[48px]">
+              <h1 className="text-[28px] font-semibold mt-[48px] mb-[8px]">{currentLesson.title}</h1>
+              <p className="text-[13px] mb-6 md:mb-12">
                 Cập nhật {new Date(currentLesson?.updatedAt).toLocaleDateString()}
               </p>
             </header>
@@ -78,7 +82,7 @@ export default function CourseMainContent({
             <Button variant="secondary" onClick={handleClickAddNote}>
               <div className="flex justify-between gap-[8] items-center">
                 <Plus size="14" />
-                <span className="text-[13px]">
+                <span className="text-[13px] font-normal">
                   Thêm ghi chú tại
                   <span className="ml-[4] font-semibold">{formatSecondsToTime(currentTime)}</span>
                 </span>

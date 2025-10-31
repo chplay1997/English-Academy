@@ -94,7 +94,7 @@ export function NotesSheet(props: INotesSheetProps) {
       <SheetTrigger asChild>
         <Button variant="ghost" className="rounded-[99px]">
           <NotebookPen />
-          Ghi chú
+          <span className="hidden lg:inline">Ghi chú</span>
         </Button>
       </SheetTrigger>
 

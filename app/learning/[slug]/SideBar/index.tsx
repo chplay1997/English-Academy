@@ -26,18 +26,22 @@ export function SideBar({ courseState, open, setOpen, setCourseState, handleSetC
 
   const lockedLessonIndex = lastCompletedLessonIndex === -1 ? 1 : lastCompletedLessonIndex + 2
 
+  const handleTogleOpen = () => {
+    setOpen(!open)
+  }
+
   return (
     <>
       <CourseSidebar
         courseState={courseState}
         open={open}
-        setOpen={setOpen}
+        handleTogleOpen={handleTogleOpen}
         handleSetCurrentLessonId={handleSetCurrentLessonId}
         lockedLessonIndex={lockedLessonIndex}
       />
 
       <DirectionBar
-        handleTogleOpen={() => setOpen(!open)}
+        handleTogleOpen={handleTogleOpen}
         open={open}
         courseState={courseState}
         handleSetCurrentLessonId={handleSetCurrentLessonId}

@@ -6,7 +6,7 @@ export const courses = [
     author: 'Anonymous',
     oldPrice: 1999000,
     newPrice: 0,
-    color: 'bg-gradient-to-br from-blue-500 to-indigo-600',
+    level: 'beginner',
   },
   {
     title: 'TOEIC INTERMEDIATE',
@@ -15,7 +15,7 @@ export const courses = [
     author: 'Anonymous',
     oldPrice: 2999000,
     newPrice: 0,
-    color: 'bg-gradient-to-br from-yellow-400 to-orange-500',
+    level: 'intermediate',
   },
   {
     title: 'TOEIC ADVANCED',
@@ -24,7 +24,7 @@ export const courses = [
     author: 'Anonymous',
     oldPrice: 9990000,
     newPrice: 0,
-    color: 'bg-gradient-to-br from-pink-500 to-rose-600',
+    level: 'advanced',
   },
 ]
 

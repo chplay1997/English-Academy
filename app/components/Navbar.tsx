@@ -15,25 +15,31 @@ export default function Navbar() {
   ]
 
   return (
-    <ul className="w-[96px] md:px-[12] flex flex-col gap-[8] py-[12]">
-      {navItems.map(item => {
-        const isActive = pathname === item.href
-        return (
-          <li key={item.href}>
-            <Link href={item.href} prefetch>
-              <Button
-                variant={isActive ? 'secondary' : 'ghost'}
-                className={`rounded-2xl w-[72px] h-[72px] flex flex-col items-center justify-center text-sm transition-all
-                  ${isActive ? 'shadow-md scale-105' : 'opacity-80 hover:opacity-100 hover:scale-105'}
+    <div className="fixed md:static bottom-0 left-0 right-0 bg-white">
+      <ul className="w-full md:w-24 md:px-3 flex md:flex-col gap-2 md:py-3 md:sticky md:top-20 z-1 justify-evenly ">
+        {navItems.map(item => {
+          const isActive = pathname === item.href
+          return (
+            <li key={item.href}>
+              <Link href={item.href} prefetch>
+                <Button
+                  variant={isActive ? 'secondary' : 'ghost'}
+                  className={`rounded-2xl h-15 md:w-18 md:h-18 flex flex-col items-center justify-center transition-all
+                  ${
+                    isActive
+                      ? 'shadow-md md:scale-105 text-[#f05123] md:text-black'
+                      : 'opacity-80 hover:opacity-100 hover:scale-105'
+                  }
                 `}
-              >
-                {item.icon}
-                <span>{item.label}</span>
-              </Button>
-            </Link>
-          </li>
-        )
-      })}
-    </ul>
+                >
+                  <span className="text-lg">{item.icon}</span>
+                  <span className="text-xs text-black">{item.label}</span>
+                </Button>
+              </Link>
+            </li>
+          )
+        })}
+      </ul>
+    </div>
   )
 }

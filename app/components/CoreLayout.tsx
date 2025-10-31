@@ -6,7 +6,7 @@ export default function CoreLayout({ children }: { children: React.ReactNode }) 
   return (
     <>
       <HeaderBar />
-      <main className="flex py-[66]">
+      <main className="flex pt-16">
         <Navbar />
         {children}
       </main>

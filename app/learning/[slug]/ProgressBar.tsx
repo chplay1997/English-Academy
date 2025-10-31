@@ -6,7 +6,6 @@ import Link from 'next/link'
 import { NotesSheet } from './NotesSheet'
 import { Dispatch, SetStateAction } from 'react'
 import { ICourseState } from './CourseClient'
-import Player from '@vimeo/player'
 
 interface ProgressBarProps {
   courseState: ICourseState
@@ -15,25 +14,27 @@ interface ProgressBarProps {
 }
 
 export default function ProgressBar({ courseState, setCourseState, handleSetCurrentLessonId }: ProgressBarProps) {
-  const { sections, userLessonProgress, videoLessonsCount } = courseState
+  const { userLessonProgress } = courseState
   const totalCompletedLessons =
-    courseState.userLessonProgress?.lessons.reduce((count, lesson) => (lesson.completed ? count + 1 : count), 0) || 0
+    userLessonProgress?.lessons?.reduce((count, lesson) => (lesson.completed ? count + 1 : count), 0) || 0
 
   return (
-    <div className="h-[50px] flex justify-between items-center px-[28] fixed w-full z-4 text-white bg-[#29303b]">
-      <Link href="/#" className="flex items-center gap-2">
+    <div className="h-12.5 flex justify-between items-center pr-4 lg:px-7 fixed w-full z-4 text-white bg-[#29303b] gap-4">
+      <Link href="/#" className="flex items-center gap-2 truncate">
         <Button variant="ghost" className="rounded-[99px]">
           <ArrowLeft className="w-5 h-5" />
         </Button>
-        <div className="bg-[#f05123] text-white font-bold text-lg h-[30] w-[30] text-center rounded-md">EA</div>
-        <span className="font-semibold ">{courseState.title}</span>
+        <div className="bg-[#f05123] text-white font-bold text-lg h-[30] w-[30] text-center rounded-md hidden lg:block">
+          EA
+        </div>
+        <span className="font-semibold text-sm truncate">{courseState.title}</span>
       </Link>
 
       <div className="flex justify-between items-center gap-[8]">
         <div className="flex items-center gap-2 text-sm text-white">
           <ProgressCircle percent={Math.round((totalCompletedLessons / courseState.videoLessonsCount) * 100)} />
 
-          <div className="flex items-center gap-1 text-[13px]">
+          <div className="items-center gap-1 text-[13px] hidden lg:flex">
             <span className="font-semibold">
               {totalCompletedLessons}/{courseState.videoLessonsCount}
             </span>
@@ -52,7 +53,7 @@ export default function ProgressBar({ courseState, setCourseState, handleSetCurr
           handleSetCurrentLessonId={handleSetCurrentLessonId}
         />
 
-        <Button variant="ghost" className="rounded-[99px]" disabled>
+        <Button variant="ghost" className="rounded-[99px] hidden lg:flex" disabled>
           <CircleQuestionMark />
           Hướng dẫn
         </Button>

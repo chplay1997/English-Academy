@@ -29,10 +29,10 @@ export function CourseContent({ courseData }: { courseData: ICourseData }) {
 
   const toggleButtonText = openItems.length > 0 ? 'Thu nhỏ tất cả' : 'Mở rộng tất cả'
   return (
-    <div className=" md:px-[66px] md:py-[24px] w-full flex flex-col lg:flex-row gap-8">
-      <div className="lg:w-2/3 space-y-8">
+    <div className="px-4 py-6 md:px-16.5 w-full flex flex-col md:flex-row gap-8">
+      <div className="md:w-2/3 space-y-8">
         <section>
-          <h1 className="text-3xl lg:text-4xl font-bold">{title}</h1>
+          <h1 className="text-3xl md:text-4xl font-bold">{title}</h1>
           <p className="text-[#000c] leading-relaxed mt-4">{subtitle}</p>
         </section>
 
@@ -58,7 +58,7 @@ export function CourseContent({ courseData }: { courseData: ICourseData }) {
                   {section.lessons.map((lesson, lessonIndex) => (
                     <div
                       key={lessonIndex}
-                      className="px-6 flex items-center min-h-12 border-b-[1px] border-[#00000008] justify-between"
+                      className="gap-4 px-6 flex items-center min-h-12 border-b-[1px] border-[#00000008] justify-between"
                     >
                       <div className="flex items-center">
                         <BookOpen className="w-4 h-4 mr-2" />
@@ -76,9 +76,9 @@ export function CourseContent({ courseData }: { courseData: ICourseData }) {
         </section>
       </div>
 
-      <div className="hidden lg:block lg:w-1/3">
-        <div className="sticky top-8 bg-white p-6 rounded-lg flex items-center flex-col ">
-          <div className="relative mb-5 w-full">
+      <div className="md:w-1/3 fixed md:static bottom-15 right-0 left-0">
+        <div className="sticky top-8 bg-white py-2.5 md:p-6 md:rounded-lg flex items-center flex-col ">
+          <div className="hidden md:block relative mb-5 w-full">
             <div className="aspect-video bg-black flex items-center justify-center rounded-lg overflow-hidden">
               <div className="relative pt-[56.25%] w-full">
                 <iframe
@@ -92,12 +92,12 @@ export function CourseContent({ courseData }: { courseData: ICourseData }) {
             </div>
           </div>
 
-          <h3 className="text-4xl font-normal text-[#f05123] text-center mb-4 opacity-80">
+          <h3 className="hidden md:block text-4xl font-normal text-[#f05123] text-center mb-4 opacity-80">
             {newPrice === 0 ? 'Miễn phí' : newPrice}
           </h3>
           <RegisterCourse />
 
-          <div className="mt-6 space-y-3 text-sm">
+          <div className="hidden md:block mt-6 space-y-3 text-sm">
             <StatItem icon={Layers}>Trình độ: cơ bản</StatItem>
             <StatItem icon={BookOpen}>
               Tổng số: <b>{courseData.videoLessonsCount}</b> bài học

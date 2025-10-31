@@ -3,7 +3,7 @@ import { Facebook, Youtube, Music } from 'lucide-react'
 
 export default function Footer() {
   return (
-    <footer className="bg-[#111] text-gray-300 py-10 px-6 md:px-20">
+    <footer className="bg-[#111] text-gray-300 pt-7.5 pb-50 md:pb-10 md:pt-8 px-6 md:px-20">
       <div className="grid md:grid-cols-4 gap-10 border-b border-gray-700 pb-10">
         {/* Cột 1 */}
         <div>
