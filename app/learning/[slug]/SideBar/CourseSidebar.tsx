@@ -5,13 +5,14 @@ import { formatSecondsToTime } from '@/lib/utils'
 import { useEffect, useState } from 'react'
 import { ICourseState } from '../CourseClient'
 import { Button } from '@/components/ui/button'
+import { useDeviceType } from '@/hooks/useDeviceType'
 
 interface ICourseSidebarProps {
   courseState: ICourseState
   open: boolean
   handleSetCurrentLessonId: (id: string) => void
   lockedLessonIndex: number
-  handleTogleOpen: () => void
+  handleToggleOpen: () => void
 }
 
 export default function CourseSidebar({
@@ -19,9 +20,18 @@ export default function CourseSidebar({
   open,
   handleSetCurrentLessonId,
   lockedLessonIndex,
-  handleTogleOpen,
+  handleToggleOpen,
 }: ICourseSidebarProps) {
   const { currentLessonId, userLessonProgress } = courseState
+  const deviceType = useDeviceType()
+
+  const handleClickLesson = (id: string) => {
+    handleSetCurrentLessonId(id)
+    if (deviceType === 'mobile' || deviceType === 'tablet') {
+      handleToggleOpen()
+    }
+  }
+
   let cachedLessonIndex = 0
 
   const lessonIdCompleted =
@@ -45,7 +55,7 @@ export default function CourseSidebar({
   return (
     <>
       <div
-        onClick={handleTogleOpen}
+        onClick={handleToggleOpen}
         className={`fixed inset-0 bg-black/50 z-5 lg:hidden ${open ? 'block' : 'hidden'}`}
       />
       <div
@@ -56,7 +66,7 @@ export default function CourseSidebar({
       >
         <header className="lg:px-4 pl-4 pr-2 py-[12] flex justify-between items-center">
           <h1 className="font-semibold">Nội dung khóa học</h1>
-          <Button variant="ghost" onClick={handleTogleOpen} className="lg:hidden">
+          <Button variant="ghost" onClick={handleToggleOpen} className="lg:hidden">
             <X />
           </Button>
         </header>
@@ -100,7 +110,7 @@ export default function CourseSidebar({
                             ? 'bg-[#f0512333]'
                             : 'cursor-pointer hover:bg-[#f1f1f1]'
                         }`}
-                        onClick={() => _id !== currentLessonId && !isLocked && handleSetCurrentLessonId(_id)}
+                        onClick={() => _id !== currentLessonId && !isLocked && handleClickLesson(_id)}
                       >
                         <div className={`py-[10] `}>
                           <div className="ml-[30] flex justify-between items-center">

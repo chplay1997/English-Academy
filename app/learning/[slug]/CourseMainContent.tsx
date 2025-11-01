@@ -9,14 +9,14 @@ import { Heart, Plus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { ICourseState } from './CourseClient'
 import { notFound } from 'next/navigation'
+import { useDebouncedAction } from '@/hooks/useDebouncedAction'
+import { useDebouncedValue } from '@/hooks/useDebouncedValue'
 
 interface ICourseMainContentProps {
   open: boolean
   playerRef: React.RefObject<Player | null>
   courseState: ICourseState
   setCourseState: Dispatch<SetStateAction<ICourseState>>
-  loadingVideo: boolean
-  setLoadingVideo: Dispatch<SetStateAction<boolean>>
   currentTime: number
   setCurrentTime: Dispatch<SetStateAction<number>>
 }
@@ -26,8 +26,6 @@ export default function CourseMainContent({
   playerRef,
   courseState,
   setCourseState,
-  loadingVideo,
-  setLoadingVideo,
   currentTime,
   setCurrentTime,
 }: ICourseMainContentProps) {
@@ -47,6 +45,7 @@ export default function CourseMainContent({
   }
 
   const vimeoID = currentLesson?.video?.vimeoId
+  const vimeoIDDebounced = useDebouncedValue(vimeoID)
 
   if (!currentLesson || !currentSection) return notFound()
 
@@ -57,21 +56,20 @@ export default function CourseMainContent({
           open ? 'lg:right-[23%]' : ''
         } top-[50px] left-[0] bottom-[50px] overflow-y-auto`}
       >
-        {!!vimeoID && (
+        {!!vimeoIDDebounced && (
           <VideoContent
             userLessonProgress={userLessonProgress}
-            vimeoID={vimeoID}
+            vimeoID={vimeoIDDebounced}
             setCurrentTime={setCurrentTime}
             playerRef={playerRef}
             courseSlug={slug}
             lessonId={currentLessonId}
             setCourseState={setCourseState}
-            loadingVideo={loadingVideo}
-            setLoadingVideo={setLoadingVideo}
+            timeFirstLoad={courseState.timeFirstLoad}
           />
         )}
         <div className="px-4 md:px-[8.5%] lg:px-[16%] min-h-[400px]">
-          <div className="flex justify-between items-center flex-wrap ">
+          <div className="flex justify-between items-center flex-wrap lg:flex-nowrap">
             <header>
               <h1 className="text-[28px] font-semibold mt-[48px] mb-[8px]">{currentLesson.title}</h1>
               <p className="text-[13px] mb-6 md:mb-12">

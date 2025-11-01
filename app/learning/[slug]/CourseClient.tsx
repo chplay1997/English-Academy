@@ -13,6 +13,7 @@ export interface ICourseClientProps {
 
 export interface ICourseState extends ICourseData {
   currentLessonId: string
+  timeFirstLoad: number
 }
 
 export default function CourseClient({ courseData }: ICourseClientProps) {
@@ -22,11 +23,11 @@ export default function CourseClient({ courseData }: ICourseClientProps) {
   const [courseState, setCourseState] = useState<ICourseState>({
     ...courseData,
     currentLessonId: lessonId,
+    timeFirstLoad: 0,
   })
 
   const { sections, currentLessonId } = courseState
   const [open, setOpen] = useState(false)
-  const [loadingVideo, setLoadingVideo] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
 
   const playerRef = useRef<Player | null>(null)
@@ -41,33 +42,12 @@ export default function CourseClient({ courseData }: ICourseClientProps) {
       playerRef.current?.setCurrentTime(time || 0)
       return
     }
-    setLoadingVideo(true)
     setCourseState(prev => ({
       ...prev,
       currentLessonId: newID,
+      timeFirstLoad: time || 0,
     }))
     router.push(`?id=${newID}`)
-
-    const newLesson = courseState.sections.flatMap(s => s.lessons).find(l => l._id === newID)
-    const newVimeoId = newLesson?.video?.vimeoId
-    if (!playerRef.current || !newVimeoId) return
-
-    const isPaused = await playerRef.current.getPaused()
-
-    playerRef.current
-      .loadVideo(newVimeoId)
-      .then(async () => {
-        await playerRef.current?.setCurrentTime(time || 0)
-        setCurrentTime(time || 0)
-        if (isPaused) {
-          playerRef.current?.pause()
-        } else {
-          playerRef.current?.play()
-        }
-      })
-      .catch(error => {
-        console.error('Error loading video:', error)
-      })
   }
 
   return (
@@ -83,8 +63,6 @@ export default function CourseClient({ courseData }: ICourseClientProps) {
         setCourseState={setCourseState}
         open={open}
         playerRef={playerRef}
-        loadingVideo={loadingVideo}
-        setLoadingVideo={setLoadingVideo}
         currentTime={currentTime}
         setCurrentTime={setCurrentTime}
       />

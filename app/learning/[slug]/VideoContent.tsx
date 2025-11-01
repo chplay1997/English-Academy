@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Player from '@vimeo/player'
 import Script from 'next/script'
 import { Dispatch, SetStateAction } from 'react'
@@ -15,9 +15,8 @@ interface IVideoContent {
   setCurrentTime: (currentTime: number) => void
   playerRef: React.RefObject<Player | null>
   setCourseState: Dispatch<SetStateAction<ICourseState>>
-  loadingVideo: boolean
-  setLoadingVideo: Dispatch<SetStateAction<boolean>>
   userLessonProgress: UserLessonProgressBase
+  timeFirstLoad: number
 }
 
 export default function VideoContent({
@@ -27,28 +26,26 @@ export default function VideoContent({
   setCurrentTime,
   playerRef,
   setCourseState,
-  loadingVideo,
-  setLoadingVideo,
   userLessonProgress,
+  timeFirstLoad,
 }: IVideoContent) {
   const iframeRef = useRef<HTMLIFrameElement>(null)
+  const isPlayingRef = useRef(false)
+  const [loadingVideo, setLoadingVideo] = useState(true)
 
-  // 🔹 Setup player only once
   useEffect(() => {
-    setLoadingVideo(true)
     let lastSent = 0
     let hasCompletedSent = false
     let cachedUserLessonProgress = userLessonProgress
     if (!iframeRef.current) return
+    setLoadingVideo(true)
 
-    if (!playerRef.current) {
-      playerRef.current = new Player(iframeRef.current)
-    }
-
-    const player = playerRef.current
+    // Always create a new player every time vimeoID changes
+    const player = new Player(iframeRef.current)
+    playerRef.current = player
 
     // --- Learning progress update function ---
-    const updateProgress = async (seconds: number, duration: number, completed = false) => {
+    const updateProgress = async (seconds: number, duration: number) => {
       const currentLessonId = iframeRef.current?.dataset.lessonId
 
       if (!currentLessonId) return
@@ -61,7 +58,6 @@ export default function VideoContent({
             lessonId: currentLessonId,
             lastWatched: seconds,
             duration,
-            completed,
           }),
         })
 
@@ -84,6 +80,8 @@ export default function VideoContent({
     player.off('timeupdate')
     player.off('ended')
 
+    player.setCurrentTime(timeFirstLoad)
+
     // --- timeupdate (when video is playing) ---
     player.on('timeupdate', async ({ seconds, duration }) => {
       setCurrentTime(seconds)
@@ -93,33 +91,45 @@ export default function VideoContent({
       lastSent = lastSent > seconds ? seconds : lastSent
       const isValidSendAfterSeconds = seconds - lastSent >= 15
       if (isValidSendAfterSeconds || (isCompleted && !hasCompletedSent)) {
-        await updateProgress(seconds, duration, isCompleted)
+        await updateProgress(seconds, duration)
         lastSent = seconds
         if (isCompleted) hasCompletedSent = true
       }
     })
 
+    player.on('play', async () => {
+      isPlayingRef.current = true
+    })
+
+    player.on('pause', async () => {
+      isPlayingRef.current = false
+    })
+
     // --- Ended ---
     player.on('ended', async ({ seconds, duration }) => {
-      await updateProgress(seconds, duration, true)
+      await updateProgress(seconds, duration)
     })
 
     // --- Update duration when video changes ---
     player.on('loaded', async () => {
       lastSent = await player.getCurrentTime()
       hasCompletedSent = false
+      setCurrentTime(lastSent)
+      if (isPlayingRef.current) {
+        player.play().catch(error => {
+          console.error('Error playing video:', error)
+        })
+      }
       setLoadingVideo(false)
     })
 
     return () => {
-      player.off('timeupdate')
-      player.off('ended')
-      player.off('loaded')
+      player.destroy()
     }
-  }, [])
+  }, [vimeoID])
 
   return (
-    <div className="w-full relative bg-black md:px-[8.5%] lg:px-[16%]">
+    <div className="w-full relative bg-black md:px-[8.5%] lg:px-[16%]" key={vimeoID}>
       {loadingVideo && (
         <div className="absolute inset-0 flex items-center justify-center bg-black z-10">
           <Spinner className="h-12 w-12 text-white" />

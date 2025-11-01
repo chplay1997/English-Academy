@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import { ICourseState } from '../CourseClient'
 
 interface ProgressBarProps {
-  handleTogleOpen: () => void
+  handleToggleOpen: () => void
   open: boolean
   courseState: ICourseState
   lockedLessonIndex: number
@@ -11,7 +11,7 @@ interface ProgressBarProps {
 }
 
 export default function DirectionBar({
-  handleTogleOpen,
+  handleToggleOpen,
   open,
   courseState,
   lockedLessonIndex,
@@ -63,7 +63,7 @@ export default function DirectionBar({
       </div>
 
       <div className="absolute left-0 lg:right-0 lg:left-auto lg:flex-row-reverse flex justify-end items-center gap-[8]">
-        <Button variant="ghost" onClick={handleTogleOpen}>
+        <Button variant="ghost" onClick={handleToggleOpen}>
           {open ? <ArrowRight /> : <Menu />}
         </Button>
 

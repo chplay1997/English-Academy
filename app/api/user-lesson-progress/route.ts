@@ -127,6 +127,11 @@ export async function PUT(request: Request) {
     // --- 5️⃣ Calculate progress percentage ---
     const progressPercent = duration && duration > 0 ? Math.min((lastWatched / duration) * 100, 100) : 0
 
+    const currentLessonProgress = userProgress?.lessons?.find(l => l.lessonId.toString() === lessonId.toString())
+
+    const lessonCompleted = currentLessonProgress?.completed || progressPercent >= 90
+    const lessonProgressPercent = Math.max(currentLessonProgress?.progressPercent ?? 0, progressPercent)
+
     // --- 6️⃣ Update or create ---
     const updated = await UserLessonProgress.findOneAndUpdate(
       {
@@ -138,8 +143,8 @@ export async function PUT(request: Request) {
         $set: {
           'lessons.$.lastWatched': lastWatched,
           'lessons.$.duration': duration,
-          'lessons.$.progressPercent': progressPercent,
-          'lessons.$.completed': completed ?? progressPercent >= 90,
+          'lessons.$.progressPercent': lessonProgressPercent,
+          'lessons.$.completed': lessonCompleted,
         },
       },
       { new: true }
@@ -157,8 +162,8 @@ export async function PUT(request: Request) {
               lessonId,
               lastWatched,
               duration,
-              progressPercent,
-              completed: completed ?? progressPercent >= 90,
+              progressPercent: lessonProgressPercent,
+              completed: lessonCompleted,
             },
           },
         },
