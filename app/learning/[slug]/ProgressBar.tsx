@@ -20,15 +20,17 @@ export default function ProgressBar({ courseState, setCourseState, handleSetCurr
 
   return (
     <div className="h-12.5 flex justify-between items-center pr-4 lg:px-7 fixed w-full z-4 text-white bg-[#29303b] gap-4">
-      <Link href="/#" className="flex items-center gap-2 truncate">
-        <Button variant="ghost" className="rounded-[99px]">
-          <ArrowLeft className="w-5 h-5" />
-        </Button>
-        <div className="bg-[#f05123] text-white font-bold text-lg h-[30] w-[30] text-center rounded-md hidden lg:block">
-          EA
-        </div>
+      <div className="flex items-center gap-2 truncate">
+        <Link href="/#" className="flex items-center gap-2 truncate">
+          <Button variant="ghost" className="rounded-[99px]">
+            <ArrowLeft className="w-5 h-5" />
+          </Button>
+          <div className="bg-[#f05123] text-white font-bold text-lg h-[30] w-[30] text-center rounded-md hidden lg:block">
+            EA
+          </div>
+        </Link>
         <span className="font-semibold text-sm truncate">{courseState.title}</span>
-      </Link>
+      </div>
 
       <div className="flex justify-between items-center gap-[8]">
         <div className="flex items-center gap-2 text-sm text-white">

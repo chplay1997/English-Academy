@@ -62,7 +62,7 @@ export default function CourseList({ courses }: { courses: ICourseClient[] }) {
                   </div>
 
                   <div className="flex items-center justify-between gap-2 text-sm text-gray-600">
-                    <span className="flex items-center gap-1 hidden md:block">
+                    <span className="items-center gap-1 hidden md:flex">
                       <Users size={14} /> {students}
                     </span>
                     <span className="flex items-center gap-1">
