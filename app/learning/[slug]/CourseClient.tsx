@@ -1,11 +1,12 @@
 'use client'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useRouter, useSearchParams, notFound } from 'next/navigation'
 import ProgressBar from './ProgressBar'
 import CourseMainContent from './CourseMainContent'
 import Player from '@vimeo/player'
 import { ICourseData } from '@/types/course'
 import { SideBar } from './SideBar'
+import { useDeviceType } from '@/hooks/useDeviceType'
 
 export interface ICourseClientProps {
   courseData: ICourseData
@@ -26,13 +27,23 @@ export default function CourseClient({ courseData }: ICourseClientProps) {
     timeFirstLoad: 0,
   })
 
+  const deviceType = useDeviceType()
+
   const { sections, currentLessonId } = courseState
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(deviceType !== 'mobile')
   const [currentTime, setCurrentTime] = useState(0)
 
   const playerRef = useRef<Player | null>(null)
 
   const allLessonIds = sections.flatMap(section => section.lessons.map(lesson => lesson._id))
+
+  useEffect(() => {
+    if (deviceType === 'mobile' || deviceType === 'tablet') {
+      setOpen(false)
+    } else {
+      setOpen(true)
+    }
+  }, [deviceType])
 
   if (!courseState || !allLessonIds.includes(currentLessonId)) return notFound()
 

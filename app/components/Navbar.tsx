@@ -4,9 +4,11 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Home, MapMinus, Newspaper } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { useState } from 'react'
 
 export default function Navbar() {
   const pathname = usePathname()
+  const [activeItem, setActiveItem] = useState(pathname || '/')
 
   const navItems = [
     { href: '/', label: 'Trang chủ', icon: <Home size={20} /> },
@@ -16,13 +18,14 @@ export default function Navbar() {
 
   return (
     <div className="fixed md:static bottom-0 left-0 right-0 bg-white z-5">
-      <ul className="w-full md:w-24 md:px-3 flex md:flex-col gap-2 md:py-3 md:sticky md:top-20 justify-evenly ">
+      <ul className="w-full md:w-24 md:px-3 flex md:flex-col gap-2 md:py-3 md:sticky md:top-0 justify-evenly ">
         {navItems.map(item => {
-          const isActive = pathname === item.href
+          const isActive = activeItem === item.href
           return (
             <li key={item.href}>
               <Link href={item.href} prefetch>
                 <Button
+                  onClick={() => setActiveItem(item.href)}
                   variant={isActive ? 'secondary' : 'ghost'}
                   className={`rounded-2xl h-15 md:w-18 md:h-18 flex flex-col items-center justify-center transition-all
                   ${
