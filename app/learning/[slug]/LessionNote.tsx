@@ -1,7 +1,6 @@
 'use client'
 import { Dispatch, SetStateAction, useState } from 'react'
 import { useParams } from 'next/navigation'
-import { IUserLessonNote } from '@/models/userLessonNote.model'
 import { toast } from 'sonner'
 import { TextEditor } from './TextEditor'
 import { ICourseState } from './CourseClient'
@@ -74,7 +73,6 @@ export function LessonNoteForm({
         content={content}
         setContent={setContent}
         loading={loading}
-        setLoading={setLoading}
         handleCancel={handleCancel}
         handleSubmit={handleSubmit}
       />

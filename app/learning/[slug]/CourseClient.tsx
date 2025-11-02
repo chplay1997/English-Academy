@@ -82,7 +82,6 @@ export default function CourseClient({ courseData }: ICourseClientProps) {
         courseState={courseState}
         open={open}
         setOpen={setOpen}
-        setCourseState={setCourseState}
         handleSetCurrentLessonId={handleSetCurrentLessonId}
       />
     </>

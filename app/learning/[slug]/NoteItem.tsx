@@ -10,8 +10,6 @@ import { PopoverClose } from '@radix-ui/react-popover'
 import { TextEditor } from './TextEditor'
 import { ICourseState } from './CourseClient'
 import { SheetClose } from '@/components/ui/sheet'
-import Player from '@vimeo/player'
-import { useRouter } from 'next/navigation'
 
 interface NoteItemProps {
   courseState: ICourseState
@@ -45,8 +43,6 @@ export function NoteItem(props: NoteItemProps) {
   const [editingContent, setEditingContent] = useState(content)
   const currentSectionNote = courseState.sections.find(section => section.order === sectionOrder)
   const currentLessonNote = currentSectionNote?.lessons.find(lesson => lesson.order === lessonOrder)
-
-  const router = useRouter()
 
   const handleDelete = async () => {
     setLoading(true)
@@ -126,7 +122,6 @@ export function NoteItem(props: NoteItemProps) {
           content={editingContent}
           setContent={setEditingContent}
           loading={loading}
-          setLoading={setLoading}
           handleCancel={handleCancel}
           handleSubmit={handleSubmit}
           primaryText="Lưu lại"

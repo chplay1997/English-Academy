@@ -96,7 +96,7 @@ export default function CourseSidebar({
                     </div>
                   </AccordionTrigger>
 
-                  {lessons.map(({ duration, title, video, _id }, index) => {
+                  {lessons.map(({ duration, title, _id }, index) => {
                     const isLocked = cachedLessonIndex >= lockedLessonIndex
                     cachedLessonIndex++
 

@@ -5,11 +5,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { NotebookPen } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { NoteItem } from './NoteItem'
-import { IUserLessonNote } from '@/models/userLessonNote.model'
 import { Dispatch, SetStateAction, useState } from 'react'
 import { toast } from 'sonner'
 import { ICourseState } from './CourseClient'
-import Player from '@vimeo/player'
 
 interface INotesSheetProps {
   courseState: ICourseState

@@ -2,14 +2,12 @@
 import { Dispatch, SetStateAction, useState } from 'react'
 import VideoContent from './VideoContent'
 import { LessonNoteForm } from './LessionNote'
-import { IUserLessonNote } from '@/models/userLessonNote.model'
 import Player from '@vimeo/player'
 import { formatSecondsToTime } from '@/lib/utils'
 import { Heart, Plus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { ICourseState } from './CourseClient'
 import { notFound } from 'next/navigation'
-import { useDebouncedAction } from '@/hooks/useDebouncedAction'
 import { useDebouncedValue } from '@/hooks/useDebouncedValue'
 
 interface ICourseMainContentProps {

@@ -5,16 +5,6 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth.config'
 import { getCourseData } from '@/services/course/getCourseData'
 
-interface ICourseData {
-  slug: string
-  userId?: string
-}
-
-interface ICourse {
-  slug: string
-  userId?: string
-}
-
 export default async function Courses({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const session = await getServerSession(authOptions)

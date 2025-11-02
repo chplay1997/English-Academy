@@ -5,6 +5,7 @@ import { Search, X } from 'lucide-react'
 import Image from 'next/image'
 import { Input } from '@/components/ui/input'
 import { useRouter } from 'next/navigation'
+import { ICourse } from '@/models/course.model'
 
 export function SearchBar() {
   const [query, setQuery] = useState('')
@@ -12,7 +13,7 @@ export function SearchBar() {
   const [showTopShadow, setShowTopShadow] = useState(false)
   const [showBottomShadow, setShowBottomShadow] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [results, setResults] = useState<{ courses: any[] }>({ courses: [] })
+  const [results, setResults] = useState<{ courses: ICourse[] }>({ courses: [] })
   const scrollRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
 
@@ -83,11 +84,11 @@ export function SearchBar() {
           {/* Header */}
           <div className="p-4 border-b text-gray-600 text-sm sticky top-0 bg-white z-10">
             {loading ? (
-              <>Đang tìm kiếm...</>
+              <p>Đang tìm kiếm...</p>
             ) : (
-              <>
-                Kết quả cho <span className="font-medium text-gray-900">'{query}'</span>
-              </>
+              <p>
+                Kết quả cho <span className="font-medium text-gray-900">&apos;{query}&apos;</span>
+              </p>
             )}
           </div>
 

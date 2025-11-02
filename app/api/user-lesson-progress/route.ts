@@ -32,8 +32,9 @@ export async function GET(request: Request) {
     }).lean()
 
     return NextResponse.json({ success: true, data: progress || null })
-  } catch (error: any) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 401 })
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Internal server error'
+    return NextResponse.json({ success: false, error: message }, { status: 401 })
   }
 }
 
@@ -76,7 +77,7 @@ export async function PUT(request: Request) {
     await connectDB()
 
     const body = await request.json()
-    const { courseSlug, lessonId: lessonIdString, lastWatched, duration, completed } = body
+    const { courseSlug, lessonId: lessonIdString, lastWatched, duration } = body
 
     if (!courseSlug || !lessonIdString)
       return NextResponse.json({ success: false, error: 'Missing courseSlug or lessonId' }, { status: 400 })
@@ -174,8 +175,9 @@ export async function PUT(request: Request) {
     }
 
     return NextResponse.json({ success: true, data: updated })
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error in PUT /user-lesson-progress:', error)
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 })
+    const message = error instanceof Error ? error.message : 'Internal server error'
+    return NextResponse.json({ success: false, error: message }, { status: 500 })
   }
 }

@@ -126,6 +126,7 @@ export default function VideoContent({
     return () => {
       player.destroy()
     }
+    // eslint-disable-next-line
   }, [vimeoID])
 
   return (

@@ -10,14 +10,13 @@ interface ITextEditorProps {
   content: string
   setContent: Dispatch<SetStateAction<string>>
   loading: boolean
-  setLoading: Dispatch<SetStateAction<boolean>>
   handleCancel: () => void
   handleSubmit: () => void
   primaryText?: string
 }
 
 export function TextEditor(props: ITextEditorProps) {
-  const { currentTime, content, setContent, loading, setLoading, handleCancel, handleSubmit, primaryText } = props
+  const { currentTime, content, setContent, loading, handleCancel, handleSubmit, primaryText } = props
 
   return (
     <div className="container mx-auto p-4">
