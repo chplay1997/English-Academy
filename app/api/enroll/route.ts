@@ -4,6 +4,7 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth.config'
 import mongoose from 'mongoose'
 import { redis } from '@/lib/redis'
+import { GET_COURSE_CACHE_KEY } from '@/services/course/getCourseData'
 
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions)
@@ -29,7 +30,7 @@ export async function POST(req: Request) {
   const enroll = await Enrollment.create({ userId, courseSlug })
 
   // Delete cache after enrollment to correctly redirect to the learning page
-  await redis.del(`course:${courseSlug}-${userId}`)
+  await redis.del(GET_COURSE_CACHE_KEY(courseSlug, userId.toString()))
 
   return new Response(JSON.stringify({ success: true, enroll }), { status: 201 })
 }

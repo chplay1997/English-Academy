@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useRouter, useSearchParams, notFound } from 'next/navigation'
 import ProgressBar from './ProgressBar'
 import CourseMainContent from './CourseMainContent'
@@ -20,22 +20,59 @@ export interface ICourseState extends ICourseData {
 export default function CourseClient({ courseData }: ICourseClientProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const lessonId = searchParams.get('id') || courseData.sections[0]?.lessons?.[0]?._id || ''
+  const searchParamsId = searchParams.get('id')
+
+  const allLessonIds = courseData.sections.flatMap(section => section.lessons.map(lesson => lesson._id))
+
+  const getCurrentLesson = useCallback((id: string | null) => {
+    const allLessonOnUserProgress = courseData.userLessonProgress?.lessons || []
+
+    if (id) {
+      const lessonOnUserProgress = allLessonOnUserProgress.find(lesson => String(lesson.lessonId) === id)
+      return {
+        lessonId: id,
+        lastWatched: lessonOnUserProgress?.lastWatched || 0,
+      }
+    }
+
+    if (allLessonOnUserProgress.length > 0) {
+      const lessonOnUserProgress = allLessonOnUserProgress.find(lesson => !lesson.completed)
+
+      if (lessonOnUserProgress) {
+        return {
+          lessonId: String(lessonOnUserProgress.lessonId),
+          lastWatched: lessonOnUserProgress.lastWatched,
+        }
+      }
+
+      const lastLessonOnUserProgress = allLessonOnUserProgress[allLessonOnUserProgress.length - 1]
+      const index = allLessonIds.indexOf(String(lastLessonOnUserProgress.lessonId))
+      const lessonId = allLessonIds[index + 1] || allLessonIds[index]
+      return {
+        lessonId: String(lessonId),
+        lastWatched: 0,
+      }
+    }
+
+    return {
+      lessonId: allLessonIds[0],
+      lastWatched: 0,
+    }
+  }, [])
+
   const [courseState, setCourseState] = useState<ICourseState>({
     ...courseData,
-    currentLessonId: lessonId,
-    timeFirstLoad: 0,
+    currentLessonId: getCurrentLesson(searchParamsId).lessonId,
+    timeFirstLoad: getCurrentLesson(searchParamsId).lastWatched,
   })
 
   const deviceType = useDeviceType()
 
-  const { sections, currentLessonId } = courseState
+  const { currentLessonId } = courseState
   const [open, setOpen] = useState(deviceType !== 'mobile')
   const [currentTime, setCurrentTime] = useState(0)
 
   const playerRef = useRef<Player | null>(null)
-
-  const allLessonIds = sections.flatMap(section => section.lessons.map(lesson => lesson._id))
 
   useEffect(() => {
     if (deviceType === 'mobile' || deviceType === 'tablet') {
@@ -44,6 +81,10 @@ export default function CourseClient({ courseData }: ICourseClientProps) {
       setOpen(true)
     }
   }, [deviceType])
+
+  useEffect(() => {
+    router.push(`?id=${currentLessonId}`)
+  }, [currentLessonId])
 
   if (!courseState || !allLessonIds.includes(currentLessonId)) return notFound()
 
@@ -58,7 +99,6 @@ export default function CourseClient({ courseData }: ICourseClientProps) {
       currentLessonId: newID,
       timeFirstLoad: time || 0,
     }))
-    router.push(`?id=${newID}`)
   }
 
   return (

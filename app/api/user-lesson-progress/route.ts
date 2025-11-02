@@ -7,6 +7,8 @@ import mongoose from 'mongoose'
 import { ILesson } from '@/models/lesson.model'
 import { ICourse } from '@/models/course.model'
 import { ISection } from '@/models/section.model'
+import { redis } from '@/lib/redis'
+import { GET_COURSE_CACHE_KEY } from '@/services/course/getCourseData'
 
 // Authentication middleware
 async function checkAuth() {
@@ -174,6 +176,8 @@ export async function PUT(request: Request) {
       return NextResponse.json({ success: true, data: created })
     }
 
+    // Remove cache for related course
+    redis.del(GET_COURSE_CACHE_KEY(courseSlug, user.id))
     return NextResponse.json({ success: true, data: updated })
   } catch (error) {
     console.error('Error in PUT /user-lesson-progress:', error)

@@ -2,8 +2,10 @@ import { connectDB } from '@/lib/mongoose'
 import { redis } from '@/lib/redis'
 import { getHomeCoursesPipeline } from '@/lib/pipelines/getHomeCoursesPipeline'
 
+export const GET_HOME_COURSES_CACHE_KEY = (userId: string | null) => `courses:home:${userId ?? 'public'}`
+
 export async function getHomeCourseData(userId: string | null) {
-  const cacheKey = `courses:home:${userId ?? 'public'}`
+  const cacheKey = GET_HOME_COURSES_CACHE_KEY(userId)
   const cached = await redis.get(cacheKey)
 
   if (cached) {
