@@ -16,7 +16,7 @@ export default function StudyPlan() {
   const { title, description, plans } = currentPlan
 
   return (
-    <section className="max-w-4xl mx-auto py-10 px-4">
+    <section className="max-w-4xl mx-auto p-4 pb-10">
       <div className="space-y-8">
         {/* === Title + Description === */}
         <div className="text-center">

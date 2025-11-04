@@ -67,7 +67,7 @@ export default function LearningPaths() {
   ]
 
   return (
-    <section className="max-w-7xl mx-auto px-4 py-16">
+    <section className="max-w-7xl mx-auto p-4 pb-16">
       <div className="mb-12">
         <h1 className="text-2xl font-black mb-4">Lộ trình học</h1>
         <p className="text-gray-600 text-sm">
