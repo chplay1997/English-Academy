@@ -69,7 +69,7 @@ export default function CourseClient({ courseData }: ICourseClientProps) {
   const deviceType = useDeviceType()
 
   const { currentLessonId } = courseState
-  const [open, setOpen] = useState(deviceType !== 'mobile')
+  const [open, setOpen] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
 
   const playerRef = useRef<Player | null>(null)

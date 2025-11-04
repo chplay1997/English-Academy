@@ -18,7 +18,7 @@ export default function Navbar() {
 
   return (
     <div className="fixed md:static bottom-0 left-0 right-0 bg-white z-5">
-      <ul className="w-full md:w-24 md:px-3 flex md:flex-col gap-2 md:py-3 md:sticky md:top-0 justify-evenly ">
+      <ul className="w-full md:w-24 md:px-3 flex md:flex-col gap-2 md:py-3 md:sticky md:top-16 justify-evenly ">
         {navItems.map(item => {
           const isActive = activeItem === item.href
           return (

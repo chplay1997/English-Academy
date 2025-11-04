@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 export type DeviceType = 'mobile' | 'tablet' | 'desktop'
 
 export function useDeviceType() {
-  const [deviceType, setDeviceType] = useState<DeviceType>('desktop')
+  const [deviceType, setDeviceType] = useState<DeviceType>('mobile')
 
   useEffect(() => {
     const checkDevice = () => {
