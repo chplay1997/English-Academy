@@ -1,5 +1,5 @@
 export const STUDY_PLAN = {
-  'toeic-0-300': {
+  'toeic-foundation': {
     title: 'Lộ trình học TOEIC NỀN TẢNG (0–300)',
     description: 'Kế hoạch 35 ngày giúp bạn nắm vững nền tảng ngữ pháp, từ vựng và tự tin bước vào kỳ thi.',
     plans: [
@@ -99,7 +99,7 @@ export const STUDY_PLAN = {
       { day: 'Day 35', newLesson: 'NGHỈ NGƠI', review: null },
     ],
   },
-  'toeic-300-600': {
+  'toeic-intermediate': {
     title: 'Lộ trình học TOEIC TRUNG CẤP (300–600)',
     description: 'Kế hoạch 49 ngày tập trung vào Listening Part 1-2, Reading Part 5-6 và Từ vựng theo chủ đề nâng cao.',
     plans: [
@@ -261,7 +261,7 @@ export const STUDY_PLAN = {
       { day: 'Day 49', newLesson: 'NGHỈ NGƠI', review: null },
     ],
   },
-  'toeic-600-800': {
+  'toeic-advanced': {
     title: 'Lộ trình học TOEIC CHUYÊN SÂU (600–800+)',
     description:
       'Kế hoạch 60 ngày đi sâu vào các mẹo nâng cao, từ vựng chuyên ngành và các bẫy thường gặp trong bài thi.',

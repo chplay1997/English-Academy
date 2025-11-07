@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { NotesSheet } from './NotesSheet'
 import { Dispatch, SetStateAction } from 'react'
 import { ICourseState } from './CourseClient'
+import { useRouter } from 'next/navigation'
 
 interface ProgressBarProps {
   courseState: ICourseState
@@ -15,16 +16,21 @@ interface ProgressBarProps {
 
 export default function ProgressBar({ courseState, setCourseState, handleSetCurrentLessonId }: ProgressBarProps) {
   const { userLessonProgress } = courseState
+  const router = useRouter()
   const totalCompletedLessons =
     userLessonProgress?.lessons?.reduce((count, lesson) => (lesson.completed ? count + 1 : count), 0) || 0
+
+  const handleGoToStudyPlan = () => {
+    router.push(`/learning-paths/${courseState.slug}`)
+  }
 
   return (
     <div className="h-12.5 flex justify-between items-center pr-4 lg:px-7 fixed w-full z-4 text-white bg-[#29303b] gap-4">
       <div className="flex items-center gap-2 truncate">
+        <Button variant="ghost" className="rounded-[99px]" onClick={() => router.back()}>
+          <ArrowLeft className="w-5 h-5" />
+        </Button>
         <Link href="/#" className="flex items-center gap-2 truncate">
-          <Button variant="ghost" className="rounded-[99px]">
-            <ArrowLeft className="w-5 h-5" />
-          </Button>
           <div className="bg-[#f05123] text-white font-bold text-lg h-[30] w-[30] text-center rounded-md hidden lg:block">
             EA
           </div>
@@ -55,9 +61,9 @@ export default function ProgressBar({ courseState, setCourseState, handleSetCurr
           handleSetCurrentLessonId={handleSetCurrentLessonId}
         />
 
-        <Button variant="ghost" className="rounded-[99px] hidden lg:flex" disabled>
+        <Button variant="ghost" className="rounded-[99px] hidden lg:flex" onClick={handleGoToStudyPlan}>
           <CircleQuestionMark />
-          Hướng dẫn
+          Lộ trình
         </Button>
       </div>
     </div>

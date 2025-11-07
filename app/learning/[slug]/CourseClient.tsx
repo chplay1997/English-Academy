@@ -83,7 +83,7 @@ export default function CourseClient({ courseData }: ICourseClientProps) {
   }, [deviceType])
 
   useEffect(() => {
-    router.push(`?id=${currentLessonId}`)
+    router.replace(`?id=${currentLessonId}`)
   }, [currentLessonId])
 
   if (!courseState || !allLessonIds.includes(currentLessonId)) return notFound()

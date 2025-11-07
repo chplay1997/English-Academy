@@ -31,7 +31,7 @@ export default function LearningPaths() {
         { name: 'Listening cơ bản', icon: <Headphones className="w-5 h-5" /> },
         { name: 'Reading cơ bản', icon: <FileText className="w-5 h-5" /> },
       ],
-      path: '/learning-paths/toeic-0-300',
+      path: '/learning-paths/toeic-foundation',
       color: 'border-orange-500',
     },
     {
@@ -46,7 +46,7 @@ export default function LearningPaths() {
         { name: 'Reading trung cấp', icon: <FileText className="w-5 h-5" /> },
         { name: 'Chiến lược làm bài', icon: <ClipboardList className="w-5 h-5" /> },
       ],
-      path: '/learning-paths/toeic-300-600',
+      path: '/learning-paths/toeic-intermediate',
       color: 'border-orange-500',
     },
     {
@@ -61,7 +61,7 @@ export default function LearningPaths() {
         { name: 'Phân tích lỗi sai', icon: <Brain className="w-5 h-5" /> },
         { name: 'Chiến thuật thi thật', icon: <Target className="w-5 h-5" /> },
       ],
-      path: '/learning-paths/toeic-600-800',
+      path: '/learning-paths/toeic-advanced',
       color: 'border-orange-500',
     },
   ]
@@ -79,7 +79,7 @@ export default function LearningPaths() {
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         {paths.map((path, index) => (
           <Link href={path.path} key={index}>
-            <Card className="shadow-sm hover:shadow-lg transition rounded-2xl">
+            <Card className="shadow-sm hover:shadow-lg transition rounded-2xl h-full justify-between">
               <CardHeader className="flex flex-col items-center text-center space-y-4">
                 <div className={`p-3 rounded-full border-4 ${path.color}`}>{path.icon}</div>
                 <CardTitle>{path.title}</CardTitle>
