@@ -20,10 +20,6 @@ export default function ProgressBar({ courseState, setCourseState, handleSetCurr
   const totalCompletedLessons =
     userLessonProgress?.lessons?.reduce((count, lesson) => (lesson.completed ? count + 1 : count), 0) || 0
 
-  const handleGoToStudyPlan = () => {
-    router.push(`/learning-paths/${courseState.slug}`)
-  }
-
   return (
     <div className="h-12.5 flex justify-between items-center pr-4 lg:px-7 fixed w-full z-4 text-white bg-[#29303b] gap-4">
       <div className="flex items-center gap-2 truncate">
@@ -61,10 +57,12 @@ export default function ProgressBar({ courseState, setCourseState, handleSetCurr
           handleSetCurrentLessonId={handleSetCurrentLessonId}
         />
 
-        <Button variant="ghost" className="rounded-[99px] hidden lg:flex" onClick={handleGoToStudyPlan}>
-          <CircleQuestionMark />
-          Lộ trình
-        </Button>
+        <Link href={`/learning-paths/${courseState.slug}`}>
+          <Button variant="ghost" className="rounded-[99px] hidden lg:flex">
+            <CircleQuestionMark />
+            Lộ trình
+          </Button>
+        </Link>
       </div>
     </div>
   )

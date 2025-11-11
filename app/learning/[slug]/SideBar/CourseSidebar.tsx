@@ -1,11 +1,12 @@
 'use client'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
-import { CircleCheck, CirclePlay, Disc, Lock, X } from 'lucide-react'
+import { CircleCheck, CirclePlay, CircleQuestionMark, Disc, Lock, X } from 'lucide-react'
 import { formatSecondsToTime } from '@/lib/utils'
 import { useEffect, useState } from 'react'
 import { ICourseState } from '../CourseClient'
 import { Button } from '@/components/ui/button'
 import { useDeviceType } from '@/hooks/useDeviceType'
+import { ELessonType } from '@/models/lesson.model'
 
 interface ICourseSidebarProps {
   courseState: ICourseState
@@ -83,16 +84,16 @@ export default function CourseSidebar({
 
               return (
                 <AccordionItem value={_id} key={_id}>
-                  <AccordionTrigger className="sticky py-[8] px-[20] bg-[#f7f8fa] hover:no-underline cursor-pointer hover:bg-[#edeff1]">
+                  <AccordionTrigger className="sticky py-[8] px-[20] bg-[#f7f8fa] hover:no-underline cursor-pointer hover:bg-[#edeff1] rounded-none">
                     <div className="flex flex-col gap-[10]">
                       <h3>{title}</h3>
-                      <span className="text-xs font-normal">
+                      <span className="text-xs font-normal text-gray-700">
                         {lessonCompleted.length}/{lessons.length} | {formatSecondsToTime(totalDuration)}
                       </span>
                     </div>
                   </AccordionTrigger>
 
-                  {lessons.map(({ duration, title, _id }, index) => {
+                  {lessons.map(({ duration, title, _id, type }, index) => {
                     const isLocked = cachedLessonIndex >= lockedLessonIndex
                     cachedLessonIndex++
 
@@ -113,11 +114,15 @@ export default function CourseSidebar({
                             <div className="flex flex-col gap-[4px]">
                               <h3>{title}</h3>
                               <p className="flex items-center gap-[6]">
-                                {_id === currentLessonId ? (
-                                  <Disc size="11" className="text-[#f05123cc]" />
-                                ) : (
-                                  <CirclePlay size="11" />
-                                )}
+                                {type === ELessonType.GRAMMAR_TEST && <CircleQuestionMark size="11" />}
+
+                                {type === ELessonType.VIDEO &&
+                                  (_id === currentLessonId ? (
+                                    <Disc size="11" className="text-[#f05123cc]" />
+                                  ) : (
+                                    <CirclePlay size="11" />
+                                  ))}
+
                                 <span className="text-[11px]">{formatSecondsToTime(duration || 0)}</span>
                               </p>
                             </div>
