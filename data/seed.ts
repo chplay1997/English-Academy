@@ -2,10 +2,12 @@ import { connectDB } from '@/lib/mongoose'
 import Course from '@/models/course.model'
 import Section from '@/models/section.model'
 import Lesson from '@/models/lesson.model'
+import Assessment from '@/models/assessment.model'
 import { courses, courseContent } from '@/data/defaultData'
+import { grammarTest } from './grammarTestData'
 
 // 🧩 Helper: convert "hh:mm:ss" | "mm:ss" → seconds (number)
-function parseDurationToSeconds(duration: string): number {
+function parseDurationToSeconds(duration?: string): number {
   if (!duration) return 0
 
   const parts = duration.split(':').map(Number)
@@ -23,6 +25,13 @@ function parseDurationToSeconds(duration: string): number {
 
 export async function runSeed() {
   await connectDB()
+
+  const assessmentCount = await Assessment.countDocuments()
+  let assessmentDocs: any[] = []
+
+  if (assessmentCount === 0) {
+    assessmentDocs = await Assessment.insertMany(grammarTest)
+  }
 
   const count = await Course.countDocuments()
   if (count > 0) {
@@ -57,15 +66,22 @@ export async function runSeed() {
         if (section.details) {
           const lessonIds: any[] = []
           for (const [lessonIndex, lesson] of section.details.entries()) {
+            const assessmentName = 'assessmentName' in lesson ? lesson.assessmentName : undefined
+            const duration = 'duration' in lesson ? lesson.duration : undefined
+            const vimeoID = 'vimeoID' in lesson ? lesson.vimeoID : undefined
+
+            const assessmentId = assessmentDocs.find(test => test.testName === assessmentName)?._id
+
             const lessonDoc = await Lesson.create({
               sectionId: sectionDoc._id, // ✅ liên kết với section
               title: lesson.title,
-              duration: parseDurationToSeconds(lesson.duration),
+              duration: parseDurationToSeconds(duration),
               video: {
-                vimeoId: lesson.vimeoID,
+                vimeoId: vimeoID,
               },
-              type: lesson.type || 'video',
+              type: lesson?.type || 'video',
               order: lessonIndex + 1,
+              assessment: assessmentId,
             })
             lessonIds.push(lessonDoc._id)
           }

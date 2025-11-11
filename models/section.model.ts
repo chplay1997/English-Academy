@@ -18,6 +18,6 @@ const sectionSchema = new Schema<ISection>(
   { timestamps: true }
 )
 
-const Section = mongoose.models.Section || mongoose.model<ISection>('Section', sectionSchema)
+const Section = mongoose.models?.Section || mongoose.model<ISection>('Section', sectionSchema)
 
 export default Section

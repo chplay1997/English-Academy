@@ -33,7 +33,7 @@ const UserLessonProgressSchema = new mongoose.Schema<IUserLessonProgress>(
 UserLessonProgressSchema.index({ userId: 1, courseSlug: 1 }, { unique: true })
 
 const UserLessonProgress =
-  mongoose.models.UserLessonProgress ||
+  mongoose.models?.UserLessonProgress ||
   mongoose.model<IUserLessonProgress>('UserLessonProgress', UserLessonProgressSchema)
 
 export default UserLessonProgress

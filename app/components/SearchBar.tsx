@@ -138,7 +138,6 @@ function Section({ title, moreLink, children }: { title: string; moreLink?: stri
 }
 
 function Item({ image, title, onClick }: { image: string; title: string; onClick?: () => void }) {
-  console.log(image)
   return (
     <div
       className="flex items-center gap-3 px-4 py-2 hover:bg-gray-50 cursor-pointer transition-colors"

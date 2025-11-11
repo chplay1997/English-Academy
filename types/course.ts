@@ -3,8 +3,9 @@ import { ISection } from '@/models/section.model'
 import { ICourse } from '@/models/course.model'
 import { IUserLessonNote } from '@/models/userLessonNote.model'
 import { IUserLessonProgress } from '@/models/userLessonProgress.model'
+import { IAssessment } from '@/models/assessment.model'
 
-type LessonBase = ILesson & { _id: string; updatedAt: string }
+type LessonBase = ILesson & { _id: string; updatedAt: string; assessment?: IAssessment | null }
 type SectionBase = Omit<ISection, 'lessons'> & { lessons: LessonBase[]; _id: string }
 type CourseBase = Omit<ICourse, 'sections'> & { sections: SectionBase[]; _id: string }
 export type UserLessonProgressBase = IUserLessonProgress & { _id: string }

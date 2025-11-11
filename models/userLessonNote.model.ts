@@ -24,5 +24,5 @@ const UserLessonNoteSchema = new mongoose.Schema(
 )
 
 const UserLessonNote =
-  mongoose.models.UserLessonNote || mongoose.model<IUserLessonNote>('UserLessonNote', UserLessonNoteSchema)
+  mongoose.models?.UserLessonNote || mongoose.model<IUserLessonNote>('UserLessonNote', UserLessonNoteSchema)
 export default UserLessonNote

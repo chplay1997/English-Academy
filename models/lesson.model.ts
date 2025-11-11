@@ -1,9 +1,18 @@
 import mongoose, { Schema, Document } from 'mongoose'
 
+export enum ELessonType {
+  VIDEO = 'video',
+  READING = 'reading',
+  QUIZ = 'quiz',
+  ASSIGNMENT = 'assignment',
+  LIVE = 'live',
+  GRAMMAR_TEST = 'grammar-test',
+}
+
 export interface ILesson extends Document {
   sectionId: mongoose.Types.ObjectId
   title: string
-  type: 'video' | 'reading' | 'quiz' | 'assignment' | 'live'
+  type: ELessonType
   order: number
   duration?: number
   isPreview: boolean
@@ -19,23 +28,7 @@ export interface ILesson extends Document {
       type?: 'pdf' | 'image' | 'file' | 'link'
     }[]
   }
-  quiz?: {
-    questions: {
-      question: string
-      options: string[]
-      correctIndex: number
-    }[]
-  }
-  assignment?: {
-    description?: string
-    deadline?: Date
-  }
-  live?: {
-    meetingUrl?: string
-    startTime?: Date
-    endTime?: Date
-  }
-  updatedAt: Date
+  assessment?: mongoose.Types.ObjectId
   createdAt: Date
 }
 
@@ -45,8 +38,8 @@ const lessonSchema = new Schema<ILesson>(
     title: { type: String, required: true },
     type: {
       type: String,
-      enum: ['video', 'reading', 'quiz', 'assignment', 'live'],
-      default: 'video',
+      enum: ELessonType,
+      default: ELessonType.VIDEO,
     },
     order: { type: Number, default: 1 },
     duration: Number,
@@ -68,29 +61,9 @@ const lessonSchema = new Schema<ILesson>(
         },
       ],
     },
-
-    // 🧠 Quiz lesson
-    quiz: {
-      questions: [
-        {
-          question: String,
-          options: [String],
-          correctIndex: Number,
-        },
-      ],
-    },
-
-    // 📝 Assignment lesson
-    assignment: {
-      description: String,
-      deadline: Date,
-    },
-
-    // 🔴 Live session
-    live: {
-      meetingUrl: String,
-      startTime: Date,
-      endTime: Date,
+    assessment: {
+      type: Schema.Types.ObjectId,
+      ref: 'Assessment',
     },
 
     isPreview: { type: Boolean, default: false },
@@ -98,6 +71,6 @@ const lessonSchema = new Schema<ILesson>(
   { timestamps: true }
 )
 
-const Lesson = mongoose.models.Lesson || mongoose.model<ILesson>('Lesson', lessonSchema)
+const Lesson = mongoose.models?.Lesson || mongoose.model<ILesson>('Lesson', lessonSchema)
 
 export default Lesson

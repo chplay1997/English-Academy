@@ -44,10 +44,6 @@ export default function CourseSidebar({
 
   const [accordionValue, setAccordionValue] = useState(currentSectionId)
 
-  // Count completed lessons
-  const totalCompletedLessons =
-    courseState.userLessonProgress?.lessons?.reduce((count, lesson) => (lesson.completed ? count + 1 : count), 0) || 0
-
   useEffect(() => {
     setAccordionValue(currentSectionId)
   }, [currentSectionId])
@@ -82,8 +78,8 @@ export default function CourseSidebar({
           >
             {courseState.sections.map(section => {
               const { lessons, title, _id } = section
-              const totalLessons = lessons.length
               const totalDuration = lessons.reduce((total, lesson) => total + (lesson.duration || 0), 0)
+              const lessonCompleted = lessons.filter(lesson => lessonIdCompleted.includes(String(lesson._id)))
 
               return (
                 <AccordionItem value={_id} key={_id}>
@@ -91,7 +87,7 @@ export default function CourseSidebar({
                     <div className="flex flex-col gap-[10]">
                       <h3>{title}</h3>
                       <span className="text-xs font-normal">
-                        {totalCompletedLessons}/{totalLessons} | {formatSecondsToTime(totalDuration)}
+                        {lessonCompleted.length}/{lessons.length} | {formatSecondsToTime(totalDuration)}
                       </span>
                     </div>
                   </AccordionTrigger>

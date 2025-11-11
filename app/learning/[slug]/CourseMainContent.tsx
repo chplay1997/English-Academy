@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button'
 import { ICourseState } from './CourseClient'
 import { notFound } from 'next/navigation'
 import { useDebouncedValue } from '@/hooks/useDebouncedValue'
+import Assessment from './Assessment'
 
 interface ICourseMainContentProps {
   open: boolean
@@ -47,6 +48,8 @@ export default function CourseMainContent({
 
   if (!currentLesson || !currentSection) return notFound()
 
+  const { type, assessment } = currentLesson
+
   return (
     <>
       <div
@@ -67,24 +70,30 @@ export default function CourseMainContent({
           />
         )}
         <div className="px-4 md:px-[8.5%] lg:px-[16%] min-h-[400px]">
-          <div className="flex justify-between items-center flex-wrap lg:flex-nowrap">
-            <header>
-              <h1 className="text-[28px] font-semibold mt-[48px] mb-[8px]">{currentLesson.title}</h1>
-              <p className="text-[13px] mb-6 md:mb-12">
-                Cập nhật {new Date(currentLesson?.updatedAt).toLocaleDateString()}
-              </p>
-            </header>
+          {type === 'grammar-test' && assessment && (
+            <Assessment assessment={assessment} lessonId={currentLessonId} setCourseState={setCourseState} />
+          )}
 
-            <Button variant="secondary" onClick={handleClickAddNote}>
-              <div className="flex justify-between gap-[8] items-center">
-                <Plus size="14" />
-                <span className="text-[13px] font-normal">
-                  Thêm ghi chú tại
-                  <span className="ml-[4] font-semibold">{formatSecondsToTime(currentTime)}</span>
-                </span>
-              </div>
-            </Button>
-          </div>
+          {type === 'video' && (
+            <div className="flex justify-between items-center flex-wrap lg:flex-nowrap">
+              <header>
+                <h1 className="text-[28px] font-semibold mt-[48px] mb-[8px]">{currentLesson.title}</h1>
+                <p className="text-[13px] mb-6 md:mb-12">
+                  Cập nhật {new Date(currentLesson?.updatedAt).toLocaleDateString()}
+                </p>
+              </header>
+
+              <Button variant="secondary" onClick={handleClickAddNote}>
+                <div className="flex justify-between gap-[8] items-center">
+                  <Plus size="14" />
+                  <span className="text-[13px] font-normal">
+                    Thêm ghi chú tại
+                    <span className="ml-[4] font-semibold">{formatSecondsToTime(currentTime)}</span>
+                  </span>
+                </div>
+              </Button>
+            </div>
+          )}
         </div>
 
         <p className="text-center text-[#666] text-sm py-7">

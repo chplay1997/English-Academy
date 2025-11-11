@@ -8,6 +8,6 @@ const EnrollmentSchema = new mongoose.Schema(
   { timestamps: true }
 )
 
-const Enrollment = mongoose.models.Enrollment || mongoose.model('Enrollment', EnrollmentSchema)
+const Enrollment = mongoose.models?.Enrollment || mongoose.model('Enrollment', EnrollmentSchema)
 
 export default Enrollment

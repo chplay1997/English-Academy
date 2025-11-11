@@ -32,7 +32,6 @@ export const courseContent = {
   'toeic-foundation': [
     {
       title: 'Lesson 1 Giới thiệu',
-      progress: '1/2',
       details: [
         {
           title: 'Giới thiệu',
@@ -50,7 +49,6 @@ export const courseContent = {
     },
     {
       title: 'Lesson 2 Danh từ',
-      progress: '0/4',
       details: [
         {
           title: 'Các loại danh từ',
@@ -79,8 +77,17 @@ export const courseContent = {
       ],
     },
     {
+      title: 'Mini test 1',
+      details: [
+        {
+          title: 'MINI TEST 1',
+          type: 'grammar-test',
+          assessmentName: 'MINI TEST 1',
+        },
+      ],
+    },
+    {
       title: 'Lesson 3 Động từ',
-      progress: '0/4',
       details: [
         {
           title: '1',

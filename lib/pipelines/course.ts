@@ -19,10 +19,31 @@ export const getCoursePipeline = (slug: string, userId?: string): PipelineStage[
               localField: 'lessons',
               foreignField: '_id',
               as: 'lessons',
-              pipeline: [{ $sort: { order: 1 } }],
+              pipeline: [
+                { $sort: { order: 1 } },
+
+                // === Populate Assessment ===
+                {
+                  $lookup: {
+                    from: 'assessments',
+                    localField: 'assessment',
+                    foreignField: '_id',
+                    as: 'assessment',
+                  },
+                },
+                {
+                  $addFields: {
+                    assessment: { $arrayElemAt: ['$assessment', 0] },
+                  },
+                },
+              ],
             },
           },
-          { $addFields: { duration: { $sum: '$lessons.duration' } } },
+          {
+            $addFields: {
+              duration: { $sum: '$lessons.duration' },
+            },
+          },
         ],
       },
     },
