@@ -41,6 +41,7 @@ export interface IQuestion extends Document {
   options?: IOption[]
   correctAnswerKey?: string
   correctAnswerValue?: string
+  alternativeAnswers?: string[]
   errorType?: string
   correctForm?: string
   note?: string
@@ -72,6 +73,7 @@ const questionSchema = new Schema<IQuestion>(
     options: [optionSchema],
     correctAnswerKey: String,
     correctAnswerValue: String,
+    alternativeAnswers: [String],
     errorType: String,
     correctForm: String,
     note: String,

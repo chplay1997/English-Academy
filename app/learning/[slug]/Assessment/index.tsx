@@ -4,7 +4,7 @@ import { Separator } from '@/components/ui/separator'
 import { QuestionContainer } from './QuestionContainer'
 import { IAssessment } from '@/models/assessment.model'
 import { Button } from '@/components/ui/button'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ICourseState } from '../CourseClient'
 import { Dispatch, SetStateAction } from 'react'
 import { MAX_SCORE } from '@/models/assessmentResult.model'
@@ -113,6 +113,12 @@ export default function Assessment({ assessment, lessonId, setCourseState }: Ass
     document.getElementById(firstWrongAnswerId)?.scrollIntoView({ behavior: 'smooth', block: 'center' })
     setShowError(true)
   }
+
+  useEffect(() => {
+    setAnswers({})
+    setIsSubmitted(false)
+    setShowError(false)
+  }, [lessonId])
 
   return (
     <div className="container max-w-4xl py-12 space-y-8">
