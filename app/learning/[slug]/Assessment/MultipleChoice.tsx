@@ -53,7 +53,7 @@ export function MultipleChoice({ question, onAnswerChange, userAnswer, isSubmitt
       onValueChange={value => onAnswerChange(String(question._id), value)}
       disabled={isSubmitted}
     >
-      {question.options.map(option => {
+      {question.options?.map(option => {
         let className = ''
 
         if (isSubmitted) {

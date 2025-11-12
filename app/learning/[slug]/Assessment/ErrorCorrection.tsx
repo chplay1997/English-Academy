@@ -34,7 +34,7 @@ export function ErrorCorrection({
     <div className="space-y-4">
       {/* 1. DISPLAY OPTIONS/ERROR OPTIONS USING BUTTON */}
       <div className="flex flex-wrap gap-3">
-        {question.options.map(option => {
+        {question.options?.map(option => {
           let variant: 'default' | 'outline' | 'secondary' = 'outline'
           let className = 'hover:bg-gray-100 border-gray-300'
 
