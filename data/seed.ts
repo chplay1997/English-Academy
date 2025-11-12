@@ -26,37 +26,104 @@ function parseDurationToSeconds(duration?: string): number {
 export async function runSeed() {
   await connectDB()
 
-  const assessmentCount = await Assessment.countDocuments()
-  let assessmentDocs: any[] = []
+  console.info('🔄 Starting seed process...')
 
-  if (assessmentCount === 0) {
-    assessmentDocs = await Assessment.insertMany(grammarTest)
-  }
+  // ============================================
+  // 1. SEED ASSESSMENTS (with override logic)
+  // ============================================
+  console.info('📝 Seeding assessments...')
 
-  const count = await Course.countDocuments()
-  if (count > 0) {
-    console.info('✅ Database already seeded.')
-    return { message: 'Database already seeded.' }
-  }
+  const assessmentDocs: any[] = []
 
-  for (const [courseIndex, course] of courses.entries()) {
-    const courseDoc = await Course.create({
-      title: course.title,
-      slug: course.slug,
-      subtitle: course.subtitle,
-      author: course.author,
-      oldPrice: course.oldPrice,
-      newPrice: course.newPrice,
-      order: courseIndex + 1,
+  for (const test of grammarTest) {
+    // Find assessment by courseSlug + testName
+    const existing = await Assessment.findOne({
+      courseSlug: test.courseSlug,
+      testName: test.testName,
     })
 
+    if (existing) {
+      // Override: Update assessment
+      const updated = await Assessment.findByIdAndUpdate(
+        existing._id,
+        {
+          $set: {
+            testCategory: test.testCategory,
+            exercises: test.exercises,
+          },
+        },
+        { new: true }
+      )
+      assessmentDocs.push(updated)
+      console.info(`  ✏️  Updated: ${test.testName}`)
+    } else {
+      // Create new assessment
+      const created = await Assessment.create(test)
+      assessmentDocs.push(created)
+      console.info(`  ➕ Created: ${test.testName}`)
+    }
+  }
+
+  // ============================================
+  // 2. SEED COURSES (with override logic)
+  // ============================================
+  console.info('📚 Seeding courses...')
+
+  for (const [courseIndex, course] of courses.entries()) {
+    // Find course by slug
+    let courseDoc = await Course.findOne({ slug: course.slug })
+
+    if (courseDoc) {
+      // Override: Update course
+      courseDoc = await Course.findByIdAndUpdate(
+        courseDoc._id,
+        {
+          $set: {
+            title: course.title,
+            subtitle: course.subtitle,
+            author: course.author,
+            oldPrice: course.oldPrice,
+            newPrice: course.newPrice,
+            level: course.level,
+            order: courseIndex + 1,
+          },
+        },
+        { new: true }
+      )
+      console.info(`  ✏️  Updated course: ${course.title}`)
+
+      // Clean old sections & lessons
+      const oldSections = await Section.find({ courseId: courseDoc._id })
+      const oldSectionIds = oldSections.map(s => s._id)
+
+      await Lesson.deleteMany({ sectionId: { $in: oldSectionIds } })
+      await Section.deleteMany({ courseId: courseDoc._id })
+      console.info(`  🗑️  Cleaned old sections & lessons for: ${course.title}`)
+    } else {
+      // Create new course
+      courseDoc = await Course.create({
+        title: course.title,
+        slug: course.slug,
+        subtitle: course.subtitle,
+        author: course.author,
+        oldPrice: course.oldPrice,
+        newPrice: course.newPrice,
+        level: course.level,
+        order: courseIndex + 1,
+      })
+      console.info(`  ➕ Created course: ${course.title}`)
+    }
+
+    // ============================================
+    // 3. SEED SECTIONS & LESSONS
+    // ============================================
     const sections = courseContent[course.slug as keyof typeof courseContent]
     if (sections) {
       const sectionIds: any[] = []
 
       for (const [sectionIndex, section] of sections.entries()) {
         const sectionDoc = await Section.create({
-          courseId: courseDoc._id, // ✅ liên kết với course
+          courseId: courseDoc._id,
           title: section.title,
           order: sectionIndex + 1,
         })
@@ -65,15 +132,17 @@ export async function runSeed() {
 
         if (section.details) {
           const lessonIds: any[] = []
+
           for (const [lessonIndex, lesson] of section.details.entries()) {
             const assessmentName = 'assessmentName' in lesson ? lesson.assessmentName : undefined
             const duration = 'duration' in lesson ? lesson.duration : undefined
             const vimeoID = 'vimeoID' in lesson ? lesson.vimeoID : undefined
 
+            // Find assessment ID from assessmentName
             const assessmentId = assessmentDocs.find(test => test.testName === assessmentName)?._id
 
             const lessonDoc = await Lesson.create({
-              sectionId: sectionDoc._id, // ✅ liên kết với section
+              sectionId: sectionDoc._id,
               title: lesson.title,
               duration: parseDurationToSeconds(duration),
               video: {
@@ -83,23 +152,24 @@ export async function runSeed() {
               order: lessonIndex + 1,
               assessment: assessmentId,
             })
+
             lessonIds.push(lessonDoc._id)
           }
 
-          // cập nhật mảng lessons vào section (nếu bạn có field đó trong schema)
+          // Update lessons to section
           await Section.findByIdAndUpdate(sectionDoc._id, {
             $set: { lessons: lessonIds },
           })
         }
       }
 
-      // cập nhật mảng sections vào course (nếu bạn có field đó trong schema)
+      // Update sections to course
       await Course.findByIdAndUpdate(courseDoc._id, {
         $set: { sections: sectionIds },
       })
     }
   }
 
-  console.info('🎉 Seeded successfully!')
-  return { message: 'Seeding completed!' }
+  console.info('🎉 Seeding completed successfully!')
+  return { message: 'Seeding completed with override!' }
 }

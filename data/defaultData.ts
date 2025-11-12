@@ -134,6 +134,16 @@ export const courseContent = {
       ],
     },
     {
+      title: 'Mini test 2',
+      details: [
+        {
+          title: 'MINI TEST 2',
+          type: 'grammar-test',
+          assessmentName: 'MINI TEST 2',
+        },
+      ],
+    },
+    {
       title: 'Lesson 4 Đại từ',
       details: [
         {
@@ -153,6 +163,46 @@ export const courseContent = {
           duration: '11:43',
           vimeoID: '1127912231',
           type: 'video',
+        },
+        {
+          title: 'Section 1',
+          type: 'grammar-test',
+          assessmentName: 'Section 1: Các loại danh từ',
+        },
+        {
+          title: 'Section 2',
+          type: 'grammar-test',
+          assessmentName: 'Section 2: Danh từ đếm được và không đếm được. Số ít và số nhiều',
+        },
+      ],
+    },
+    {
+      title: 'Mini test 3',
+      details: [
+        {
+          title: 'MINI TEST 3',
+          type: 'grammar-test',
+          assessmentName: 'MINI TEST 3',
+        },
+        {
+          title: 'Ôn tập MINI TEST 1',
+          type: 'grammar-test',
+          assessmentName: 'MINI TEST 1',
+        },
+        {
+          title: 'Ôn Section 1: Các loại động từ',
+          type: 'grammar-test',
+          assessmentName: 'Section 1: Các loại động từ',
+        },
+        {
+          title: 'Ôn tập Section 2: Danh từ đếm được và không đếm được. Số ít và số nhiều',
+          type: 'grammar-test',
+          assessmentName: 'Section 2.2: Thì hiện tại đơn (Present Simple Tense)',
+        },
+        {
+          title: 'Ôn tập Section 3: Thì hiện tại tiếp diễn (Present Continuous Tense)',
+          type: 'grammar-test',
+          assessmentName: 'Section 3: Thì hiện tại tiếp diễn (Present Continuous Tense)',
         },
       ],
     },
@@ -189,6 +239,11 @@ export const courseContent = {
           vimeoID: '1127912732',
           type: 'video',
         },
+        {
+          title: 'Ôn tập MINI TEST 2',
+          type: 'grammar-test',
+          assessmentName: 'MINI TEST 2',
+        },
       ],
     },
     {
@@ -205,6 +260,51 @@ export const courseContent = {
           duration: '14:52',
           vimeoID: '1127913044',
           type: 'video',
+        },
+        {
+          title: 'Ôn tập Section 1: Đại từ nhân xưng (Personal Pronouns)',
+          type: 'grammar-test',
+          assessmentName: 'Section 1: Đại từ nhân xưng (Personal Pronouns)',
+        },
+        {
+          title: 'Ôn tập Section 2: Tính từ sở hữu và Đại từ sở hữu',
+          type: 'grammar-test',
+          assessmentName: 'Section 2: Tính từ sở hữu và Đại từ sở hữu',
+        },
+        {
+          title: 'Ôn tập MINI TEST 3',
+          type: 'grammar-test',
+          assessmentName: 'MINI TEST 3',
+        },
+      ],
+    },
+    {
+      title: 'Mini test 4',
+      details: [
+        {
+          title: 'MINI TEST 4',
+          type: 'grammar-test',
+          assessmentName: 'MINI TEST 4',
+        },
+        {
+          title: 'Ôn tập Section 1: Các loại danh từ (Types of Nouns)',
+          type: 'grammar-test',
+          assessmentName: 'Section 1: Các loại danh từ (Types of Nouns)',
+        },
+        {
+          title: 'Ôn tập Section 2: Danh từ đếm được và không đếm được. Số ít và số nhiều',
+          type: 'grammar-test',
+          assessmentName: 'Section 2: Danh từ đếm được và không đếm được. Số ít và số nhiều',
+        },
+        {
+          title: 'Ôn tập Section 3: Sở hữu cách',
+          type: 'grammar-test',
+          assessmentName: 'Section 3: Sở hữu cách',
+        },
+        {
+          title: 'Ôn tập Section 4: Hạn định từ',
+          type: 'grammar-test',
+          assessmentName: 'Section 4: Hạn định từ',
         },
       ],
     },
@@ -228,6 +328,61 @@ export const courseContent = {
           duration: '12:15',
           vimeoID: '1127913323',
           type: 'video',
+        },
+        {
+          title: 'Ôn tập Section 4: Thì quá khứ đơn (Past Simple Tense)',
+          type: 'grammar-test',
+          assessmentName: 'Section 4: Thì quá khứ đơn (Past Simple Tense)',
+        },
+        {
+          title: 'Ôn tập Section 5: Thì tương lai đơn và tương lai gần',
+          type: 'grammar-test',
+          assessmentName: 'Section 5: Thì tương lai đơn và tương lai gần',
+        },
+        {
+          title: 'Ôn tập Section 6: Danh động từ và Động từ nguyên thể',
+          type: 'grammar-test',
+          assessmentName: 'Section 6: Danh động từ và Động từ nguyên thể',
+        },
+        {
+          title: 'Ôn tập Section 3: Đại từ phản thân (Reflexive Pronouns)',
+          type: 'grammar-test',
+          assessmentName: 'Section 3: Đại từ phản thân (Reflexive Pronouns)',
+        },
+        {
+          title: 'Ôn tập MINI TEST 2',
+          type: 'grammar-test',
+          assessmentName: 'MINI TEST 2',
+        },
+      ],
+    },
+    {
+      title: 'Day 12: Bài tập Trạng từ',
+      details: [
+        {
+          title: 'MINI TEST 4',
+          type: 'grammar-test',
+          assessmentName: 'MINI TEST 4',
+        },
+        {
+          title: 'Ôn tập Section 1: Các loại danh từ (Types of Nouns)',
+          type: 'grammar-test',
+          assessmentName: 'Section 1: Các loại danh từ (Types of Nouns)',
+        },
+        {
+          title: 'Ôn tập Section 2: Danh từ đếm được và không đếm được. Số ít và số nhiều',
+          type: 'grammar-test',
+          assessmentName: 'Section 2: Danh từ đếm được và không đếm được. Số ít và số nhiều',
+        },
+        {
+          title: 'Ôn tập Section 3: Sở hữu cách',
+          type: 'grammar-test',
+          assessmentName: 'Section 3: Sở hữu cách',
+        },
+        {
+          title: 'Ôn tập Section 4: Hạn định từ',
+          type: 'grammar-test',
+          assessmentName: 'Section 4: Hạn định từ',
         },
       ],
     },

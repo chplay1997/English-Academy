@@ -10,6 +10,21 @@ export enum EExerciseType {
   FillInBlank = 'fill_in_blank',
   Matching = 'matching',
   TrueFalse = 'true_false',
+  Writing = 'writing',
+  Conjugation = 'conjugation',
+  ErrorCorrection = 'error_correction',
+  ClozeTest = 'cloze_test',
+  TableCompletion = 'table_completion',
+  Rewrite = 'rewrite',
+  Rearrangement = 'rearrangement',
+  SentenceRearrangement = 'sentence_rearrangement',
+  SentenceOrdering = 'sentence_ordering',
+  Correction = 'correction',
+  Pluralization = 'pluralization',
+  PictureCompletion = 'picture_completion',
+  Transformation = 'transformation',
+  ImageCompletion = 'image_completion',
+  SentenceArrangement = 'sentence_arrangement',
 }
 
 export enum ETestCategory {
@@ -23,8 +38,8 @@ export enum ETestCategory {
 export interface IQuestion extends Document {
   questionNumber: number
   stem: string
-  options: IOption[]
-  correctAnswerKey: string
+  options?: IOption[]
+  correctAnswerKey?: string
   correctAnswerValue?: string
   errorType?: string
   correctForm?: string
@@ -45,6 +60,8 @@ export interface IAssessment extends Document {
   courseSlug: string
   exercises: IExercise[]
 }
+
+// --- SCHEMAS ---
 
 const optionSchema = new Schema<IOption>({ key: String, value: String }, { _id: false })
 
