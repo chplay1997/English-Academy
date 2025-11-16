@@ -30,7 +30,7 @@ function MatchingComponent({ question, onAnswerChange, value, isSubmitted, match
             isWrong && 'border-red-500 bg-red-50'
           )}
         >
-          <SelectValue placeholder="Chọn loại danh từ..." />
+          <SelectValue placeholder="Chọn đáp án..." />
         </SelectTrigger>
         <SelectContent>
           {matchingOptions?.map(option => (

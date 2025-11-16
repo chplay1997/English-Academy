@@ -9,7 +9,7 @@ import { ICourseState } from '../CourseClient'
 import { Dispatch, SetStateAction } from 'react'
 import { MAX_SCORE } from '@/models/assessmentResult.model'
 import Image from 'next/image'
-import { getTestMode } from '@/services/getTestMode'
+import { useTestMode } from '@/hooks/useTestMode'
 
 interface AssessmentProps {
   assessment: IAssessment
@@ -21,7 +21,7 @@ export default function Assessment({ assessment, lessonId, setCourseState }: Ass
   const [answers, setAnswers] = useState<Record<string, string[] | null>>({})
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [showError, setShowError] = useState(false)
-  const testMode = getTestMode()
+  const isTestMode = useTestMode()
 
   const allQuestionIds = assessment.exercises.flatMap(exercise =>
     exercise.questions.map(question => String(question._id))
@@ -47,7 +47,7 @@ export default function Assessment({ assessment, lessonId, setCourseState }: Ass
     }
 
     // Test mode by pass check all question
-    if (!testMode) {
+    if (!isTestMode) {
       const firstQuestionNotAnswered = allQuestionIds.find(questionId => !answers[questionId])
 
       if (firstQuestionNotAnswered) {
@@ -129,7 +129,7 @@ export default function Assessment({ assessment, lessonId, setCourseState }: Ass
       </h1>
       <Separator />
       {assessment.exercises.map((exercise, exerciseIndex) => (
-        <Card key={exerciseIndex} className="shadow-lg border-2 border-gray-100 pt-0">
+        <Card key={exerciseIndex} className="shadow-lg border-2 border-gray-100 pt-0 gap-0">
           <CardHeader className="bg-gray-50 border-b pt-6">
             <CardTitle className="text-xl font-semibold text-gray-700">{exercise.exerciseTitle}</CardTitle>
             {exercise.exerciseStem && (

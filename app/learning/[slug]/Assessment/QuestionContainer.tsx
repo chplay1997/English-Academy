@@ -8,7 +8,7 @@ import { MultipleSelect } from './MultipleSelect'
 import { Dispatch, memo, SetStateAction, useCallback } from 'react'
 import QuestionResultFeedback, { renderCorrectAnswer } from './QuestionResultFeedback'
 import { cn } from '@/lib/utils'
-import { getTestMode } from '@/services/getTestMode'
+import { useTestMode } from '@/hooks/useTestMode'
 
 interface QuestionContainerProps {
   question: IQuestion
@@ -31,7 +31,7 @@ function QuestionContainerComponent({
   const { setAnswers, isSubmitted, userAnswer } = rest
   const value = userAnswer?.[0] || ''
   const isShowError = showError && !userAnswer?.length
-  const testMode = getTestMode()
+  const isTestMode = useTestMode()
 
   const handleToggleAnswer = (questionId: string, value: string) => {
     if (isSubmitted) return
@@ -43,11 +43,14 @@ function QuestionContainerComponent({
     }
   }
 
-  const handleAnswerChange = useCallback((questionId: string, value: string) => {
-    if (!isSubmitted) {
-      setAnswers(prev => ({ ...prev, [questionId]: [value] }))
-    }
-  }, [])
+  const handleAnswerChange = useCallback(
+    (questionId: string, value: string) => {
+      if (!isSubmitted) {
+        setAnswers(prev => ({ ...prev, [questionId]: [value] }))
+      }
+    },
+    [isSubmitted]
+  )
 
   const renderQuestionComponent = () => {
     switch (exerciseType) {
@@ -90,7 +93,7 @@ function QuestionContainerComponent({
           'space-y-3'
         )}
       >
-        {testMode && <p className="text-sm text-blue-600">Đáp án: {renderCorrectAnswer(question)}</p>}
+        {isTestMode && <p className="text-sm text-blue-600">Đáp án: {renderCorrectAnswer(question)}</p>}
         {renderQuestionComponent()}
         {isSubmitted && <QuestionResultFeedback question={question} answer={userAnswer} />}
       </div>

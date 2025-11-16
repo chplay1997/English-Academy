@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction } from 'react'
 import { ICourseState } from '../CourseClient'
 import CourseSidebar from './CourseSidebar'
 import DirectionBar from './DirectionBar'
-import { getTestMode } from '@/services/getTestMode'
+import { useTestMode } from '@/hooks/useTestMode'
 
 interface ISideBarProps {
   courseState: ICourseState
@@ -14,7 +14,7 @@ interface ISideBarProps {
 
 export function SideBar({ courseState, open, setOpen, handleSetCurrentLessonId }: ISideBarProps) {
   const { userLessonProgress } = courseState
-  const testMode = getTestMode()
+  const isTestMode = useTestMode()
 
   const lessonIdCompleted =
     userLessonProgress?.lessons?.filter(lesson => lesson.completed)?.map(lesson => String(lesson.lessonId)) || []
@@ -24,7 +24,7 @@ export function SideBar({ courseState, open, setOpen, handleSetCurrentLessonId }
   const lastCompletedLessonIndex = allLessons.findLastIndex(lesson => lessonIdCompleted?.includes(String(lesson._id)!))
 
   // Test mode by pass lock lesson
-  const lockedLessonIndex = testMode ? 9999 : lastCompletedLessonIndex === -1 ? 1 : lastCompletedLessonIndex + 2
+  const lockedLessonIndex = isTestMode ? 9999 : lastCompletedLessonIndex === -1 ? 1 : lastCompletedLessonIndex + 2
 
   const handleToggleOpen = () => {
     setOpen(!open)
