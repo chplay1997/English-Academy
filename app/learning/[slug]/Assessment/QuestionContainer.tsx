@@ -1,41 +1,72 @@
+'use client'
 import { MultipleChoice } from './MultipleChoice'
 import { FillInBlank } from './FillInBlank'
 import { Matching } from './Matching'
 import { Correction } from './Correction'
 import { EExerciseType, IQuestion } from '@/models/assessment.model'
+import { MultipleSelect } from './MultipleSelect'
+import { Dispatch, memo, SetStateAction, useCallback } from 'react'
+import QuestionResultFeedback from './QuestionResultFeedback'
+import { cn } from '@/lib/utils'
 
 interface QuestionContainerProps {
   question: IQuestion
   exerciseType: EExerciseType
-  onAnswerChange: (questionId: string, value: string) => void
-  userAnswer: string | null
+  setAnswers: Dispatch<SetStateAction<Record<string, string[] | null>>>
+  userAnswer: string[] | null
   isSubmitted: boolean
   exerciseStem?: string
   showError?: boolean
+  matchingOptions?: string[]
 }
 
-export function QuestionContainer({
+function QuestionContainerComponent({
   question,
   exerciseType,
   exerciseStem,
   showError,
   ...rest
 }: QuestionContainerProps) {
+  const { setAnswers, isSubmitted, userAnswer } = rest
+  const value = userAnswer?.[0] || ''
+  const isShowError = showError && !userAnswer?.length
+
+  const handleToggleAnswer = (questionId: string, value: string) => {
+    if (isSubmitted) return
+
+    if (userAnswer?.includes(value)) {
+      setAnswers(prev => ({ ...prev, [questionId]: prev[questionId]?.filter(ans => ans !== value) || [] }))
+    } else {
+      setAnswers(prev => ({ ...prev, [questionId]: [...(prev[questionId] || []), value] }))
+    }
+  }
+
+  const handleAnswerChange = useCallback((questionId: string, value: string) => {
+    if (!isSubmitted) {
+      setAnswers(prev => ({ ...prev, [questionId]: [value] }))
+    }
+  }, [])
+
   const renderQuestionComponent = () => {
     switch (exerciseType) {
       case EExerciseType.TrueFalse:
       case EExerciseType.MultipleChoice:
-        return <MultipleChoice question={question} {...rest} />
+        return <MultipleChoice question={question} {...rest} onAnswerChange={handleAnswerChange} value={value} />
+
+      case EExerciseType.MultipleSelect:
+        return <MultipleSelect question={question} {...rest} onAnswerChange={handleToggleAnswer} value={userAnswer} />
 
       case EExerciseType.FillInBlank:
-        return <FillInBlank question={question} {...rest} />
+      case EExerciseType.Pluralization:
+      case EExerciseType.PictureCompletion:
+        return <FillInBlank question={question} {...rest} onAnswerChange={handleAnswerChange} value={value} />
 
       case EExerciseType.Matching:
-        return <Matching question={question} {...rest} />
+        return <Matching question={question} {...rest} onAnswerChange={handleAnswerChange} value={value} />
 
       case EExerciseType.Correction:
       case EExerciseType.ErrorCorrection:
-        return <Correction question={question} {...rest} />
+        return <Correction question={question} {...rest} onAnswerChange={handleAnswerChange} value={value} />
 
       default:
         return <p className="text-red-500">Loại câu hỏi không được hỗ trợ: {exerciseType}</p>
@@ -51,11 +82,20 @@ export function QuestionContainer({
         />
       </p>
 
-      <div className={showError ? 'border-red-500 border-2 rounded-md p-3' : 'border-transparent border-2 rounded-md'}>
+      <div
+        className={cn(
+          isShowError ? 'border-red-500 border-2 rounded-md p-3' : 'border-transparent border-2 rounded-md',
+          'space-y-3'
+        )}
+      >
+        //{question.correctAnswerValue}//
         {renderQuestionComponent()}
+        {isSubmitted && <QuestionResultFeedback question={question} answer={userAnswer} />}
       </div>
 
-      {showError && <p className="text-red-600 mt-1 text-sm">Vui lòng chọn hoặc điền đáp án</p>}
+      {isShowError && <p className="text-red-600 mt-1 text-sm">Vui lòng chọn hoặc điền đáp án</p>}
     </div>
   )
 }
+
+export const QuestionContainer = memo(QuestionContainerComponent)

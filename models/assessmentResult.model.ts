@@ -14,7 +14,7 @@ export interface IAssessmentResult extends Document {
   timeSpent: number
   answers: {
     questionId: Schema.Types.ObjectId
-    selectedKey: string
+    selectedKey: string[]
     isCorrect: boolean
   }[]
 }
@@ -32,7 +32,7 @@ const assessmentResultSchema = new Schema<IAssessmentResult>(
     answers: [
       {
         questionId: { type: Schema.Types.ObjectId, required: true },
-        selectedKey: String,
+        selectedKey: Array<string>,
         isCorrect: Boolean,
       },
     ],

@@ -76,17 +76,22 @@ export async function POST(req: Request) {
 
     for (const [questionId, selectedKey] of Object.entries(answers)) {
       const questionInfo = allQuestionsMap[questionId]
+      const { correctAnswerKey, correctAnswerKeys } = questionInfo
 
       if (questionInfo) {
-        const userAnsKey = selectedKey as string | null
-        const isCorrect = userAnsKey !== null && userAnsKey === questionInfo.correctAnswerKey
+        const userAnsKey = selectedKey as string[] | null
+        const isCorrect =
+          userAnsKey !== null &&
+          (correctAnswerKeys?.length
+            ? userAnsKey.every(key => correctAnswerKeys?.includes(key))
+            : userAnsKey[0] === correctAnswerKey)
 
         if (isCorrect) correctCount++
 
         evaluatedAnswers.push({
           questionId,
           questionNumber: questionInfo.questionNumber,
-          selectedKey: userAnsKey || '',
+          selectedKey: userAnsKey || [],
           isCorrect,
           correctAnswerKey: questionInfo.correctAnswerKey,
           exerciseType: questionInfo.exerciseType,

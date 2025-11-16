@@ -1,30 +1,30 @@
 'use client'
 import { IQuestion } from '@/models/assessment.model'
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Label } from '@/components/ui/label'
 import { cn } from '@/lib/utils'
+import { Checkbox } from '@/components/ui/checkbox'
 import { memo } from 'react'
 
-interface MultipleChoiceProps {
+interface MultipleSelectProps {
   question: IQuestion
   onAnswerChange: (questionId: string, value: string) => void
-  value: string
+  value: string[] | null
   isSubmitted: boolean
 }
 
-function MultipleChoiceComponent({ question, onAnswerChange, value, isSubmitted }: MultipleChoiceProps) {
-  const { correctAnswerKey, options } = question
+function MultipleSelectComponent({ question, onAnswerChange, value, isSubmitted }: MultipleSelectProps) {
+  const isCorrect =
+    isSubmitted &&
+    value?.length === question.correctAnswerKeys?.length &&
+    value?.every(answer => question.correctAnswerKeys?.includes(answer))
 
   return (
-    <RadioGroup
-      value={value}
-      onValueChange={value => onAnswerChange(String(question._id), value)}
-      disabled={isSubmitted}
-    >
-      {options?.map(option => {
-        const isThisCorrect = isSubmitted && option.key === correctAnswerKey
-        const isThisWrong = isSubmitted && option.key === value && option.key !== correctAnswerKey
-        const isUserSelected = !isSubmitted && option.key === value
+    <div className="space-y-2">
+      {question.options?.map(option => {
+        const isThisCorrect = isSubmitted && question.correctAnswerKeys?.includes(option.key)
+        const isThisWrong =
+          isSubmitted && value?.includes(option.key) && !question.correctAnswerKeys?.includes(option.key)
+        const isUserSelected = !isSubmitted && value?.includes(option.key)
 
         return (
           <Label
@@ -38,7 +38,13 @@ function MultipleChoiceComponent({ question, onAnswerChange, value, isSubmitted 
               isUserSelected && 'bg-blue-50 border-blue-500 hover:bg-blue-50 cursor-default'
             )}
           >
-            <RadioGroupItem value={option.key} id={`${question._id}-${option.key}`} />
+            <Checkbox
+              value={option.key}
+              id={`${question._id}-${option.key}`}
+              checked={isUserSelected}
+              disabled={isSubmitted}
+              onCheckedChange={() => onAnswerChange(String(question._id), option.key)}
+            />
             <span className="flex-1 font-medium">
               <span className="font-bold mr-2">{option.key}.</span>
               {option.value}
@@ -48,8 +54,8 @@ function MultipleChoiceComponent({ question, onAnswerChange, value, isSubmitted 
           </Label>
         )
       })}
-    </RadioGroup>
+    </div>
   )
 }
 
-export const MultipleChoice = memo(MultipleChoiceComponent)
+export const MultipleSelect = memo(MultipleSelectComponent)

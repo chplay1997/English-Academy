@@ -8,6 +8,8 @@ import { useEffect, useState } from 'react'
 import { ICourseState } from '../CourseClient'
 import { Dispatch, SetStateAction } from 'react'
 import { MAX_SCORE } from '@/models/assessmentResult.model'
+import Image from 'next/image'
+import { getTestMode } from '@/services/getTestMode'
 
 interface AssessmentProps {
   assessment: IAssessment
@@ -16,29 +18,24 @@ interface AssessmentProps {
 }
 
 export default function Assessment({ assessment, lessonId, setCourseState }: AssessmentProps) {
-  const [answers, setAnswers] = useState<Record<string, string | null>>({})
+  const [answers, setAnswers] = useState<Record<string, string[] | null>>({})
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [showError, setShowError] = useState(false)
+  const testMode = getTestMode()
 
   const allQuestionIds = assessment.exercises.flatMap(exercise =>
     exercise.questions.map(question => String(question._id))
   )
 
   const totalCorrectAnswers = isSubmitted
-    ? Object.entries(answers).filter(
-        ([questionId, answer]) =>
-          answer ===
+    ? Object.entries(answers).filter(([questionId, answer]) =>
+        answer?.includes(
           assessment.exercises
             .flatMap(exercise => exercise.questions)
-            .find(question => String(question._id) === questionId)?.correctAnswerKey
+            .find(question => String(question._id) === questionId)?.correctAnswerKey || ''
+        )
       ).length
     : 0
-
-  const handleAnswerChange = (questionId: string, value: string) => {
-    if (!isSubmitted) {
-      setAnswers(prev => ({ ...prev, [questionId]: value }))
-    }
-  }
 
   const handleSubmit = async () => {
     if (isSubmitted) {
@@ -48,12 +45,16 @@ export default function Assessment({ assessment, lessonId, setCourseState }: Ass
       document.getElementById(allQuestionIds[0])?.scrollIntoView({ behavior: 'smooth', block: 'center' })
       return
     }
-    const firstQuestionNotAnswered = allQuestionIds.find(questionId => !answers[questionId])
 
-    if (firstQuestionNotAnswered) {
-      setShowError(true)
-      document.getElementById(firstQuestionNotAnswered)?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-      return
+    // Test mode by pass check all question
+    if (!testMode) {
+      const firstQuestionNotAnswered = allQuestionIds.find(questionId => !answers[questionId])
+
+      if (firstQuestionNotAnswered) {
+        setShowError(true)
+        document.getElementById(firstQuestionNotAnswered)?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        return
+      }
     }
 
     setIsSubmitted(true)
@@ -73,7 +74,8 @@ export default function Assessment({ assessment, lessonId, setCourseState }: Ass
     })
 
     if (!response.ok) {
-      throw new Error('Failed to submit assessment')
+      const errorData = await response.json()
+      throw new Error(`Failed to submit assessment: ${errorData.message}`)
     }
 
     const data = await response.json()
@@ -106,7 +108,7 @@ export default function Assessment({ assessment, lessonId, setCourseState }: Ass
       const correctAnswer = assessment.exercises
         .flatMap(exercise => exercise.questions)
         .find(question => String(question._id) === questionId)?.correctAnswerKey
-      return userAnswer !== correctAnswer
+      return userAnswer?.includes(correctAnswer || '')
     })
 
     if (!firstWrongAnswerId) return
@@ -137,23 +139,25 @@ export default function Assessment({ assessment, lessonId, setCourseState }: Ass
                 }}
               />
             )}
+
+            {exercise.exerciseImage && (
+              <Image src={exercise.exerciseImage} alt="" width={500} height={500} className="mt-4" />
+            )}
           </CardHeader>
           <CardContent className="pt-6 space-y-8">
-            {exercise.questions.map(question => {
-              const isShowError = showError && !answers[String(question._id)]
-              return (
-                <QuestionContainer
-                  key={String(question._id)}
-                  question={question}
-                  exerciseType={exercise.exerciseType}
-                  onAnswerChange={handleAnswerChange}
-                  userAnswer={answers[String(question._id)] || null}
-                  exerciseStem={exercise.exerciseStem}
-                  isSubmitted={isSubmitted}
-                  showError={isShowError}
-                />
-              )
-            })}
+            {exercise.questions.map(question => (
+              <QuestionContainer
+                key={question._id as string}
+                question={question}
+                exerciseType={exercise.exerciseType}
+                setAnswers={setAnswers}
+                userAnswer={answers[question._id as string]}
+                exerciseStem={exercise.exerciseStem}
+                isSubmitted={isSubmitted}
+                showError={showError}
+                matchingOptions={exercise.matchingOptions}
+              />
+            ))}
           </CardContent>
         </Card>
       ))}

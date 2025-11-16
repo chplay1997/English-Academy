@@ -7,6 +7,7 @@ export interface IOption extends Document {
 
 export enum EExerciseType {
   MultipleChoice = 'multiple_choice',
+  MultipleSelect = 'multiple_select',
   FillInBlank = 'fill_in_blank',
   Matching = 'matching',
   TrueFalse = 'true_false',
@@ -40,7 +41,9 @@ export interface IQuestion extends Document {
   stem: string
   options?: IOption[]
   correctAnswerKey?: string
+  correctAnswerKeys?: string[]
   correctAnswerValue?: string
+  correctAnswerValues?: string[]
   alternativeAnswers?: string[]
   errorType?: string
   correctForm?: string
@@ -53,6 +56,8 @@ export interface IExercise extends Document {
   exerciseTitle?: string
   exerciseStem?: string
   questions: IQuestion[]
+  exerciseImage?: string
+  matchingOptions?: string[]
 }
 
 export interface IAssessment extends Document {
@@ -72,7 +77,9 @@ const questionSchema = new Schema<IQuestion>(
     stem: String,
     options: [optionSchema],
     correctAnswerKey: String,
+    correctAnswerKeys: [String],
     correctAnswerValue: String,
+    correctAnswerValues: [String],
     alternativeAnswers: [String],
     errorType: String,
     correctForm: String,
@@ -92,6 +99,8 @@ const exerciseSchema = new Schema<IExercise>(
     exerciseTitle: String,
     exerciseStem: String,
     questions: [questionSchema],
+    exerciseImage: String,
+    matchingOptions: [String],
   },
   { _id: true }
 )
