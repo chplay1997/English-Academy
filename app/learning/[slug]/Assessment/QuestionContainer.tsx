@@ -62,8 +62,6 @@ function QuestionContainerComponent({
         return <MultipleSelect question={question} {...rest} onAnswerChange={handleToggleAnswer} value={userAnswer} />
 
       case EExerciseType.FillInBlank:
-      case EExerciseType.Pluralization:
-      case EExerciseType.PictureCompletion:
         return <FillInBlank question={question} {...rest} onAnswerChange={handleAnswerChange} value={value} />
 
       case EExerciseType.Matching:

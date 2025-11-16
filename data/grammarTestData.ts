@@ -1027,7 +1027,7 @@ export const grammarTest = [
         questions: [
           {
             questionNumber: 7,
-            stem: 'He was (A) in France (B) to pursue his master degree (C) between August 2018 to (D) September 2020.',
+            stem: 'He was (A) <b><u>in</u></b> France (B) <b><u>to</u></b> pursue his master degree (C) <b><u>between</u></b> August 2018 to (D) <b><u>September 2020</u></b>.',
             options: [
               { key: 'A', value: 'in' },
               { key: 'B', value: 'to' },
@@ -1041,7 +1041,7 @@ export const grammarTest = [
           },
           {
             questionNumber: 8,
-            stem: 'The bank is (A) at the right (B) of the French restaurant, (C) next to the supermarket and (D) opposite the bookstore.',
+            stem: 'The bank is (A) <b><u>at</u></b> the right (B) <b><u>of</u></b> the French restaurant, (C) <b><u>next to</u></b> the supermarket and (D) <b><u>opposite</u></b> the bookstore.',
             options: [
               { key: 'A', value: 'at' },
               { key: 'B', value: 'of' },
@@ -1149,9 +1149,9 @@ export const grammarTest = [
         ],
       },
       {
-        exerciseType: EExerciseType.Writing,
+        exerciseType: EExerciseType.FillInBlank,
         exerciseTitle: 'Exercise 4: Look at the map below and write the sentences using the given clues.',
-        imageHint: '',
+        exerciseImage: 'https://hxd8m65scvrb2r3d.public.blob.vercel-storage.com/Mini_test_4-exercise_4.png',
         questions: [
           {
             questionNumber: 16,
@@ -2550,7 +2550,7 @@ export const grammarTest = [
       },
       {
         exerciseOrder: 8,
-        exerciseType: EExerciseType.PictureCompletion,
+        exerciseType: EExerciseType.FillInBlank,
         exerciseTitle:
           'Exercise 7: Quan sát tranh và hoàn thiện 8 câu sau đây, sử dụng danh từ cho sẵn ở dạng số nhiều.',
         exerciseStem: 'Ví dụ: Picture 1. three bananas | Picture 2. two newspapers',
@@ -2612,7 +2612,7 @@ export const grammarTest = [
       },
       {
         exerciseOrder: 9,
-        exerciseType: EExerciseType.Pluralization,
+        exerciseType: EExerciseType.FillInBlank,
         exerciseTitle: 'Exercise 8: Chuyển các danh từ sau sang dạng số nhiều',
         questions: [
           {
@@ -2790,193 +2790,329 @@ export const grammarTest = [
   },
   {
     testName: 'Section 3: Sở hữu cách',
-    testCategory: 'Grammar',
+    testCategory: ETestCategory.Grammar,
     courseSlug: 'toeic-foundation',
     exercises: [
       {
+        exerciseOrder: 1,
         exerciseType: EExerciseType.Matching,
         exerciseTitle: 'Exercise 1: Nối mỗi công thức dưới đây với ý nghĩa của chúng',
-        matchingPairs: [
+        matchingOptions: [
+          'Khi N1 sở hữu N2 và N1 là danh từ số ít, hoặc danh từ số nhiều nhưng không có tận cùng là S',
+          'Khi N1 sở hữu N2 và N1 là danh từ số ít hoặc số nhiều có tận cùng là S',
+          'Khi chỉ có một N3 mà N1 và N2 cùng sở hữu',
+          'Khi N1 và N2 sở hữu N3 riêng biệt',
+        ],
+        questions: [
           {
-            clue: 'Khi chỉ có một N3 mà N1 và N2 cùng sở hữu',
-            correctMatch: "N1 and N2's N3",
+            questionNumber: 1,
+            stem: "N1's N2",
+            correctAnswerValue:
+              'Khi N1 sở hữu N2 và N1 là danh từ số ít, hoặc danh từ số nhiều nhưng không có tận cùng là S',
           },
           {
-            clue: "N1's N2",
-            correctMatch: 'Khi N1 sở hữu N2 và N1 là danh từ số ít, hoặc danh từ số nhiều nhưng không có tận cùng là S',
+            questionNumber: 2,
+            stem: "N1s' N2",
+            correctAnswerValue: 'Khi N1 sở hữu N2 và N1 là danh từ số ít hoặc số nhiều có tận cùng là S',
           },
           {
-            clue: "N1s' N2",
-            correctMatch: 'Khi N1 sở hữu N2 và N1 là danh từ số ít hoặc số nhiều có tận cùng là S',
+            questionNumber: 3,
+            stem: "N1 and N2's N3",
+            correctAnswerValue: 'Khi chỉ có một N3 mà N1 và N2 cùng sở hữu',
           },
           {
-            clue: 'Khi N1 và N2 sở hữu N3 riêng biệt',
-            correctMatch: "N1's and N2's N3",
+            questionNumber: 4,
+            stem: "N1's and N2's N3",
+            correctAnswerValue: 'Khi N1 và N2 sở hữu N3 riêng biệt',
           },
         ],
       },
       {
+        exerciseOrder: 2,
         exerciseType: EExerciseType.TrueFalse,
         exerciseTitle: 'Exercise 2: Chọn True nếu khẳng định là đúng - False nếu khẳng định là sai',
         questions: [
           {
-            questionNumber: 1,
+            questionNumber: 5,
             stem: "Trong công thức N1's N2 thì N2 là danh từ sở hữu, còn N1 là danh từ được sở hữu.",
-            correctAnswerValue: 'FALSE',
-            explanation: 'N1 là danh từ SỞ HỮU, N2 là danh từ ĐƯỢC SỞ HỮU.',
+            options: [
+              { key: 'A', value: 'True' },
+              { key: 'B', value: 'False' },
+            ],
+            correctAnswerKey: 'B',
+            correctAnswerValue: 'False',
+            note: "N1 là danh từ SỞ HỮU (người/vật sở hữu), N2 là danh từ ĐƯỢC SỞ HỮU. Ví dụ: John's book (John sở hữu cuốn sách)",
           },
           {
-            questionNumber: 2,
+            questionNumber: 6,
             stem: 'Danh từ chỉ người thì có thể sử dụng sở hữu cách, nhưng danh từ chỉ động vật thì không.',
-            correctAnswerValue: 'FALSE',
-            explanation: "Danh từ chỉ động vật vẫn có thể sử dụng sở hữu cách (ví dụ: a cat's tail).",
+            options: [
+              { key: 'A', value: 'True' },
+              { key: 'B', value: 'False' },
+            ],
+            correctAnswerKey: 'B',
+            correctAnswerValue: 'False',
+            note: "Cả danh từ chỉ người VÀ động vật đều có thể dùng sở hữu cách. Ví dụ: the dog's tail (đuôi của con chó)",
           },
           {
-            questionNumber: 3,
+            questionNumber: 7,
             stem: "Với danh từ số ít có tận cùng là S, ta có thể viết sở hữu cách ở cả hai dạng là thêm dấu phẩy hoặc thêm 'S.",
-            correctAnswerValue: 'TRUE',
-            explanation: "Cả hai dạng đều được chấp nhận, ví dụ: Charles' hoặc Charles's.",
+            options: [
+              { key: 'A', value: 'True' },
+              { key: 'B', value: 'False' },
+            ],
+            correctAnswerKey: 'A',
+            correctAnswerValue: 'True',
+            note: "Ví dụ: Charles' book hoặc Charles's book (cả hai đều đúng)",
           },
         ],
       },
       {
+        exerciseOrder: 3,
         exerciseType: EExerciseType.Matching,
         exerciseTitle:
           'Exercise 3: Các trường hợp nào sau đây sử dụng được với sở hữu cách, hãy nối từng trường hợp với nhóm tương ứng.',
-        note: 'AI phân tích dựa trên quy tắc chung của Possessive Case.',
-        matchingPairs: [
-          { clue: 'Danh từ chỉ người', correctMatch: 'Có sở hữu cách' },
-          { clue: 'Danh từ chỉ con vật', correctMatch: 'Có sở hữu cách' },
-          { clue: 'Danh từ chỉ vật, sự vật', correctMatch: "Không có sở hữu cách (Thường dùng 'of')" },
-          { clue: 'Danh từ chỉ thời gian và không gian quen thuộc', correctMatch: 'Có sở hữu cách' },
-          { clue: 'Danh từ chỉ tổ chức', correctMatch: 'Có sở hữu cách' },
-          { clue: 'Chỗ làm của một số nghề nghiệp', correctMatch: 'Có sở hữu cách' },
-          { clue: 'Tránh lặp lại danh từ', correctMatch: 'Có sở hữu cách' },
+        matchingOptions: ['Có sở hữu cách', 'Không có sở hữu cách'],
+        questions: [
+          {
+            questionNumber: 8,
+            stem: 'Danh từ chỉ người',
+            correctAnswerValue: 'Có sở hữu cách',
+          },
+          {
+            questionNumber: 9,
+            stem: 'Danh từ chỉ con vật',
+            correctAnswerValue: 'Có sở hữu cách',
+          },
+          {
+            questionNumber: 10,
+            stem: 'Danh từ chỉ vật, sự vật',
+            correctAnswerValue: 'Không có sở hữu cách',
+          },
+          {
+            questionNumber: 11,
+            stem: 'Danh từ chỉ thời gian và không gian quen thuộc',
+            correctAnswerValue: 'Có sở hữu cách',
+          },
+          {
+            questionNumber: 12,
+            stem: 'Danh từ chỉ tổ chức',
+            correctAnswerValue: 'Có sở hữu cách',
+          },
+          {
+            questionNumber: 13,
+            stem: 'Chỗ làm của một số nghề nghiệp',
+            correctAnswerValue: 'Có sở hữu cách',
+          },
+          {
+            questionNumber: 14,
+            stem: 'Tránh lặp lại danh từ',
+            correctAnswerValue: 'Có sở hữu cách',
+          },
         ],
       },
       {
-        exerciseType: EExerciseType.Correction,
+        exerciseOrder: 4,
+        exerciseType: EExerciseType.FillInBlank,
         exerciseTitle:
           "Exercise 4: Thêm 's hoặc ' vào danh từ đầu tiên trong các cụm sau để tạo thành dạng sở hữu cách phù hợp",
+        exerciseStem: "Lưu ý: Viết lại cả cụm mới hoàn chỉnh, ví dụ:<br/>My parents house → My parents' house",
         questions: [
-          { questionNumber: 1, stem: 'My grandparents garden', correctForm: "My grandparents' garden" },
-          { questionNumber: 2, stem: 'Cats eyes', correctForm: "Cats' eyes" },
-          { questionNumber: 3, stem: 'My cat eyes', correctForm: "My cat's eyes" },
-          { questionNumber: 4, stem: 'Mary brother', correctForm: "Mary's brother" },
-          { questionNumber: 5, stem: 'My husband car', correctForm: "My husband's car" },
-          { questionNumber: 6, stem: 'My sister clothes', correctForm: "My sister's clothes" },
-          { questionNumber: 7, stem: 'People jobs', correctForm: "People's jobs" },
-          { questionNumber: 8, stem: 'My boss house', correctForm: "My boss's house" },
-          { questionNumber: 9, stem: 'Women clothes', correctForm: "Women's clothes" },
-          { questionNumber: 10, stem: 'Marcus children', correctForm: "Marcus's children" },
+          {
+            questionNumber: 15,
+            stem: 'My grandparents garden → ___________',
+            correctAnswerValue: "My grandparents' garden",
+          },
+          {
+            questionNumber: 16,
+            stem: 'Cats eyes → ___________',
+            correctAnswerValue: "Cats' eyes",
+          },
+          {
+            questionNumber: 17,
+            stem: 'My cat eyes → ___________',
+            correctAnswerValue: "My cat's eyes",
+          },
+          {
+            questionNumber: 18,
+            stem: 'Mary brother → ___________',
+            correctAnswerValue: "Mary's brother",
+          },
+          {
+            questionNumber: 19,
+            stem: 'My husband car → ___________',
+            correctAnswerValue: "My husband's car",
+          },
+          {
+            questionNumber: 20,
+            stem: 'My sister clothes → ___________',
+            correctAnswerValue: "My sister's clothes",
+          },
+          {
+            questionNumber: 21,
+            stem: 'People jobs → ___________',
+            correctAnswerValue: "People's jobs",
+          },
+          {
+            questionNumber: 22,
+            stem: 'My boss house → ___________',
+            correctAnswerValue: "My boss's house",
+            alternativeAnswers: ["My boss' house"],
+          },
+          {
+            questionNumber: 23,
+            stem: 'Women clothes → ___________',
+            correctAnswerValue: "Women's clothes",
+          },
+          {
+            questionNumber: 24,
+            stem: 'Marcus children → ___________',
+            correctAnswerValue: "Marcus's children",
+            alternativeAnswers: ["Marcus' children"],
+          },
         ],
       },
       {
-        exerciseType: EExerciseType.Rewrite,
-        exerciseTitle: 'Exercise 5: Viết các cách diễn đạt thời gian có sử dụng sở hữu cách',
+        exerciseOrder: 5,
+        exerciseType: EExerciseType.FillInBlank,
+        exerciseTitle:
+          'Exercise 5: Viết các cách diễn đạt thời gian có sử dụng sở hữu cách cho các từ IN HOA trong mỗi câu sau.',
+        exerciseStem:
+          "Ví dụ: 'Who was it?' I asked. There was A PAUSE before she answered. (second) → A second's pause.",
         questions: [
           {
-            questionNumber: 1,
-            stem: 'After university, Les took A COURSE to become a teacher. (year)',
-            correctForm: "A year's course.",
+            questionNumber: 25,
+            stem: 'After university, Les took A COURSE to become a teacher. (year) → ___________',
+            correctAnswerValue: "a year's course",
+            alternativeAnswers: ["A year's course"],
           },
           {
-            questionNumber: 2,
-            stem: 'Lin had A HOLIDAY with her mother earlier this year. (week)',
-            correctForm: "A week's holiday.",
+            questionNumber: 26,
+            stem: 'Lin had A HOLIDAY with her mother earlier this year. (week) → ___________',
+            correctAnswerValue: "a week's holiday",
+            alternativeAnswers: ["A week's holiday"],
           },
           {
-            questionNumber: 3,
-            stem: "Oxford is nearly 600 km from Edinburgh - that's A JOURNEY. (day)",
-            correctForm: "A day's journey.",
+            questionNumber: 27,
+            stem: "Oxford is nearly 600 km from Edinburgh - that's A JOURNEY. (day) → ___________",
+            correctAnswerValue: "a day's journey",
+            alternativeAnswers: ["A day's journey"],
           },
           {
-            questionNumber: 4,
-            stem: "Sita's new job will mean A DRIVE to work every morning. (hour)",
-            correctForm: "An hour's drive.",
+            questionNumber: 28,
+            stem: "Sita's new job will mean A DRIVE to work every morning. (hour) → ___________",
+            correctAnswerValue: "an hour's drive",
+            alternativeAnswers: ["An hour's drive"],
           },
           {
-            questionNumber: 5,
-            stem: 'There was A WAIT while the computer started up. (minute)',
-            correctForm: "A minute's wait.",
+            questionNumber: 29,
+            stem: 'There was A WAIT while the computer started up. (minute) → ___________',
+            correctAnswerValue: "a minute's wait",
+            alternativeAnswers: ["A minute's wait"],
           },
         ],
       },
       {
-        exerciseType: EExerciseType.Correction,
+        exerciseOrder: 6,
+        exerciseType: EExerciseType.FillInBlank,
         exerciseTitle: 'Exercise 6: Tìm lỗi sai trong mỗi câu sau và viết lại câu đúng một cách hoàn chỉnh',
         questions: [
           {
-            questionNumber: 1,
-            stem: "My mothers' name is Alice.",
-            error: "mothers'",
-            correctForm: "My mother's name is Alice.",
+            questionNumber: 30,
+            stem: "My mothers' name is Alice. → ___________",
+            correctAnswerValue: "My mother's name is Alice",
+            alternativeAnswers: ["My mother's name is Alice."],
+            errorType: "Danh từ số ít 'mother' phải dùng 's không phải s'",
+            note: "Sửa: mothers' → mother's",
           },
           {
-            questionNumber: 2,
-            stem: "I like watching women' sports events on TV.",
-            error: "women'",
-            correctForm: "I like watching women's sports events on TV.",
+            questionNumber: 31,
+            stem: "I like watching women' sports events on TV. → ___________",
+            correctAnswerValue: "I like watching women's sports events on TV",
+            alternativeAnswers: ["I like watching women's sports events on TV."],
+            errorType: "Danh từ số nhiều không có 's' ở cuối (women) phải thêm 's",
+            note: "Sửa: women' → women's",
           },
           {
-            questionNumber: 3,
-            stem: 'We sometimes have lunch at Carols.',
-            error: 'Carols.',
-            correctForm: "We sometimes have lunch at Carol's.",
+            questionNumber: 32,
+            stem: 'We sometimes have lunch at Carols. → ___________',
+            correctAnswerValue: "We sometimes have lunch at Carol's",
+            alternativeAnswers: ["We sometimes have lunch at Carol's."],
+            errorType: "Chỗ làm việc của người tên Carol cần thêm 's",
+            note: "Sửa: Carols → Carol's (Carol's = Carol's restaurant/place)",
           },
           {
-            questionNumber: 4,
-            stem: "What is the computer's size?",
-            error: "computer's size",
-            correctForm: 'What is the size of the computer?',
+            questionNumber: 33,
+            stem: "What is the computer's size? → ___________",
+            correctAnswerValue: 'What is the size of the computer',
+            alternativeAnswers: ['What is the size of the computer?'],
+            errorType: 'Danh từ chỉ vật không dùng sở hữu cách, dùng "of"',
+            note: "Sửa: the computer's size → the size of the computer",
           },
           {
-            questionNumber: 5,
-            stem: 'Do you know where the car of Dave is?',
-            error: 'the car of Dave',
-            correctForm: "Do you know where Dave's car is?",
+            questionNumber: 34,
+            stem: 'Do you know where the car of Dave is? → ___________',
+            correctAnswerValue: "Do you know where Dave's car is",
+            alternativeAnswers: ["Do you know where Dave's car is?"],
+            errorType: 'Danh từ chỉ người nên dùng sở hữu cách thay vì "of"',
+            note: "Sửa: the car of Dave → Dave's car",
           },
           {
-            questionNumber: 6,
-            stem: 'Will you go to the dentist this evening?',
-            error: 'Không có (Nhưng có thể sửa thành)',
-            correctForm: "Will you go to the dentist's this evening?",
+            questionNumber: 35,
+            stem: 'Will you go to the dentist this evening? → ___________',
+            correctAnswerValue: "Will you go to the dentist's this evening",
+            alternativeAnswers: ["Will you go to the dentist's this evening?"],
+            errorType: "Chỗ làm việc của nha sĩ cần thêm 's",
+            note: "Sửa: the dentist → the dentist's (the dentist's = the dentist's office/clinic)",
           },
         ],
       },
       {
-        exerciseType: EExerciseType.Rewrite,
+        exerciseOrder: 7,
+        exerciseType: EExerciseType.FillInBlank,
         exerciseTitle: 'Exercise 7: Sử dụng sở hữu cách để viết lại các câu sau sao cho nghĩa không đổi',
+        exerciseStem: "Ví dụ:<br/>This is the book of Nam → This is Nam's book.",
         questions: [
           {
-            questionNumber: 1,
-            stem: 'The tools of the mechanic were heavy.',
-            correctForm: "The mechanic's tools were heavy.",
+            questionNumber: 36,
+            stem: 'The tools of the mechanic were heavy. → ___________',
+            correctAnswerValue: "The mechanic's tools were heavy",
+            alternativeAnswers: ["The mechanic's tools were heavy."],
           },
           {
-            questionNumber: 2,
-            stem: 'She prepared the outfit of her children.',
-            correctForm: "She prepared her children's outfit.",
+            questionNumber: 37,
+            stem: 'She prepared the outfit of her children. → ___________',
+            correctAnswerValue: "She prepared her children's outfit",
+            alternativeAnswers: ["She prepared her children's outfit."],
           },
           {
-            questionNumber: 3,
-            stem: 'The coat of the boy and the coat of the girl were torn.',
-            correctForm: "The boy's and the girl's coats were torn.",
+            questionNumber: 38,
+            stem: 'The coat of the boy and the coat of the girl were torn. → ___________',
+            correctAnswerValue: "The boy's coat and the girl's coat were torn",
+            alternativeAnswers: [
+              "The boy's coat and the girl's coat were torn.",
+              "The boy's and the girl's coats were torn",
+              "The boy's and the girl's coats were torn.",
+            ],
           },
           {
-            questionNumber: 4,
-            stem: 'The desks of the pupils are always clean.',
-            correctForm: "The pupils' desks are always clean.",
+            questionNumber: 39,
+            stem: 'The desks of the pupils are always clean. → ___________',
+            correctAnswerValue: "The pupils' desks are always clean",
+            alternativeAnswers: ["The pupils' desks are always clean."],
           },
           {
-            questionNumber: 5,
-            stem: "The house's windows are green.",
-            correctForm: 'The windows of the house are green.',
+            questionNumber: 40,
+            stem: "The house's windows are green. → ___________",
+            correctAnswerValue: 'The windows of the house are green',
+            alternativeAnswers: ['The windows of the house are green.'],
+            note: 'Danh từ chỉ vật (house) không nên dùng sở hữu cách, chuyển sang dùng "of"',
           },
           {
-            questionNumber: 6,
-            stem: 'The house of my mother-in-law is in the country.',
-            correctForm: "My mother-in-law's house is in the country.",
+            questionNumber: 41,
+            stem: 'The house of my mother-in-law is in the country. → ___________',
+            correctAnswerValue: "My mother-in-law's house is in the country",
+            alternativeAnswers: ["My mother-in-law's house is in the country."],
           },
         ],
       },
@@ -2984,111 +3120,221 @@ export const grammarTest = [
   },
   {
     testName: 'Section 4: Hạn định từ',
-    testCategory: 'Grammar',
+    testCategory: ETestCategory.Grammar,
     courseSlug: 'toeic-foundation',
     exercises: [
       {
+        exerciseOrder: 1,
         exerciseType: EExerciseType.TrueFalse,
         exerciseTitle: 'Exercise 1: Chọn True nếu khẳng định là đúng, False nếu khẳng định là sai',
         questions: [
           {
             questionNumber: 1,
             stem: 'Hạn định từ bao gồm từ chỉ định và lượng từ.',
-            correctAnswerValue: 'TRUE',
-            explanation:
-              'Hạn định từ (Determiners) bao gồm từ chỉ định (Demonstratives: this, that, etc.) và lượng từ (Quantifiers: some, many, etc.).',
+            options: [
+              { key: 'A', value: 'True' },
+              { key: 'B', value: 'False' },
+            ],
+            correctAnswerKey: 'A',
+            correctAnswerValue: 'True',
+            note: 'Hạn định từ (determiners) bao gồm: từ chỉ định (this, that, these, those), lượng từ (some, any, much, many), mạo từ (a, an, the), tính từ sở hữu, số đếm,...',
           },
           {
             questionNumber: 2,
             stem: 'Từ chỉ định luôn luôn đứng trước danh từ.',
-            correctAnswerValue: 'TRUE',
-            explanation: 'Từ chỉ định (Demonstratives) luôn đứng trước danh từ mà chúng bổ nghĩa.',
+            options: [
+              { key: 'A', value: 'True' },
+              { key: 'B', value: 'False' },
+            ],
+            correctAnswerKey: 'A',
+            correctAnswerValue: 'True',
+            note: 'Từ chỉ định (this, that, these, those) luôn đứng trước danh từ để chỉ định cụ thể',
           },
           {
             questionNumber: 3,
             stem: 'Lượng từ chỉ đi cùng danh từ đếm được.',
-            correctAnswerValue: 'FALSE',
-            explanation:
-              'Lượng từ đi kèm với cả danh từ đếm được (ví dụ: many, few) và không đếm được (ví dụ: much, little).',
+            options: [
+              { key: 'A', value: 'True' },
+              { key: 'B', value: 'False' },
+            ],
+            correctAnswerKey: 'B',
+            correctAnswerValue: 'False',
+            note: 'Lượng từ có thể đi với cả danh từ đếm được (many, few) VÀ danh từ không đếm được (much, little)',
           },
         ],
       },
       {
+        exerciseOrder: 2,
         exerciseType: EExerciseType.FillInBlank,
         exerciseTitle: 'Exercise 2: Điền vào chỗ trống các từ chỉ định đã học để hoàn thành bảng sau',
-        tableData: {
-          columns: ['Vị trí', 'Danh từ số ít', 'Danh từ số nhiều'],
-          rows: [
-            {
-              'Vị trí': 'Vị trí gần',
-              'Danh từ số ít': 'This (1)',
-              'Danh từ số nhiều': 'These (2)',
-            },
-            {
-              'Vị trí': 'Vị trí xa',
-              'Danh từ số ít': 'That (3)',
-              'Danh từ số nhiều': 'Those (4)',
-            },
-          ],
-        },
-        answers: {
-          '1': 'This',
-          '2': 'These',
-          '3': 'That',
-          '4': 'Those',
-        },
-      },
-      {
-        exerciseType: EExerciseType.MultipleChoice,
-        exerciseTitle: 'Exercise 3: Chọn các đáp án đúng về Some và any',
+        exerciseStem: 'Bảng từ chỉ định theo vị trí và số lượng',
         questions: [
           {
-            questionNumber: 1,
-            stem: 'Some và any có cách dùng khác nhau như thế nào?',
+            questionNumber: 4,
+            stem: 'Chỗ trống (1): Vị trí gần - Danh từ số ít → ___________',
+            correctAnswerValue: 'this',
+            alternativeAnswers: ['This'],
+          },
+          {
+            questionNumber: 5,
+            stem: 'Chỗ trống (2): Vị trí gần - Danh từ số nhiều → ___________',
+            correctAnswerValue: 'these',
+            alternativeAnswers: ['These'],
+          },
+          {
+            questionNumber: 6,
+            stem: 'Chỗ trống (3): Vị trí xa - Danh từ số ít → ___________',
+            correctAnswerValue: 'that',
+            alternativeAnswers: ['That'],
+          },
+          {
+            questionNumber: 7,
+            stem: 'Chỗ trống (4): Vị trí xa - Danh từ số nhiều → ___________',
+            correctAnswerValue: 'those',
+            alternativeAnswers: ['Those'],
+          },
+        ],
+      },
+      {
+        exerciseOrder: 3,
+        exerciseType: EExerciseType.MultipleSelect,
+        exerciseTitle: 'Exercise 3: Chọn các đáp án đúng',
+        exerciseStem: 'Some và any có cách dùng khác nhau như thế nào?',
+        questions: [
+          {
+            questionNumber: 8,
+            stem: 'Chọn TẤT CẢ các phát biểu ĐÚNG về cách dùng "some" và "any"',
+            options: [
+              { key: 'A', value: 'Some đi với danh từ số nhiều; any chỉ đi với danh từ số ít' },
+              { key: 'B', value: 'Some đi với danh từ số ít; any đi với danh từ số nhiều' },
+              {
+                key: 'C',
+                value: 'Some thường dùng trong câu khẳng định; any thường dùng trong câu phủ định và câu hỏi',
+              },
+              {
+                key: 'D',
+                value: 'Some thường dùng trong câu phủ định và câu hỏi; any thường dùng trong câu khẳng định',
+              },
+              {
+                key: 'E',
+                value:
+                  'Some có thể dùng trong câu hỏi với mục đích mời ai đó làm gì; any có thể dùng trong câu khẳng định với nghĩa "bất cứ"',
+              },
+            ],
+            correctAnswerKeys: ['C', 'E'],
             correctAnswerValues: [
               'Some thường dùng trong câu khẳng định; any thường dùng trong câu phủ định và câu hỏi',
               'Some có thể dùng trong câu hỏi với mục đích mời ai đó làm gì; any có thể dùng trong câu khẳng định với nghĩa "bất cứ"',
             ],
+            note: 'Some và any đều có thể đi với cả danh từ đếm được số nhiều và danh từ không đếm được',
           },
         ],
       },
       {
+        exerciseOrder: 4,
         exerciseType: EExerciseType.Matching,
         exerciseTitle: 'Exercise 4: Nối các lượng từ sau với loại danh từ tương ứng mà chúng đi kèm',
-        matchingPairs: [
-          { clue: 'a little', correctMatch: 'Danh từ không đếm được' },
-          { clue: 'a few', correctMatch: 'Danh từ đếm được' },
-          { clue: 'some', correctMatch: 'Cả danh từ đếm được và không đếm được' },
-          { clue: 'little', correctMatch: 'Danh từ không đếm được' },
-          { clue: 'few', correctMatch: 'Danh từ đếm được' },
-          { clue: 'any', correctMatch: 'Cả danh từ đếm được và không đếm được' },
-          { clue: 'a lot of', correctMatch: 'Cả danh từ đếm được và không đếm được' },
-          { clue: 'many', correctMatch: 'Danh từ đếm được' },
-          { clue: 'lots of', correctMatch: 'Cả danh từ đếm được và không đếm được' },
-          { clue: 'much', correctMatch: 'Danh từ không đếm được' },
+        matchingOptions: ['Danh từ đếm được', 'Danh từ không đếm được', 'Cả danh từ đếm được và không đếm được'],
+        questions: [
+          {
+            questionNumber: 9,
+            stem: 'a little',
+            correctAnswerValue: 'Danh từ không đếm được',
+          },
+          {
+            questionNumber: 10,
+            stem: 'a few',
+            correctAnswerValue: 'Danh từ đếm được',
+          },
+          {
+            questionNumber: 11,
+            stem: 'some',
+            correctAnswerValue: 'Cả danh từ đếm được và không đếm được',
+          },
+          {
+            questionNumber: 12,
+            stem: 'little',
+            correctAnswerValue: 'Danh từ không đếm được',
+          },
+          {
+            questionNumber: 13,
+            stem: 'few',
+            correctAnswerValue: 'Danh từ đếm được',
+          },
+          {
+            questionNumber: 14,
+            stem: 'any',
+            correctAnswerValue: 'Cả danh từ đếm được và không đếm được',
+          },
+          {
+            questionNumber: 15,
+            stem: 'a lot of',
+            correctAnswerValue: 'Cả danh từ đếm được và không đếm được',
+          },
+          {
+            questionNumber: 16,
+            stem: 'many',
+            correctAnswerValue: 'Danh từ đếm được',
+          },
+          {
+            questionNumber: 17,
+            stem: 'lots of',
+            correctAnswerValue: 'Cả danh từ đếm được và không đếm được',
+          },
+          {
+            questionNumber: 18,
+            stem: 'much',
+            correctAnswerValue: 'Danh từ không đếm được',
+          },
         ],
       },
       {
+        exerciseOrder: 5,
         exerciseType: EExerciseType.FillInBlank,
         exerciseTitle: 'Exercise 5: Điền vào chỗ trống các demonstratives - từ chỉ định phù hợp',
         questions: [
           {
-            questionNumber: 1,
-            stem: 'I was in fifth grade last year. I am in sixth grade ____.',
-            correctAnswer: 'this',
+            questionNumber: 19,
+            stem: 'Come and look at ___________ insects.',
+            correctAnswerValue: 'these',
+            alternativeAnswers: ['those'],
+            note: '"these" (gần) hoặc "those" (xa) đều có thể đúng tùy ngữ cảnh',
           },
-          { questionNumber: 2, stem: 'Come and look at ____ insects.', correctAnswer: 'these' },
-          { questionNumber: 3, stem: 'Bring ____ chairs here.', correctAnswer: 'these' },
-          { questionNumber: 4, stem: 'Can you see ____ stars in the sky?', correctAnswer: 'those' },
-          { questionNumber: 5, stem: '____ ice cream is delicious.', correctAnswer: 'This' },
+          {
+            questionNumber: 20,
+            stem: 'I was in fifth grade last year. I am in sixth grade ___________ year.',
+            correctAnswerValue: 'this',
+          },
+          {
+            questionNumber: 21,
+            stem: 'Bring ___________ chairs here.',
+            correctAnswerValue: 'those',
+            alternativeAnswers: ['these'],
+            note: 'Thường dùng "those" khi yêu cầu mang từ xa đến gần',
+          },
+          {
+            questionNumber: 22,
+            stem: '___________ ice cream is delicious.',
+            correctAnswerValue: 'This',
+            alternativeAnswers: ['this', 'That', 'that'],
+            note: 'Có thể dùng "this" (gần) hoặc "that" (xa)',
+          },
+          {
+            questionNumber: 23,
+            stem: 'Can you see ___________ stars in the sky?',
+            correctAnswerValue: 'those',
+            alternativeAnswers: ['these'],
+          },
         ],
       },
       {
+        exerciseOrder: 6,
         exerciseType: EExerciseType.MultipleChoice,
-        exerciseTitle: 'Exercise 6: Đọc đoạn hội thoại giữa hai giáo viên Peter, Emma và chọn một đáp án đúng',
+        exerciseTitle:
+          'Exercise 6: Đọc đoạn hội thoại giữa hai giáo viên Peter, Emma và chọn một đáp án đúng để điền vào chỗ trống trong mỗi lời thoại sau.',
         questions: [
           {
-            questionNumber: 1,
+            questionNumber: 24,
             stem: "Peter: Let's check that we've got everything for the exam this afternoon. I've got ... papers.",
             options: [
               { key: 'A', value: 'some' },
@@ -3096,10 +3342,10 @@ export const grammarTest = [
             ],
             correctAnswerKey: 'A',
             correctAnswerValue: 'some',
-            explanation: "Dùng 'some' trong câu khẳng định.",
+            note: 'Câu khẳng định → dùng "some"',
           },
           {
-            questionNumber: 2,
+            questionNumber: 25,
             stem: 'Emma: Good. Have you got ... pencils?',
             options: [
               { key: 'A', value: 'any' },
@@ -3107,21 +3353,21 @@ export const grammarTest = [
             ],
             correctAnswerKey: 'A',
             correctAnswerValue: 'any',
-            explanation: "Dùng 'any' trong câu hỏi thông thường.",
+            note: 'Câu hỏi → dùng "any"',
           },
           {
-            questionNumber: 3,
-            stem: "Peter: No. The students don't need ____.",
+            questionNumber: 26,
+            stem: "Peter: No. The students don't need …",
             options: [
               { key: 'A', value: 'some' },
               { key: 'B', value: 'any' },
             ],
             correctAnswerKey: 'B',
             correctAnswerValue: 'any',
-            explanation: "Dùng 'any' trong câu phủ định.",
+            note: 'Câu phủ định → dùng "any"',
           },
           {
-            questionNumber: 4,
+            questionNumber: 27,
             stem: "Emma: OK. Everything's ready. Now I'm going to get ... food before the students arrive.",
             options: [
               { key: 'A', value: 'any' },
@@ -3129,10 +3375,10 @@ export const grammarTest = [
             ],
             correctAnswerKey: 'B',
             correctAnswerValue: 'some',
-            explanation: "Dùng 'some' trong câu khẳng định.",
+            note: 'Câu khẳng định → dùng "some"',
           },
           {
-            questionNumber: 5,
+            questionNumber: 28,
             stem: "Peter: It's nearly two o'clock now. We haven't got ... time.",
             options: [
               { key: 'A', value: 'some' },
@@ -3140,212 +3386,236 @@ export const grammarTest = [
             ],
             correctAnswerKey: 'B',
             correctAnswerValue: 'any',
-            explanation: "Dùng 'any' trong câu phủ định.",
+            note: 'Câu phủ định → dùng "any"',
           },
         ],
       },
       {
+        exerciseOrder: 7,
         exerciseType: EExerciseType.MultipleChoice,
         exerciseTitle: 'Exercise 7: Chọn câu đúng trong mỗi cặp câu sau',
         questions: [
           {
-            questionNumber: 1,
-            stem: 'Cặp câu (1): money (danh từ không đếm được)',
+            questionNumber: 29,
+            stem: 'Cặp câu (1)',
             options: [
               { key: 'A', value: 'We have a little money.' },
               { key: 'B', value: 'We have a few money.' },
             ],
             correctAnswerKey: 'A',
             correctAnswerValue: 'We have a little money.',
-            explanation: "'money' là danh từ không đếm được, phải đi với 'a little'.",
+            note: '"money" là danh từ không đếm được → dùng "a little"',
           },
           {
-            questionNumber: 2,
-            stem: 'Cặp câu (2): people (danh từ đếm được số nhiều)',
+            questionNumber: 30,
+            stem: 'Cặp câu (2)',
             options: [
               { key: 'A', value: 'They know a few people.' },
               { key: 'B', value: 'They know a little people.' },
             ],
             correctAnswerKey: 'A',
             correctAnswerValue: 'They know a few people.',
-            explanation: "'people' là danh từ đếm được số nhiều, phải đi với 'a few'.",
+            note: '"people" là danh từ đếm được số nhiều → dùng "a few"',
           },
           {
-            questionNumber: 3,
-            stem: 'Cặp câu (3): coins (danh từ đếm được số nhiều)',
+            questionNumber: 31,
+            stem: 'Cặp câu (3)',
             options: [
               { key: 'A', value: 'She has a little coins.' },
               { key: 'B', value: 'She has a few coins.' },
             ],
             correctAnswerKey: 'B',
             correctAnswerValue: 'She has a few coins.',
-            explanation: "'coins' là danh từ đếm được số nhiều, phải đi với 'a few'.",
+            note: '"coins" là danh từ đếm được số nhiều → dùng "a few"',
           },
           {
-            questionNumber: 4,
-            stem: 'Cặp câu (4): Spanish (danh từ không đếm được)',
+            questionNumber: 32,
+            stem: 'Cặp câu (4)',
             options: [
               { key: 'A', value: 'I can speak a few Spanish.' },
               { key: 'B', value: 'I can speak a little Spanish.' },
             ],
             correctAnswerKey: 'B',
             correctAnswerValue: 'I can speak a little Spanish.',
-            explanation: "'Spanish' (ngôn ngữ) là danh từ không đếm được, phải đi với 'a little'.",
+            note: '"Spanish" (ngôn ngữ) là danh từ không đếm được → dùng "a little"',
           },
           {
-            questionNumber: 5,
-            stem: 'Cặp câu (5): questions (danh từ đếm được số nhiều)',
+            questionNumber: 33,
+            stem: 'Cặp câu (5)',
             options: [
               { key: 'A', value: 'Marta asked a few questions.' },
               { key: 'B', value: 'Marta asked a little questions.' },
             ],
             correctAnswerKey: 'A',
             correctAnswerValue: 'Marta asked a few questions.',
-            explanation: "'questions' là danh từ đếm được số nhiều, phải đi với 'a few'.",
+            note: '"questions" là danh từ đếm được số nhiều → dùng "a few"',
           },
         ],
       },
       {
-        exerciseType: EExerciseType.Correction,
+        exerciseOrder: 8,
+        exerciseType: EExerciseType.FillInBlank,
         exerciseTitle: 'Exercise 8: Tìm lỗi sai trong mỗi câu sau và viết lại câu đúng',
+        exerciseStem:
+          "Ví dụ:<br/>There isn't some milk in the fridge. We need to buy some.<br/>→ There isn't any milk in the fridge. We need to buy some.",
         questions: [
           {
-            questionNumber: 1,
-            stem: "I'd like any water, please.",
-            error: 'any',
-            correctForm: "I'd like some water, please.",
+            questionNumber: 34,
+            stem: "I'd like any water, please. → ___________",
+            correctAnswerValue: "I'd like some water, please",
+            alternativeAnswers: [
+              "I'd like some water, please.",
+              'I would like some water, please',
+              'I would like some water, please.',
+            ],
+            errorType: 'Câu khẳng định/yêu cầu lịch sự → dùng "some" không phải "any"',
+            note: 'Sửa: any → some',
           },
           {
-            questionNumber: 2,
-            stem: "There aren't some emails for you.",
-            error: 'some',
-            correctForm: "There aren't any emails for you.",
+            questionNumber: 35,
+            stem: "There aren't some emails for you. → ___________",
+            correctAnswerValue: "There aren't any emails for you",
+            alternativeAnswers: [
+              "There aren't any emails for you.",
+              'There are not any emails for you',
+              'There are not any emails for you.',
+            ],
+            errorType: 'Câu phủ định → dùng "any" không phải "some"',
+            note: 'Sửa: some → any',
           },
           {
-            questionNumber: 3,
-            stem: "We've got any nice apples today.",
-            error: 'any',
-            correctForm: "We've got some nice apples today.",
+            questionNumber: 36,
+            stem: "We've got any nice apples today. → ___________",
+            correctAnswerValue: "We've got some nice apples today",
+            alternativeAnswers: [
+              "We've got some nice apples today.",
+              'We have got some nice apples today',
+              'We have got some nice apples today.',
+            ],
+            errorType: 'Câu khẳng định → dùng "some" không phải "any"',
+            note: 'Sửa: any → some',
           },
           {
-            questionNumber: 4,
-            stem: 'There are always any horses in the field near our house.',
-            error: 'any',
-            correctForm: 'There are always some horses in the field near our house.',
+            questionNumber: 37,
+            stem: 'There are always any horses in the field near our house. → ___________',
+            correctAnswerValue: 'There are always some horses in the field near our house',
+            alternativeAnswers: ['There are always some horses in the field near our house.'],
+            errorType: 'Câu khẳng định → dùng "some" không phải "any"',
+            note: 'Sửa: any → some',
           },
         ],
       },
       {
+        exerciseOrder: 9,
         exerciseType: EExerciseType.MultipleChoice,
         exerciseTitle: 'Exercise 9: Đọc tình huống và chọn câu diễn đạt đúng nhất tình huống.',
-        note: "'a little'/'a few' mang nghĩa tích cực (đủ dùng); 'little'/'few' mang nghĩa tiêu cực (ít, không đủ).",
+        exerciseStem:
+          'Ví dụ:<br/><strong>Tình huống:</strong> Rosie was still hungry. She wanted some more rice. (Rosie vẫn đói. Cô ấy muốn thêm một ít cơm.)<br/><strong>Các phương án:</strong><br/>a. Rosie wanted a little rice.<br/>b. Rosie wanted little rice.<br/><strong>Đáp án:</strong> A vì "a little" mang nghĩa "một chút" (đủ để dùng), trong khi "little" mang nghĩa "ít, không đủ".',
         questions: [
           {
-            questionNumber: 1,
-            stem: "Tình huống: I don't really like much salt on my food.",
+            questionNumber: 38,
+            stem: `Tình huống (1): I don't really like much salt on my food.`,
             options: [
               { key: 'A', value: 'I add a little salt to my food' },
-              { key: 'B', value: 'I add little salt to my food' },
+              { key: 'B', value: 'I add little salt to my food.' },
             ],
             correctAnswerKey: 'B',
             correctAnswerValue: 'I add little salt to my food.',
-            explanation: "Không thích nhiều muối (phủ định) nên chỉ thêm RẤT ÍT muối ('little' - hầu như không đủ).",
+            note: '"little" = ít, không nhiều (phù hợp với "don\'t like much salt")',
           },
           {
-            questionNumber: 2,
-            stem: 'Tình huống: I have a long working day right ahead of me',
+            questionNumber: 39,
+            stem: 'Tình huống (2): I have a long working day right ahead of me',
             options: [
               { key: 'A', value: 'I packed a few sandwiches.' },
               { key: 'B', value: 'I packed few sandwiches.' },
             ],
             correctAnswerKey: 'A',
             correctAnswerValue: 'I packed a few sandwiches.',
-            explanation: "Ngày làm việc dài cần MỘT SỐ bánh sandwich (đủ dùng, tích cực) nên dùng 'a few'.",
+            note: '"a few" = một vài, đủ để ăn (vì có ngày làm việc dài)',
           },
           {
-            questionNumber: 3,
-            stem: 'Tình huống: He has never studied English. I think he knows how to say hello but I have never heard him say any other English words.',
+            questionNumber: 40,
+            stem: 'Tình huống (3): Mr. Hong arrived in Canada only a few days ago. He has never studied English. I think he knows how to say hello but I have never heard him say any other English words.',
             options: [
               { key: 'A', value: 'Mr. Hong knows a little English.' },
               { key: 'B', value: 'Mr. Hong knows little English.' },
             ],
             correctAnswerKey: 'B',
             correctAnswerValue: 'Mr. Hong knows little English.',
-            explanation:
-              "Chỉ biết nói 'hello' và không biết từ nào khác là RẤT ÍT (không đủ để giao tiếp, tiêu cực) nên dùng 'little'.",
+            note: '"little" = rất ít, gần như không biết (chỉ biết "hello")',
           },
           {
-            questionNumber: 4,
-            stem: "Tình huống: Mr. James doesn't know how to be a good boss. He has a bad temper and yells at people all the time about nothing.",
+            questionNumber: 41,
+            stem: `Tình huống (4): Mr. James doesn't know how to be a good boss. He has a bad temper and yells at people all the time about nothing.`,
             options: [
               { key: 'A', value: 'A few people like working for him.' },
               { key: 'B', value: 'Few people like working for him.' },
             ],
             correctAnswerKey: 'B',
             correctAnswerValue: 'Few people like working for him.',
-            explanation: "Ông sếp tệ nên RẤT ÍT người thích làm việc cho ông ta (tiêu cực) nên dùng 'few'.",
+            note: '"few" = rất ít người (vì ông ta là sếp tồi)',
           },
         ],
       },
       {
+        exerciseOrder: 10,
         exerciseType: EExerciseType.MultipleChoice,
-        exerciseTitle: 'Exercise 10: Sửa lỗi sai trong đoạn văn (Lưu ý: Nếu không có lỗi sai, chọn "x")',
+        exerciseTitle:
+          'Exercise 10: Mỗi câu trong đoạn văn dưới đây có thể chứa lỗi sai. Hãy chọn đáp án sửa chính xác những lỗi sai đó.',
+        exerciseStem: `Lưu ý: Nếu không có lỗi sai, chọn "x"<br/><br/>So, we have a little party every Saturday. You know, just a few friends at our house. There is a lot of talking and laughing, a bit of dancing and a little party games. But we eat too much food - I always feel ill the next day!<br/><br/>Well, it's only two days before we move to the USA now! It's not enough time and there are too much things that we need to do - packing and cleaning the house.<br/><br/>Come visit us - we know we won't have much friends in the States.<br/><br/>Love,<br/>Annabel`,
         questions: [
           {
-            questionNumber: 1,
+            questionNumber: 42,
             stem: 'So, we have a little party every Saturday.',
             options: [
-              { key: 'A', value: 'little -> few' },
-              { key: 'B', value: 'little -> many' },
-              { key: 'C', value: 'Saturday -> Saturdays' },
+              { key: 'A', value: 'little → few' },
+              { key: 'B', value: 'little → many' },
+              { key: 'C', value: 'Saturday → Saturdays' },
               { key: 'D', value: 'x' },
             ],
             correctAnswerKey: 'D',
             correctAnswerValue: 'x',
-            explanation:
-              "Trong ngữ cảnh này, 'a little party' có thể được hiểu là 'một buổi tiệc nhỏ/thân mật' (sử dụng 'little' như tính từ) hoặc không có lỗi sai nghiêm trọng về ngữ pháp lượng từ. (Kết quả phân tích của AI: Chọn D. x)",
+            note: 'Câu đúng. "a little party" = một bữa tiệc nhỏ',
           },
           {
-            questionNumber: 2,
+            questionNumber: 43,
             stem: 'You know, just a few friends at our house. There is a lot of talking and laughing, a bit of dancing and a little party games.',
             options: [
-              { key: 'A', value: 'few friends -> little friends' },
-              { key: 'B', value: 'few friends -> much friends' },
-              { key: 'C', value: 'a lot of -> any of' },
-              { key: 'D', value: 'little party games -> few party games' },
+              { key: 'A', value: 'few friends → little friends' },
+              { key: 'B', value: 'few friends → much friends' },
+              { key: 'C', value: 'a lot of → any of' },
+              { key: 'D', value: 'little party games → few party games' },
             ],
             correctAnswerKey: 'D',
-            correctAnswerValue: 'little party games -> few party games',
-            explanation:
-              "'party games' là danh từ đếm được số nhiều, không thể đi với 'a little' (dùng cho danh từ không đếm được). Phải sửa thành 'a few party games' hoặc 'few party games' (tùy ngữ cảnh). Trong các lựa chọn, 'little party games -> few party games' là sửa lỗi sai về lượng từ hợp lý nhất.",
+            correctAnswerValue: 'little party games → few party games',
+            note: '"party games" là danh từ đếm được số nhiều → dùng "few" không phải "little"',
           },
           {
-            questionNumber: 3,
-            stem: "It's not enough time and there are too much things that we need to do packing and cleaning the house.",
+            questionNumber: 44,
+            stem: "It's not enough time and there are too much things that we need to do - packing and cleaning the house.",
             options: [
-              { key: 'A', value: 'too much things -> too little things' },
-              { key: 'B', value: 'too much things -> too many things' },
-              { key: 'C', value: 'not enough time -> few time' },
-              { key: 'D', value: 'not enough time -> many time' },
+              { key: 'A', value: 'too much things → too little things' },
+              { key: 'B', value: 'too much things → too many things' },
+              { key: 'C', value: 'not enough time → few time' },
+              { key: 'D', value: 'not enough time → many time' },
             ],
             correctAnswerKey: 'B',
-            correctAnswerValue: 'too much things -> too many things',
-            explanation:
-              "'things' là danh từ đếm được số nhiều, phải dùng 'too many' thay vì 'too much' (dùng cho danh từ không đếm được).",
+            correctAnswerValue: 'too much things → too many things',
+            note: '"things" là danh từ đếm được số nhiều → dùng "many" không phải "much"',
           },
           {
-            questionNumber: 4,
+            questionNumber: 45,
             stem: "Come visit us - we know we won't have much friends in the States.",
             options: [
-              { key: 'A', value: 'much -> many' },
-              { key: 'B', value: 'much -> little' },
-              { key: 'C', value: 'much -> some' },
+              { key: 'A', value: 'much → many' },
+              { key: 'B', value: 'much → little' },
+              { key: 'C', value: 'much → some' },
               { key: 'D', value: 'x' },
             ],
             correctAnswerKey: 'A',
-            correctAnswerValue: 'much -> many',
-            explanation:
-              "'friends' là danh từ đếm được số nhiều, phải dùng 'many' thay vì 'much' (dùng cho danh từ không đếm được).",
+            correctAnswerValue: 'much → many',
+            note: '"friends" là danh từ đếm được số nhiều → dùng "many" không phải "much"',
           },
         ],
       },
@@ -4564,18 +4834,19 @@ export const grammarTest = [
     ],
   },
   {
-    testName: 'Section 4: Thì quá khứ đơn (Past Simple Tense)',
-    testCategory: 'Tenses',
+    testName: 'Section 4: Thì quá khứ đơn',
+    testCategory: ETestCategory.Grammar,
     courseSlug: 'toeic-foundation',
     exercises: [
       {
-        exerciseType: EExerciseType.MultipleChoice,
-        exerciseTitle:
-          'Exercise 1: Hãy chọn các đáp án đúng - Đâu là những trạng từ sẽ thường xuất hiện trong thì quá khứ đơn',
+        exerciseOrder: 1,
+        exerciseType: EExerciseType.MultipleSelect,
+        exerciseTitle: 'Exercise 1: Hãy chọn các đáp án đúng',
+        exerciseStem: 'Đâu là những trạng từ sẽ thường xuất hiện trong thì quá khứ đơn',
         questions: [
           {
             questionNumber: 1,
-            stem: 'Đâu là những trạng từ sẽ thường xuất hiện trong thì quá khứ đơn',
+            stem: 'Chọn TẤT CẢ các trạng từ thường xuất hiện trong thì quá khứ đơn',
             options: [
               { key: 'A', value: 'Yesterday' },
               { key: 'B', value: 'This week/month/year' },
@@ -4585,178 +4856,531 @@ export const grammarTest = [
               { key: 'F', value: 'A week ago - two weeks ago' },
             ],
             correctAnswerKeys: ['A', 'C', 'F'],
-            explanation: 'Thì quá khứ đơn thường đi với các từ chỉ thời gian đã kết thúc trong quá khứ.',
+            correctAnswerValues: ['Yesterday', 'Last week/month/year', 'A week ago - two weeks ago'],
+            note: '"Right now" và "At present" là dấu hiệu của thì hiện tại. "This week/month/year" thường dùng với thì hiện tại hoàn thành.',
           },
         ],
       },
       {
+        exerciseOrder: 2,
         exerciseType: EExerciseType.TrueFalse,
-        exerciseTitle: 'Exercise 2: Chọn đúng (True) hoặc sai (False) cho các câu sau',
+        exerciseTitle: 'Exercise 2: Chọn đúng (True) hoặc sai (False) cho các câu sau.',
         questions: [
           {
-            questionNumber: 1,
-            stem: 'Thì quá khứ đơn chỉ một hành động đã xảy ra ở quá khứ và kết quả vẫn còn lưu lại ở hiện tại.',
-            correctAnswerValue: 'FALSE',
-            explanation:
-              'Sai, đó là cách dùng của thì Hiện tại hoàn thành (Present Perfect). Quá khứ đơn chỉ hành động đã kết thúc hoàn toàn trong quá khứ.',
-          },
-          {
             questionNumber: 2,
-            stem: "Ở dạng khẳng định, cấu trúc chung của câu quá khứ đơn là 'S + verb (past tense)'.",
-            correctAnswerValue: 'TRUE',
-            explanation: 'Đúng, V-ed hoặc V2 (động từ bất quy tắc).',
+            stem: 'Thì quá khứ đơn chỉ một hành động đã xảy ra ở quá khứ và kết quả vẫn còn lưu lại ở hiện tại',
+            options: [
+              { key: 'A', value: 'True' },
+              { key: 'B', value: 'False' },
+            ],
+            correctAnswerKey: 'B',
+            correctAnswerValue: 'False',
+            note: 'Thì quá khứ đơn chỉ hành động đã hoàn thành trong quá khứ, không nhấn mạnh kết quả ở hiện tại. Thì hiện tại hoàn thành mới nhấn mạnh kết quả còn lại ở hiện tại.',
           },
           {
             questionNumber: 3,
+            stem: 'Ở dạng khẳng định, cấu trúc chung của câu quá khứ đơn là "S + verb (past tense)"',
+            options: [
+              { key: 'A', value: 'True' },
+              { key: 'B', value: 'False' },
+            ],
+            correctAnswerKey: 'A',
+            correctAnswerValue: 'True',
+          },
+          {
+            questionNumber: 4,
             stem: 'Các động từ chia thì quá khứ đơn là các động từ bất quy tắc.',
-            correctAnswerValue: 'FALSE',
-            explanation: 'Sai, có cả động từ có quy tắc (thêm -ed) và bất quy tắc (V2).',
-          },
-          {
-            questionNumber: 4,
-            stem: "Dạng phủ định của thì quá khứ đơn với các động từ thường là 'S + did not/didn't + verb (past tense)'.",
-            correctAnswerValue: 'FALSE',
-            explanation:
-              "Sai, sau 'did not/didn't' động từ phải ở dạng nguyên mẫu (V-inf), không phải quá khứ (past tense).",
-          },
-          {
-            questionNumber: 5,
-            stem: "Với các động từ có quy tắc và tận cùng là chữ 'e', ta phải thêm đuôi 'ed' khi chia động từ ở thì quá khứ đơn.",
-            correctAnswerValue: 'FALSE',
-            explanation: "Sai, chỉ cần thêm 'd' (ví dụ: live -> lived).",
-          },
-        ],
-      },
-      {
-        exerciseType: EExerciseType.FillInBlank,
-        exerciseTitle: 'Exercise 3: Điền dạng quá khứ của động từ trong ngoặc (Lưu ý: Chỉ điền động từ, không viết S)',
-        questions: [
-          {
-            questionNumber: 1,
-            stem: 'My friend (not/come) to my birthday party.',
-            correctAnswerValue: "did not come / didn't come",
-          },
-          { questionNumber: 2, stem: 'They (go) to the cinema last night.', correctAnswerValue: 'went' },
-          { questionNumber: 3, stem: 'She (not/like) the book.', correctAnswerValue: "did not like / didn't like" },
-          { questionNumber: 4, stem: 'I (eat) all the cakes this morning.', correctAnswerValue: 'ate' },
-          {
-            questionNumber: 5,
-            stem: 'He (not/wear) glasses yesterday.',
-            correctAnswerValue: "did not wear / didn't wear",
-          },
-          { questionNumber: 6, stem: 'We (wait) for the train for an hour.', correctAnswerValue: 'waited' },
-          { questionNumber: 7, stem: 'They (not/know) each other.', correctAnswerValue: "did not know / didn't know" },
-          { questionNumber: 8, stem: 'She (buy) a new pair of shoes.', correctAnswerValue: 'bought' },
-          { questionNumber: 9, stem: 'The police (catch) the thief last week.', correctAnswerValue: 'caught' },
-          { questionNumber: 10, stem: 'They (start) to learn English 5 years ago.', correctAnswerValue: 'started' },
-        ],
-      },
-      {
-        exerciseType: EExerciseType.Matching,
-        exerciseTitle: 'Exercise 4: Nối các động từ với dạng quá khứ tương ứng',
-        matchingPairs: [
-          { clue: 'Pay', correctMatch: 'Paid' },
-          { clue: 'Write', correctMatch: 'Wrote' },
-          { clue: 'See', correctMatch: 'Saw' },
-          { clue: 'Go', correctMatch: 'Went' },
-          { clue: 'Visit', correctMatch: 'Visited' },
-          { clue: 'Meet', correctMatch: 'Met' },
-          { clue: 'Drive', correctMatch: 'Drove' },
-          { clue: 'Give', correctMatch: 'Gave' },
-          { clue: 'Listen', correctMatch: 'Listened' },
-          { clue: 'Catch', correctMatch: 'Caught' },
-        ],
-      },
-      {
-        exerciseType: EExerciseType.Conjugation,
-        exerciseTitle: 'Exercise 5: Chia động từ to be ở dạng quá khứ đơn',
-        questions: [
-          { questionNumber: 1, stem: 'When I (be) a little boy, I was afraid of the dark.', correctAnswerValue: 'was' },
-          {
-            questionNumber: 2,
-            stem: 'I went to university in 1980. They (be) expensive then.',
-            correctAnswerValue: 'were',
-          },
-          {
-            questionNumber: 3,
-            stem: 'Peter and Jane (not/be) at the party last night.',
-            correctAnswerValue: "were not / weren't",
-          },
-          { questionNumber: 4, stem: '(be) you sad when you left home?', correctAnswerValue: 'Were' },
-          { questionNumber: 5, stem: 'I think it (be) very cold yesterday.', correctAnswerValue: 'was' },
-        ],
-      },
-      {
-        exerciseType: EExerciseType.Rewrite,
-        exerciseTitle: 'Exercise 6: Sắp xếp các từ/cụm từ dưới đây để tạo thành câu hoàn chỉnh ở thì quá khứ đơn',
-        questions: [
-          {
-            questionNumber: 1,
-            stem: 'Last week,/ my family/ have/ a summer vacation/ in Da Nang city.',
-            correctAnswerValue: 'Last week, my family had a summer vacation in Da Nang city.',
-          },
-          { questionNumber: 2, stem: 'What/ you/ do/ yesterday?', correctAnswerValue: 'What did you do yesterday?' },
-          {
-            questionNumber: 3,
-            stem: 'He/ tell/ his friends/ the story of his dog/ 2 days ago.',
-            correctAnswerValue: 'He told his friends the story of his dog 2 days ago.',
-          },
-          {
-            questionNumber: 4,
-            stem: 'What/sport/you/play/ when/ a child?',
-            correctAnswerValue: 'What sport did you play when you were a child?',
+            options: [
+              { key: 'A', value: 'True' },
+              { key: 'B', value: 'False' },
+            ],
+            correctAnswerKey: 'B',
+            correctAnswerValue: 'False',
+            note: 'Có cả động từ có quy tắc (thêm -ed) VÀ động từ bất quy tắc khi chia thì quá khứ đơn',
           },
           {
             questionNumber: 5,
-            stem: 'Jane/ have/ Chemistry class/ from Monday to Wednesday?',
-            correctAnswerValue: 'Did Jane have Chemistry class from Monday to Wednesday?',
+            stem: 'Dạng phủ định của thì quá khứ đơn với các động từ thường là "S+ did not/didn\'t + verb (past tense)"',
+            options: [
+              { key: 'A', value: 'True' },
+              { key: 'B', value: 'False' },
+            ],
+            correctAnswerKey: 'B',
+            correctAnswerValue: 'False',
+            note: 'Dạng đúng là "S + did not/didn\'t + V (nguyên mẫu)", không phải past tense',
           },
           {
             questionNumber: 6,
-            stem: 'Where/ you/go/last summer holiday?',
-            correctAnswerValue: 'Where did you go last summer holiday?',
-          },
-          {
-            questionNumber: 7,
-            stem: 'He/not/make/ the mistakes that night.',
-            correctAnswerValue: 'He did not make the mistakes that night.',
+            stem: 'Với các động từ có quy tắc và tận cùng là chữ "e", ta phải thêm đuôi "ed" khi chia động từ ở thì quá khứ đơn',
+            options: [
+              { key: 'A', value: 'True' },
+              { key: 'B', value: 'False' },
+            ],
+            correctAnswerKey: 'B',
+            correctAnswerValue: 'False',
+            note: 'Động từ tận cùng bằng "e" chỉ thêm "d" (không thêm "ed"). Ví dụ: love → loved, live → lived',
           },
         ],
       },
       {
-        exerciseType: EExerciseType.ClozeTest,
-        exerciseTitle:
-          'Exercise 8: Điền đúng thì của các động từ trong ngoặc để hoàn thành đoạn văn dưới đây (Quá khứ đơn)',
+        exerciseOrder: 3,
+        exerciseType: EExerciseType.FillInBlank,
+        exerciseTitle: 'Exercise 3: Điền vào chỗ trống dạng quá khứ của các động từ sau',
         questions: [
           {
-            questionNumber: 1,
-            stem: 'My last holiday (be) a five-day trip to Prague in the Czech Republic.',
+            questionNumber: 7,
+            stem: 'Walk → ___________',
+            correctAnswerValue: 'walked',
+          },
+          {
+            questionNumber: 8,
+            stem: 'Arrive → ___________',
+            correctAnswerValue: 'arrived',
+          },
+          {
+            questionNumber: 9,
+            stem: 'Carry → ___________',
+            correctAnswerValue: 'carried',
+          },
+          {
+            questionNumber: 10,
+            stem: 'Pray → ___________',
+            correctAnswerValue: 'prayed',
+          },
+          {
+            questionNumber: 11,
+            stem: 'Stop → ___________',
+            correctAnswerValue: 'stopped',
+          },
+          {
+            questionNumber: 12,
+            stem: 'Jump → ___________',
+            correctAnswerValue: 'jumped',
+          },
+          {
+            questionNumber: 13,
+            stem: 'Help → ___________',
+            correctAnswerValue: 'helped',
+          },
+        ],
+      },
+      {
+        exerciseOrder: 4,
+        exerciseType: EExerciseType.MultipleChoice,
+        exerciseTitle: 'Exercise 4: Chọn đáp án chứa thì quá khứ của các động từ bất quy tắc sau',
+        questions: [
+          {
+            questionNumber: 14,
+            stem: 'Eat',
+            options: [
+              { key: 'A', value: 'Eated' },
+              { key: 'B', value: 'Eaten' },
+              { key: 'C', value: 'Ate' },
+            ],
+            correctAnswerKey: 'C',
+            correctAnswerValue: 'Ate',
+          },
+          {
+            questionNumber: 15,
+            stem: 'Read',
+            options: [
+              { key: 'A', value: 'Readed' },
+              { key: 'B', value: 'Read' },
+              { key: 'C', value: 'Red' },
+            ],
+            correctAnswerKey: 'B',
+            correctAnswerValue: 'Read',
+            note: 'Read (quá khứ) viết giống Read (hiện tại) nhưng phát âm khác: /red/',
+          },
+          {
+            questionNumber: 16,
+            stem: 'See',
+            options: [
+              { key: 'A', value: 'Seed' },
+              { key: 'B', value: 'Saw' },
+              { key: 'C', value: 'Seen' },
+            ],
+            correctAnswerKey: 'B',
+            correctAnswerValue: 'Saw',
+          },
+          {
+            questionNumber: 17,
+            stem: 'Speak',
+            options: [
+              { key: 'A', value: 'Speaked' },
+              { key: 'B', value: 'Spoken' },
+              { key: 'C', value: 'Spoke' },
+            ],
+            correctAnswerKey: 'C',
+            correctAnswerValue: 'Spoke',
+          },
+          {
+            questionNumber: 18,
+            stem: 'Teach',
+            options: [
+              { key: 'A', value: 'Taught' },
+              { key: 'B', value: 'Teach' },
+              { key: 'C', value: 'Teached' },
+            ],
+            correctAnswerKey: 'A',
+            correctAnswerValue: 'Taught',
+          },
+          {
+            questionNumber: 19,
+            stem: 'Give',
+            options: [
+              { key: 'A', value: 'Given' },
+              { key: 'B', value: 'Gave' },
+              { key: 'C', value: 'Gived' },
+            ],
+            correctAnswerKey: 'B',
+            correctAnswerValue: 'Gave',
+          },
+          {
+            questionNumber: 20,
+            stem: 'Become',
+            options: [
+              { key: 'A', value: 'Became' },
+              { key: 'B', value: 'Become' },
+              { key: 'C', value: 'Becomed' },
+            ],
+            correctAnswerKey: 'A',
+            correctAnswerValue: 'Became',
+          },
+          {
+            questionNumber: 21,
+            stem: 'Set',
+            options: [
+              { key: 'A', value: 'Setted' },
+              { key: 'B', value: 'Sat' },
+              { key: 'C', value: 'Set' },
+            ],
+            correctAnswerKey: 'C',
+            correctAnswerValue: 'Set',
+            note: 'Set là động từ bất quy tắc không đổi dạng (set - set - set)',
+          },
+          {
+            questionNumber: 22,
+            stem: 'Write',
+            options: [
+              { key: 'A', value: 'Writed' },
+              { key: 'B', value: 'Wrote' },
+              { key: 'C', value: 'Written' },
+            ],
+            correctAnswerKey: 'B',
+            correctAnswerValue: 'Wrote',
+          },
+          {
+            questionNumber: 23,
+            stem: 'Find',
+            options: [
+              { key: 'A', value: 'Finded' },
+              { key: 'B', value: 'Founded' },
+              { key: 'C', value: 'Found' },
+            ],
+            correctAnswerKey: 'C',
+            correctAnswerValue: 'Found',
+          },
+        ],
+      },
+      {
+        exerciseOrder: 5,
+        exerciseType: EExerciseType.MultipleChoice,
+        exerciseTitle: 'Exercise 5: Chọn dạng đúng của động từ để điền vào chỗ trống',
+        exerciseStem:
+          'VD1: I broke (break / broke) a cup yesterday.<br/>VD2: Ann did not play (play / played) tennis this morning.',
+        questions: [
+          {
+            questionNumber: 24,
+            stem: 'Harry ___________ (work / worked) last Sunday.',
+            options: [
+              { key: 'A', value: 'work' },
+              { key: 'B', value: 'worked' },
+            ],
+            correctAnswerKey: 'B',
+            correctAnswerValue: 'worked',
+          },
+          {
+            questionNumber: 25,
+            stem: "I didn't ___________ (know / knew) where I was.",
+            options: [
+              { key: 'A', value: 'know' },
+              { key: 'B', value: 'knew' },
+            ],
+            correctAnswerKey: 'A',
+            correctAnswerValue: 'know',
+            note: 'Sau "didn\'t" dùng động từ nguyên mẫu',
+          },
+          {
+            questionNumber: 26,
+            stem: "I didn't ___________ (feel/felt) well last night.",
+            options: [
+              { key: 'A', value: 'feel' },
+              { key: 'B', value: 'felt' },
+            ],
+            correctAnswerKey: 'A',
+            correctAnswerValue: 'feel',
+            note: 'Sau "didn\'t" dùng động từ nguyên mẫu',
+          },
+          {
+            questionNumber: 27,
+            stem: 'Alina ___________ (come / came) to see us 2 days ago.',
+            options: [
+              { key: 'A', value: 'come' },
+              { key: 'B', value: 'came' },
+            ],
+            correctAnswerKey: 'B',
+            correctAnswerValue: 'came',
+          },
+          {
+            questionNumber: 28,
+            stem: "I didn't ___________ (see / saw) Bill at the party.",
+            options: [
+              { key: 'A', value: 'see' },
+              { key: 'B', value: 'saw' },
+            ],
+            correctAnswerKey: 'A',
+            correctAnswerValue: 'see',
+            note: 'Sau "didn\'t" dùng động từ nguyên mẫu',
+          },
+          {
+            questionNumber: 29,
+            stem: 'Did Theo ___________ (bring / brought) his wife with him?',
+            options: [
+              { key: 'A', value: 'bring' },
+              { key: 'B', value: 'brought' },
+            ],
+            correctAnswerKey: 'A',
+            correctAnswerValue: 'bring',
+            note: 'Sau "Did" dùng động từ nguyên mẫu',
+          },
+          {
+            questionNumber: 30,
+            stem: 'Rolf ___________ (learn / learnt) English when he was young.',
+            options: [
+              { key: 'A', value: 'learn' },
+              { key: 'B', value: 'learnt' },
+            ],
+            correctAnswerKey: 'B',
+            correctAnswerValue: 'learnt',
+            alternativeAnswers: ['learned'],
+            note: 'Cả "learnt" và "learned" đều đúng',
+          },
+          {
+            questionNumber: 31,
+            stem: 'When did Gemma ___________ (start / starts) school?',
+            options: [
+              { key: 'A', value: 'start' },
+              { key: 'B', value: 'starts' },
+            ],
+            correctAnswerKey: 'A',
+            correctAnswerValue: 'start',
+            note: 'Sau "did" dùng động từ nguyên mẫu',
+          },
+        ],
+      },
+      {
+        exerciseOrder: 6,
+        exerciseType: EExerciseType.FillInBlank,
+        exerciseTitle: 'Exercise 6: Điền dạng đúng của các động từ trong ngoặc vào chỗ trống',
+        questions: [
+          {
+            questionNumber: 32,
+            stem: "a. I ___________ (see) Maria for the first time at Ray's birthday party.",
+            correctAnswerValue: 'saw',
+          },
+          {
+            questionNumber: 33,
+            stem: 'a. We ___________ (become) best friends.',
+            correctAnswerValue: 'became',
+          },
+          {
+            questionNumber: 34,
+            stem: 'a. We usually ___________ (watch) movies together every Sunday evening.',
+            correctAnswerValue: 'watch',
+            note: 'Thì hiện tại đơn vì có "usually"',
+          },
+          {
+            questionNumber: 35,
+            stem: 'b. John usually ___________ (have) bread for breakfast every Saturday.',
+            correctAnswerValue: 'has',
+            note: 'Thì hiện tại đơn vì có "usually"',
+          },
+          {
+            questionNumber: 36,
+            stem: 'b. But last Saturday he ___________ (eat) a bowl of noodles.',
+            correctAnswerValue: 'ate',
+          },
+          {
+            questionNumber: 37,
+            stem: 'c. Last year, Denise ___________ (practice) this song every day until she could sing it perfectly.',
+            correctAnswerValue: 'practiced',
+            alternativeAnswers: ['practised'],
+          },
+          {
+            questionNumber: 38,
+            stem: "d. In the past, many people ___________ (not believe) that the Earth wasn't the center of the solar system.",
+            correctAnswerValue: 'did not believe',
+            alternativeAnswers: ["didn't believe"],
+          },
+          {
+            questionNumber: 39,
+            stem: 'd. However, in fact, the Sun ___________ (be) the center of the solar system.',
+            correctAnswerValue: 'is',
+            note: 'Thì hiện tại đơn vì là sự thật hiển nhiên',
+          },
+          {
+            questionNumber: 40,
+            stem: 'e. When he ___________ (be) a child, he got up at 6 a.m every morning.',
             correctAnswerValue: 'was',
           },
           {
-            questionNumber: 2,
-            stem: 'I know Prague well because I (live) there when I (be) at university, more than ten years ago.',
-            correctAnswerValue: 'lived / was',
+            questionNumber: 41,
+            stem: 'e. When he was a child, he ___________ (get) up at 6 a.m every morning.',
+            correctAnswerValue: 'got',
+          },
+        ],
+      },
+      {
+        exerciseOrder: 7,
+        exerciseType: EExerciseType.FillInBlank,
+        exerciseTitle: 'Exercise 7: Dựa vào những từ gợi ý dưới đây để viết thành các câu hoàn chỉnh.',
+        exerciseStem:
+          'Lưu ý: Chia chính xác thì của động từ<br/><br/>Ví dụ:<br/>Last week,/ my family/ have/ a summer vacation/ in Da Nang city.<br/>→ Last week, my family had a summer vacation in Da Nang city.',
+        questions: [
+          {
+            questionNumber: 42,
+            stem: 'What/ you/ do/ yesterday? → ___________',
+            correctAnswerValue: 'What did you do yesterday',
+            alternativeAnswers: ['What did you do yesterday?'],
           },
           {
-            questionNumber: 3,
-            stem: 'Instead of staying in a hotel, I stayed with one of my old friends. It (be) so much fun, and a little bit like my old life.',
+            questionNumber: 43,
+            stem: 'He/ tell/ his friends/ the story of his dog/ 2 days ago. → ___________',
+            correctAnswerValue: 'He told his friends the story of his dog 2 days ago',
+            alternativeAnswers: ['He told his friends the story of his dog 2 days ago.'],
+          },
+          {
+            questionNumber: 44,
+            stem: 'What/ sport/ you/ play/ when/ a child? → ___________',
+            correctAnswerValue: 'What sport did you play when you were a child',
+            alternativeAnswers: [
+              'What sport did you play when you were a child?',
+              'What sport did you play when a child',
+              'What sport did you play when a child?',
+            ],
+          },
+          {
+            questionNumber: 45,
+            stem: 'Jane/ have/ Chemistry class/ from Monday to Wednesday? → ___________',
+            correctAnswerValue: 'Did Jane have Chemistry class from Monday to Wednesday',
+            alternativeAnswers: [
+              'Did Jane have Chemistry class from Monday to Wednesday?',
+              'Does Jane have Chemistry class from Monday to Wednesday',
+              'Does Jane have Chemistry class from Monday to Wednesday?',
+            ],
+            note: 'Có thể dùng thì quá khứ đơn hoặc hiện tại đơn tùy ngữ cảnh',
+          },
+          {
+            questionNumber: 46,
+            stem: 'Where/ you/ go/ last summer holiday? → ___________',
+            correctAnswerValue: 'Where did you go last summer holiday',
+            alternativeAnswers: ['Where did you go last summer holiday?'],
+          },
+          {
+            questionNumber: 47,
+            stem: 'He/ not/ make/ the mistakes that night. → ___________',
+            correctAnswerValue: 'He did not make the mistakes that night',
+            alternativeAnswers: [
+              'He did not make the mistakes that night.',
+              "He didn't make the mistakes that night",
+              "He didn't make the mistakes that night.",
+            ],
+          },
+        ],
+      },
+      {
+        exerciseOrder: 8,
+        exerciseType: EExerciseType.FillInBlank,
+        exerciseTitle: 'Exercise 8: Điền đúng thì của các động từ trong ngoặc để hoàn thành đoạn văn dưới đây',
+        exerciseStem:
+          'My last holiday (1)___________ (be) a five-day trip to Prague in the Czech Republic. I know Prague well because I (2)___________ (live) there when I (3)___________ (be) at university, more than ten years ago.<br/><br/>Instead of staying in a hotel, I stayed with one of my old friends. It (4)___________ (be) so much fun, and a little bit like my old life. I (5)___________ (want) to do all the same things I (6)___________ (do) during my university years, so I (7)___________ (visit) the university. It has changed a lot and looks more modern. I also (8)___________ (go) to the supermarket near my old house. I (9)___________ (love) seeing all the different foods. I (10)___________ (be) really happy to find my favorite cheese and chocolate biscuits, but they (11)___________ (cost) a bit more than I remember!<br/><br/>I (12)___________ (do) some touristy things, too. I (13)___________ (walk) up beautiful Petrin Hill and around the castle. The views of the city are amazing up there. I (14)___________ (take) the bus and (15)___________ (run) across the historic Charles Bridge.',
+        questions: [
+          {
+            questionNumber: 48,
+            stem: '(1) ___________ (be)',
             correctAnswerValue: 'was',
           },
           {
-            questionNumber: 4,
-            stem: 'I (want) to do all the same things I (do) during my university years, so I (visit) the university.',
-            correctAnswerValue: 'wanted / did / visited',
+            questionNumber: 49,
+            stem: '(2) ___________ (live)',
+            correctAnswerValue: 'lived',
           },
           {
-            questionNumber: 5,
-            stem: 'It has changed a lot and looks more modern. I also (go) to the supermarket near my old house.',
+            questionNumber: 50,
+            stem: '(3) ___________ (be)',
+            correctAnswerValue: 'was',
+          },
+          {
+            questionNumber: 51,
+            stem: '(4) ___________ (be)',
+            correctAnswerValue: 'was',
+          },
+          {
+            questionNumber: 52,
+            stem: '(5) ___________ (want)',
+            correctAnswerValue: 'wanted',
+          },
+          {
+            questionNumber: 53,
+            stem: '(6) ___________ (do)',
+            correctAnswerValue: 'did',
+          },
+          {
+            questionNumber: 54,
+            stem: '(7) ___________ (visit)',
+            correctAnswerValue: 'visited',
+          },
+          {
+            questionNumber: 55,
+            stem: '(8) ___________ (go)',
             correctAnswerValue: 'went',
           },
           {
-            questionNumber: 6,
-            stem: 'I (love) seeing all the different foods. I (be) really happy to find my favorite cheese and chocolate biscuits, but they (cost) a bit more than I remember!',
-            correctAnswerValue: 'loved / was / cost',
+            questionNumber: 56,
+            stem: '(9) ___________ (love)',
+            correctAnswerValue: 'loved',
+          },
+          {
+            questionNumber: 57,
+            stem: '(10) ___________ (be)',
+            correctAnswerValue: 'was',
+          },
+          {
+            questionNumber: 58,
+            stem: '(11) ___________ (cost)',
+            correctAnswerValue: 'cost',
+            note: 'Cost là động từ bất quy tắc không đổi dạng (cost - cost - cost)',
+          },
+          {
+            questionNumber: 59,
+            stem: '(12) ___________ (do)',
+            correctAnswerValue: 'did',
+          },
+          {
+            questionNumber: 60,
+            stem: '(13) ___________ (walk)',
+            correctAnswerValue: 'walked',
+          },
+          {
+            questionNumber: 61,
+            stem: '(14) ___________ (take)',
+            correctAnswerValue: 'took',
+          },
+          {
+            questionNumber: 62,
+            stem: '(15) ___________ (run)',
+            correctAnswerValue: 'ran',
           },
         ],
       },
@@ -4764,185 +5388,312 @@ export const grammarTest = [
   },
   {
     testName: 'Section 5: Thì tương lai đơn và tương lai gần',
-    testCategory: 'Tenses',
+    testCategory: ETestCategory.Grammar,
     courseSlug: 'toeic-foundation',
     exercises: [
       {
+        exerciseOrder: 1,
         exerciseType: EExerciseType.Matching,
         exerciseTitle: 'Exercise 1: Nối các đặc điểm sau với các thì tương ứng',
-        matchingPairs: [
-          { clue: 'Dự đoán 1 việc sẽ xảy ra trong tương lai', correctMatch: 'Thì tương lai đơn/ Thì tương lai gần' },
-          {
-            clue: 'Diễn tả hành động sẽ xảy ra trong thời gian gần, có tính chắc chắn cao và có kế hoạch, được quyết định trước thời điểm nói',
-            correctMatch: 'Thì tương lai gần',
-          },
-          { clue: 'Diễn tả một quyết định được đưa ra tại thời điểm nói', correctMatch: 'Thì tương lai đơn' },
-        ],
-      },
-      {
-        exerciseType: EExerciseType.FillInBlank,
-        exerciseTitle: 'Exercise 2: Đặt câu ở thì tương lai gần (Be Going To) với các từ cho sẵn và gợi ý tương ứng',
         questions: [
           {
             questionNumber: 1,
-            stem: 'how / you / get to London (?)',
-            correctAnswerValue: 'How are you going to get to London?',
+            stem: 'Dự đoán 1 việc sẽ xảy ra trong tương lai',
+            correctAnswerValue: 'Thì tương lai đơn',
           },
           {
             questionNumber: 2,
-            stem: 'it / snow (-)',
-            correctAnswerValue: "It is not going to snow / It's not going to snow",
+            stem: 'Diễn tả hành động xảy ra trong thời gian gần, có tính chắc chắn cao và có kế hoạch',
+            correctAnswerValue: 'Thì tương lai gần',
           },
           {
             questionNumber: 3,
-            stem: 'I / cook fish / for lunch (+)',
-            correctAnswerValue: "I am going to cook fish for lunch / I'm going to cook fish for lunch",
+            stem: 'Diễn tả một quyết định được đưa ra tại thời điểm nói',
+            correctAnswerValue: 'Thì tương lai đơn/ Thì tương lai gần',
           },
+        ],
+        matchingOptions: ['Thì tương lai đơn', 'Thì tương lai gần', 'Thì tương lai đơn/ Thì tương lai gần'],
+      },
+
+      {
+        exerciseOrder: 2,
+        exerciseType: EExerciseType.FillInBlank,
+        exerciseTitle: 'Exercise 2: Đặt câu ở thì tương lai gần với các từ cho sẵn',
+        exerciseStem:
+          'Lưu ý:<br><br>' +
+          'Ký hiệu (+): Câu khẳng định<br>' +
+          'Ký hiệu (-): Câu phủ định<br>' +
+          'Ký hiệu (?): Câu hỏi<br><br>' +
+          'Ví dụ:<br>' +
+          '1. Andy / start school / next week (+) → Andy is going to start school next week.<br>' +
+          '2. you / see the dentist (?) → Are you going to see the dentist?<br>' +
+          '3. I / work this evening (-) → I’m not going to work this evening.<br><br>',
+        questions: [
           {
             questionNumber: 4,
-            stem: 'when / you / see the doctor (?)',
-            correctAnswerValue: 'When are you going to see the doctor?',
+            stem: 'how / you / get to London (?)',
+            correctAnswerValue: 'How are you going to get to London?',
+            alternativeAnswers: ['How are you going to get to London'],
           },
           {
             questionNumber: 5,
-            stem: 'Angela / marry / her secretary (+)',
-            correctAnswerValue: "Angela is going to marry her secretary / Angela's going to marry her secretary",
+            stem: 'it / snow (-)',
+            correctAnswerValue: 'It is not going to snow.',
+            alternativeAnswers: ["It isn't going to snow"],
           },
           {
             questionNumber: 6,
-            stem: 'John / call / this evening (?)',
-            correctAnswerValue: 'Is John going to call this evening?',
+            stem: 'I / cook fish / for lunch (+)',
+            correctAnswerValue: 'I am going to cook fish for lunch.',
+            alternativeAnswers: ["I'm going to cook fish for lunch"],
           },
           {
             questionNumber: 7,
+            stem: 'when / you / see the doctor (?)',
+            correctAnswerValue: 'When are you going to see the doctor?',
+            alternativeAnswers: ['When are you going to see the doctor'],
+          },
+          {
+            questionNumber: 8,
+            stem: 'Angela / marry / her secretary (+)',
+            correctAnswerValue: 'Angela is going to marry her secretary.',
+            alternativeAnswers: ["Angela's going to marry her secretary"],
+          },
+          {
+            questionNumber: 9,
+            stem: 'John / call / this evening (?)',
+            correctAnswerValue: 'Is John going to call this evening?',
+            alternativeAnswers: ['Is John going to call this evening'],
+          },
+          {
+            questionNumber: 10,
             stem: 'Sally / get the job (-)',
-            correctAnswerValue: "Sally is not going to get the job / Sally's not going to get the job",
+            correctAnswerValue: 'Sally is not going to get the job.',
+            alternativeAnswers: ["Sally isn't going to get the job"],
           },
         ],
       },
+
       {
-        exerciseType: EExerciseType.SentenceArrangement,
-        exerciseTitle: 'Exercise 3: Sắp xếp thứ tự các từ cho sẵn để được câu khẳng định hoàn chỉnh',
+        exerciseOrder: 3,
+        exerciseType: EExerciseType.FillInBlank,
+        exerciseTitle: 'Exercise 3: Sắp xếp thứ tự các từ để tạo câu hoàn chỉnh',
+        exerciseStem:
+          'Ví dụ:<br>' +
+          '1. here/ George/ be/ will → George will be here tomorrow.<br>' +
+          '2. speak/ everybody/ English/ perhaps/ will → Perhaps everybody will speak English in the year 2100.<br><br>',
         questions: [
           {
-            questionNumber: 1,
-            stem: 'beautiful/ flowers/ will be/ There/ in this area',
-            correctAnswerValue: 'There will be beautiful flowers in this area.',
+            questionNumber: 11,
+            stem: 'begin/ class/ will/ the',
+            correctAnswerValue: 'The class will begin at 9.30.',
           },
           {
-            questionNumber: 2,
-            stem: 'dark and/ full of/ clouds/ The sky/ is/ now./ definitely/ It is/ rain/ going to',
+            questionNumber: 12,
+            stem: "be/ they'll/ home",
+            correctAnswerValue: 'They’ll be home soon.',
+            alternativeAnswers: ['They will be home soon.'],
+          },
+          {
+            questionNumber: 13,
+            stem: 'examination/ will/ the/ difficult/ be',
+            correctAnswerValue: 'The examination will be difficult.',
+          },
+          {
+            questionNumber: 14,
+            stem: "walk/ we'll/ party/ the/ to",
+            correctAnswerValue: 'We’ll walk to the party.',
+            alternativeAnswers: ['We will walk to the party.'],
+          },
+          {
+            questionNumber: 15,
+            stem: 'your/ John/ answer/ questions/ will',
+            correctAnswerValue: 'John will answer your questions.',
+          },
+        ],
+      },
+
+      {
+        exerciseOrder: 4,
+        exerciseType: EExerciseType.FillInBlank,
+        exerciseTitle: 'Exercise 4: Điền vào chỗ trống để hoàn thành câu ở thì tương lai đơn',
+        exerciseStem:
+          'Ví dụ:<br>' +
+          '“I won’t finish this work today.” → “When will you finish it?” (finish)<br>' +
+          '“John won’t be here tomorrow.” → “Will he be here on Tuesday?” (be)<br><br>',
+        questions: [
+          {
+            questionNumber: 16,
+            stem: 'Annie ______ here at ten',
+            correctAnswerValue: "Annie won't be here at ten",
+            alternativeAnswers: ['Annie will not be here at ten'],
+          },
+          {
+            questionNumber: 17,
+            stem: 'I ______ time for lunch',
+            correctAnswerValue: "I won't have time for lunch",
+            alternativeAnswers: ['I will not have time for lunch'],
+          },
+          {
+            questionNumber: 18,
+            stem: 'You ______ a pen in there',
+            correctAnswerValue: "You won't find a pen in there",
+            alternativeAnswers: ['You will not find a pen in there'],
+          },
+          {
+            questionNumber: 19,
+            stem: 'The children ______ to school in Ely',
+            correctAnswerValue: "The children won't go to school in Ely",
+            alternativeAnswers: ['The children will not go to school in Ely'],
+          },
+          {
+            questionNumber: 20,
+            stem: 'Dylan ______ much money if he sells that car',
+            correctAnswerValue: 'Dylan won’t get much money if he sells that car',
+            alternativeAnswers: ['Dylan will not get much money if he sells that car'],
+          },
+        ],
+      },
+
+      {
+        exerciseOrder: 5,
+        exerciseType: EExerciseType.MultipleChoice,
+        exerciseTitle: 'Exercise 5: Chọn đáp án đúng để hoàn thành câu',
+        questions: [
+          {
+            questionNumber: 21,
+            stem: 'I … the store to buy some stuff for a big party tomorrow',
+            options: [
+              { key: 'A', value: 'am going to' },
+              { key: 'B', value: 'goes' },
+              { key: 'C', value: 'will go' },
+              { key: 'D', value: 'am going' },
+            ],
+            correctAnswerKey: 'A',
+            correctAnswerValue: 'am going to',
+          },
+        ],
+      },
+
+      {
+        exerciseOrder: 6,
+        exerciseType: EExerciseType.FillInBlank,
+        exerciseTitle: 'Exercise 6: Điền dạng đúng của động từ trong ngoặc',
+        exerciseStem:
+          'a. A: I forgot my wallet. I don’t have any money.<br>' +
+          '    B: Not to worry. I ______ (lend) you some.<br><br>' +
+          'b. A: Why are you filling that bucket with water?<br>' +
+          '    B: I ______ (clean) the car.<br><br>' +
+          'c. A: I don’t know how to use this washing machine.<br>' +
+          '    B: It’s easy. I ______ (show) you.<br><br>' +
+          'd. A: Where is Jenny going? Is she going shopping?<br>' +
+          '    B: Yes, she ______ (buy) some things for dinner tonight.<br><br>' +
+          'e. A: This food doesn’t taste very good, does it?<br>' +
+          '    B: No, it’s horrible. We ______ (not definitely finish) this!<br><br>' +
+          'f. A: Are you going to be in Danang city next month?<br>' +
+          '    B: Well, I ______ (probably not go) because my schedule is too busy.<br><br>',
+        questions: [
+          {
+            questionNumber: 22,
+            stem: 'I ______ (lend) you some.',
+            correctAnswerValue: 'will lend',
+          },
+          {
+            questionNumber: 23,
+            stem: 'I ______ (clean) the car.',
+            correctAnswerValue: 'am going to clean',
+          },
+          {
+            questionNumber: 24,
+            stem: 'I ______ (show) you.',
+            correctAnswerValue: 'will show',
+          },
+          {
+            questionNumber: 25,
+            stem: 'She ______ (buy) some things for dinner tonight.',
+            correctAnswerValue: 'is going to buy',
+          },
+          {
+            questionNumber: 26,
+            stem: 'We ______ (not definitely finish) this!',
+            correctAnswerValue: 'will definitely not finish',
+          },
+          {
+            questionNumber: 27,
+            stem: 'I ______ (probably not go)',
+            correctAnswerValue: 'will probably not go',
+          },
+        ],
+      },
+
+      {
+        exerciseOrder: 7,
+        exerciseType: EExerciseType.FillInBlank,
+        exerciseTitle: 'Exercise 7: Sắp xếp từ thành câu hoàn chỉnh',
+        questions: [
+          {
+            questionNumber: 28,
+            stem: 'My brother/ going/ work/ to/ as/ an assistant/ next week/ is',
+            correctAnswerValue: 'My brother is going to work as an assistant next week.',
+          },
+          {
+            questionNumber: 29,
+            stem: 'many/ buildings/ beautiful/ will be/ There/ in this area',
+            correctAnswerValue: 'There will be many beautiful buildings in this area.',
+          },
+          {
+            questionNumber: 30,
+            stem: 'The sky/ is/ dark and/ full of/ clouds/ now/ definitely/ It is/ rain/ going to',
             correctAnswerValue: 'The sky is dark and full of clouds now. It is definitely going to rain.',
           },
           {
-            questionNumber: 3,
-            stem: 'studied/ a lot / I / last night./ will not/ certainly/ fail this exam/I',
-            correctAnswerValue: 'I studied a lot last night. I certainly will not fail this exam.',
+            questionNumber: 31,
+            stem: 'studied/ a lot / I/ last night./ will not/ certainly/ fail this exam/I',
+            correctAnswerValue: 'I studied a lot last night. I will certainly not fail this exam.',
           },
         ],
       },
+
       {
-        exerciseType: EExerciseType.ErrorCorrection,
-        exerciseTitle: 'Exercise 4: Tìm và sửa lỗi sai trong câu (Nếu câu đúng, điền "x")',
-        questions: [
-          {
-            questionNumber: 1,
-            stem: "I will to visit my grandmother this weekend. It's a plan.",
-            error: 'will to visit',
-            correctForm: 'am going to visit',
-          },
-          {
-            questionNumber: 2,
-            stem: 'I think I will have a coffee now.',
-            error: 'x',
-            correctForm: 'x',
-          },
-          {
-            questionNumber: 3,
-            stem: 'I promise that I will not to tell anyone.',
-            error: 'will not to tell',
-            correctForm: 'will not tell',
-          },
-        ],
-      },
-      {
+        exerciseOrder: 8,
         exerciseType: EExerciseType.MultipleChoice,
-        exerciseTitle: 'Exercise 5: Đọc các câu sau và chọn câu trả lời đúng cho mỗi câu',
+        exerciseTitle: 'Exercise 8: Chọn câu đúng theo ngữ cảnh',
+        exerciseStem:
+          'Ví dụ:<br>' +
+          'Bạn muốn nói về kế hoạch mùa hè của mình.<br>' +
+          'a. I’m going to work at a summer resort in the mountains.<br>' +
+          'b. I’ll work at a summer resort in the mountains.<br><br>' +
+          'Đáp án đúng → a (vì đây là plan – kế hoạch đã quyết định trước thời điểm nói).<br><br>',
         questions: [
           {
-            questionNumber: 1,
-            stem: 'I promise that I ___ you tomorrow.',
+            questionNumber: 32,
+            stem: 'Ngữ cảnh 1: Can you help me out? I gotta get this letter mailed by noon.',
             options: [
-              { key: 'A', value: 'will call' },
-              { key: 'B', value: 'am going to call' },
+              { key: 'A', value: 'Sure. I’m going to drop it off on my way to work.' },
+              { key: 'B', value: 'Sure. I’ll drop it off on my way to work.' },
             ],
-            correctAnswerKeys: 'A',
-            correctAnswerValue: 'will call',
-            explanation: "Dùng 'will' cho lời hứa (promise).",
+            correctAnswerKey: 'B',
+            correctAnswerValue: 'Sure. I’ll drop it off on my way to work.',
           },
           {
-            questionNumber: 2,
-            stem: '___ a party on Saturday night.',
+            questionNumber: 33,
+            stem: 'Ngữ cảnh 2: Tell me again, why are you leaving work early?',
             options: [
-              { key: 'A', value: 'I am having' },
-              { key: 'B', value: 'I will have' },
+              { key: 'A', value: 'I’m going to attend my cousin’s funeral.' },
+              { key: 'B', value: 'I’ll attend my cousin’s funeral.' },
             ],
-            correctAnswerKeys: 'A',
-            correctAnswerValue: 'I am having',
-            explanation:
-              "Dùng Hiện tại tiếp diễn (am having) hoặc Tương lai gần (am going to have) cho kế hoạch đã sắp xếp. 'I am having' là cách nói thông dụng cho sự sắp xếp cá nhân trong tương lai gần.",
+            correctAnswerKey: 'A',
+            correctAnswerValue: 'I’m going to attend my cousin’s funeral.',
           },
           {
-            questionNumber: 3,
-            stem: "I don't think she ___ the test.",
+            questionNumber: 34,
+            stem: 'Ngữ cảnh 3: This flashlight doesn’t work.',
             options: [
-              { key: 'A', value: 'is going to pass' },
-              { key: 'B', value: 'will pass' },
+              { key: 'A', value: 'Here, give it to me. I’m going to fix it for you.' },
+              { key: 'B', value: 'Here, give it to me. I’ll fix it for you.' },
             ],
-            correctAnswerKeys: 'B',
-            correctAnswerValue: 'will pass',
-            explanation: "Dùng 'will' cho dự đoán dựa trên ý kiến cá nhân (I don't think).",
-          },
-          {
-            questionNumber: 4,
-            stem: 'Look at those black clouds! It ___.',
-            options: [
-              { key: 'A', value: 'will rain' },
-              { key: 'B', value: 'is going to rain' },
-            ],
-            correctAnswerKeys: 'B',
-            correctAnswerValue: 'is going to rain',
-            explanation: "Dùng 'be going to' cho dự đoán dựa trên bằng chứng hiện tại (nhìn mây đen).",
-          },
-        ],
-      },
-      {
-        exerciseType: EExerciseType.MultipleChoice,
-        exerciseTitle: 'Exercise 8: Đọc ngữ cảnh được cho sẵn và chọn cách nói với thì động từ đúng.',
-        questions: [
-          {
-            questionNumber: 1,
-            stem: 'Ngữ cảnh 1: Can you help me out? I gotta get this letter to the mail by noon. (Bạn có thể giúp tôi không? Tôi phải gửi bức thư này qua đường bưu điện vào buổi trưa.)',
-            options: [
-              { key: 'A', value: "Sure. I'm going to drop it off on my way to work." },
-              { key: 'B', value: "Sure. I'll drop it off on my way to work." },
-            ],
-            correctAnswerKeys: 'B',
-            correctAnswerValue: "Sure. I'll drop it off on my way to work.",
-            explanation:
-              'Đây là quyết định/đề nghị tự phát được đưa ra ngay tại thời điểm nói để đáp lại yêu cầu. Dùng **Tương lai đơn (Will)**.',
-          },
-          {
-            questionNumber: 2,
-            stem: 'Ngữ cảnh 2: Tell me again, why are you leaving work early? (Hãy nói lại cho tôi biết, tại sao bạn lại rời chỗ làm sớm?)',
-            options: [
-              { key: 'A', value: "I'm going to attend my cousin's funeral." },
-              { key: 'B', value: "I'll attend my cousin's funeral." },
-            ],
-            correctAnswerKeys: 'A',
-            correctAnswerValue: "I'm going to attend my cousin's funeral.",
-            explanation:
-              'Đây là hành động đã được lên kế hoạch/sắp xếp trước, dùng để giải thích lý do. Dùng **Tương lai gần (Be going to)**.',
+            correctAnswerKey: 'B',
+            correctAnswerValue: 'Here, give it to me. I’ll fix it for you.',
           },
         ],
       },
@@ -4950,48 +5701,70 @@ export const grammarTest = [
   },
   {
     testName: 'Section 6: Danh động từ và Động từ nguyên thể',
-    testCategory: 'Verb Forms',
+    testCategory: ETestCategory.Grammar,
     courseSlug: 'toeic-foundation',
     exercises: [
       {
+        exerciseOrder: 1,
         exerciseType: EExerciseType.TrueFalse,
         exerciseTitle: 'Exercise 1: Chọn True nếu khẳng định là đúng, False nếu khẳng định là sai',
         questions: [
           {
             questionNumber: 1,
             stem: 'Danh động từ là cụm một danh từ đứng cạnh một động từ.',
-            correctAnswerValue: 'FALSE',
-            explanation: 'Sai, Danh động từ (Gerund) là động từ thêm -ing (V-ing) và hoạt động như một danh từ.',
+            options: [
+              { key: 'A', value: 'True' },
+              { key: 'B', value: 'False' },
+            ],
+            correctAnswerKey: 'B',
+            correctAnswerValue: 'False',
+            note: 'Danh động từ (Gerund) là động từ thêm -ing (V-ing), hoạt động như một danh từ.',
           },
           {
             questionNumber: 2,
             stem: 'Danh động từ có thể làm chủ ngữ và cũng có thể làm tân ngữ trong câu.',
-            correctAnswerValue: 'TRUE',
-            explanation: 'Đúng, V-ing có thể đóng vai trò là S, O hoặc bổ ngữ.',
+            options: [
+              { key: 'A', value: 'True' },
+              { key: 'B', value: 'False' },
+            ],
+            correctAnswerKey: 'A',
+            correctAnswerValue: 'True',
+            note: 'V-ing (Gerund) có thể đứng đầu câu làm Chủ ngữ hoặc đứng sau động từ/giới từ làm Tân ngữ.',
           },
           {
             questionNumber: 3,
-            stem: 'Động từ nguyên thể nếu muốn làm chủ ngữ trong câu phải được đổi thành dạng V-ing.',
-            correctAnswerValue: 'TRUE',
-            explanation:
-              'Đúng, thường dùng V-ing làm chủ ngữ. Tuy nhiên, To V cũng có thể làm chủ ngữ nhưng ít phổ biến hơn.',
+            stem: 'Động từ nguyên thể nếu muốn làm chủ ngữ trong câu phải được đổi thành dạng V-ing',
+            options: [
+              { key: 'A', value: 'True' },
+              { key: 'B', value: 'False' },
+            ],
+            correctAnswerKey: 'B',
+            correctAnswerValue: 'False',
+            note: 'Động từ nguyên thể (To V) vẫn có thể làm chủ ngữ (Ví dụ: To err is human), mặc dù V-ing phổ biến hơn.',
           },
           {
             questionNumber: 4,
             stem: 'Một động từ chỉ có thể được đi sau bởi V-ing hoặc to V.',
-            correctAnswerValue: 'FALSE',
-            explanation:
-              'Sai, một số động từ có thể đi với cả V-ing và To V (thậm chí là V-inf trần) mà ý nghĩa không thay đổi hoặc thay đổi khác nhau.',
+            options: [
+              { key: 'A', value: 'True' },
+              { key: 'B', value: 'False' },
+            ],
+            correctAnswerKey: 'B',
+            correctAnswerValue: 'False',
+            note: 'Một số động từ theo sau là V nguyên mẫu (VD: Let/Make + O + V) hoặc cả V-ing và To V (VD: like, start).',
           },
         ],
       },
       {
-        exerciseType: EExerciseType.MultipleChoice,
-        exerciseTitle:
-          'Exercise 2: Chọn CÁC đáp án đúng - Động từ nào sau đây khi được theo sau bởi V-ing hay to V thì nghĩa hầu như không có sự khác biệt:',
+        exerciseOrder: 2,
+        exerciseType: EExerciseType.MultipleSelect,
+        exerciseTitle: 'Exercise 2: Chọn CÁC đáp án đúng',
+        exerciseStem:
+          'Động từ nào sau đây khi được theo sau bởi V-ing hay to V thì nghĩa hầu như không có sự khác biệt:',
         questions: [
           {
-            questionNumber: 1,
+            questionNumber: 5,
+            stem: 'Chọn CÁC động từ',
             options: [
               { key: 'A', value: 'decide' },
               { key: 'B', value: 'begin' },
@@ -5005,95 +5778,383 @@ export const grammarTest = [
               { key: 'J', value: 'refuse' },
               { key: 'K', value: 'hate' },
             ],
-            correctAnswerKeys: `['B', 'E', 'F', 'H', 'I', 'J', 'K']`,
-            correctAnswerValue: 'B, E, F, H, I, J, K',
-            explanation:
-              'Các động từ chỉ sở thích, cảm xúc và bắt đầu (begin, start, continue) thường có thể dùng với cả V-ing và To V mà nghĩa không khác biệt nhiều.',
+            correctAnswerKeys: ['B', 'E', 'F', 'H', 'I', 'K'],
+            correctAnswerValues: ['begin', 'start', 'continue', 'like', 'love', 'hate'],
+            note: 'Các động từ chỉ sự bắt đầu (begin, start, continue) và động từ chỉ sở thích (like, love, hate) thường có thể dùng cả V-ing và To V mà nghĩa không thay đổi đáng kể.',
           },
         ],
       },
       {
+        exerciseOrder: 3,
         exerciseType: EExerciseType.Matching,
         exerciseTitle: 'Exercise 3: Nối các từ vựng đã học với nghĩa tiếng Việt tương ứng',
-        matchingPairs: [
-          { clue: 'Từ chối làm việc gì', correctMatch: 'Refuse to V' },
-          { clue: 'Hứa làm việc gì', correctMatch: 'Promise to V' },
-          { clue: 'Quyết định làm việc gì', correctMatch: 'Decide to V' },
-          { clue: 'Đồng ý làm việc gì', correctMatch: 'Agree to V' },
-          { clue: 'Mong đợi làm việc gì', correctMatch: 'Expect to V' },
-          { clue: 'Thích làm việc gì', correctMatch: 'Enjoy V-ing' },
-          { clue: 'Nghĩ về/cân nhắc việc gì', correctMatch: 'Consider V-ing' },
-          { clue: 'Đề nghị/gợi ý làm việc gì', correctMatch: 'Suggest V-ing' },
+        matchingOptions: ['Decide to V', 'Agree to V', 'Want to V', 'Refuse to V', 'Promise to V'],
+        questions: [
+          {
+            questionNumber: 6,
+            stem: 'Quyết định làm việc gì',
+            correctAnswerValue: 'Decide to V',
+          },
+          {
+            questionNumber: 7,
+            stem: 'Đồng ý làm việc gì',
+            correctAnswerValue: 'Agree to V',
+          },
+          {
+            questionNumber: 8,
+            stem: 'Muốn làm việc gì',
+            correctAnswerValue: 'Want to V',
+          },
+          {
+            questionNumber: 9,
+            stem: 'Hứa làm việc gì',
+            correctAnswerValue: 'Promise to V',
+          },
+          {
+            questionNumber: 10,
+            stem: 'Từ chối làm việc gì',
+            correctAnswerValue: 'Refuse to V',
+          },
         ],
       },
       {
-        exerciseType: EExerciseType.FillInBlank,
-        exerciseTitle: 'Exercise 4: Điền dạng đúng của từ trong ngoặc (V-ing hoặc to V) để hoàn thành câu.',
+        exerciseOrder: 4,
+        exerciseType: EExerciseType.Matching,
+        exerciseTitle: 'Exercise 4: Nối các từ vựng đã học với nghĩa tiếng Việt tương ứng',
+        matchingOptions: [
+          'Begin V-ing / to V',
+          'Start V-ing / to V',
+          'Continue V-ing / to V',
+          'Like V-ing / to V',
+          'Love V-ing / to V',
+          'Hate V-ing / to V',
+        ],
         questions: [
-          { questionNumber: 1, stem: 'Do you enjoy (cook)?', correctAnswerValue: 'cooking' },
-          { questionNumber: 2, stem: "I can't afford (buy) a new car.", correctAnswerValue: 'to buy' },
           {
-            questionNumber: 3,
-            stem: 'She tried (avoid) (answer) my question.',
-            correctAnswerValue: 'to avoid / answering',
+            questionNumber: 11,
+            stem: 'Bắt đầu làm việc gì',
+            correctAnswerValue: 'Begin V-ing / to V',
           },
-          { questionNumber: 4, stem: 'I decided (look) for a new job.', correctAnswerValue: 'to look' },
-          { questionNumber: 5, stem: '(Read) is her favorite hobby.', correctAnswerValue: 'Reading' },
-          { questionNumber: 6, stem: 'I suggested (go) out for dinner.', correctAnswerValue: 'going' },
-          { questionNumber: 7, stem: 'They offered (help) me with my homework.', correctAnswerValue: 'to help' },
+          {
+            questionNumber: 12,
+            stem: 'Bắt đầu làm việc gì',
+            correctAnswerValue: 'Start V-ing / to V',
+          },
+          {
+            questionNumber: 13,
+            stem: 'Tiếp tục làm việc gì',
+            correctAnswerValue: 'Continue V-ing / to V',
+          },
+          {
+            questionNumber: 14,
+            stem: 'Yêu thích làm việc gì',
+            correctAnswerValue: 'Like V-ing / to V',
+          },
+          {
+            questionNumber: 15,
+            stem: 'Yêu thích làm việc gì',
+            correctAnswerValue: 'Love V-ing / to V',
+          },
+          {
+            questionNumber: 16,
+            stem: 'Ghét làm việc gì',
+            correctAnswerValue: 'Hate V-ing / to V',
+          },
         ],
       },
       {
-        exerciseType: EExerciseType.ClozeTest,
-        exerciseTitle: 'Exercise 7: Điền dạng đúng của động từ (V-ing hoặc to V) trong ngoặc để hoàn thành đoạn văn.',
+        exerciseOrder: 5,
+        exerciseType: EExerciseType.MultipleChoice,
+        exerciseTitle:
+          'Exercise 5: Chọn dạng động từ theo sau mỗi động từ dưới đây sao cho tương ứng với nghĩa diễn đạt.',
         questions: [
           {
-            questionNumber: 1,
-            passage:
-              "I don't mind (1) _______ (pay) a high salary, but I haven't been paid well enough since I started (2) _______ (work) here, my boss promised (3) _______ (give) me an increase, and to send me to Europe and Asia. I expected to enjoy (4) _______ (do) some traveling, but I don't do any traveling. I've tried (5) _______ (talk) to him about it, but he won't listen. So I decided (6) _______ (look) for another job.",
-            stems: [
-              { index: 1, word: '(pay)', correctAnswerValue: 'paying', reason: 'mind + V-ing' },
-              {
-                index: 2,
-                word: '(work)',
-                correctAnswerValue: 'working',
-                reason: "start + V-ing/to V (ở đây dùng V-ing phổ biến hơn sau giới từ 'since')",
-              },
-              { index: 3, word: '(give)', correctAnswerValue: 'to give', reason: 'promise + to V' },
-              { index: 4, word: '(do)', correctAnswerValue: 'doing', reason: 'enjoy + V-ing' },
-              { index: 5, word: '(talk)', correctAnswerValue: 'talking', reason: 'try + V-ing (thử làm gì)' },
-              { index: 6, word: '(look)', correctAnswerValue: 'to look', reason: 'decide + to V' },
+            questionNumber: 17,
+            stem: 'Remember + ... : nhớ phải làm gì',
+            options: [
+              { key: 'A', value: 'V-ing' },
+              { key: 'B', value: 'To V' },
             ],
+            correctAnswerKey: 'B',
+            correctAnswerValue: 'To V',
+            note: 'Remember to V: nhớ làm một hành động trong tương lai (phải làm gì).',
           },
           {
-            questionNumber: 2,
-            passage:
-              "I've always been afraid of water. Then one day last year I thought, 'I don't want (7) _______ (feel) this.' So I found some special lessons for people like me. I'm learning to swim, and next summer I plan to take water-skiing lessons. I needed to be at work early this morning. But I forgot (8) _______ (set) my alarm clock, and I woke up at 7.30 instead of 6.30.",
-            stems: [
-              { index: 7, word: '(feel)', correctAnswerValue: 'to feel', reason: 'want + to V' },
-              {
-                index: 8,
-                word: '(set)',
-                correctAnswerValue: 'to set',
-                reason: 'forget + to V (quên làm một việc phải làm)',
-              },
+            questionNumber: 18,
+            stem: 'Forget + ... : quên rằng đã làm gì',
+            options: [
+              { key: 'A', value: 'V-ing' },
+              { key: 'B', value: 'To V' },
             ],
+            correctAnswerKey: 'A',
+            correctAnswerValue: 'V-ing',
+            note: 'Forget V-ing: quên một sự việc đã xảy ra trong quá khứ (đã làm gì).',
           },
           {
-            questionNumber: 3,
-            passage:
-              "I began (9) _______ (go) to lessons twice a week since then. I've continued (10) _______ (go) on with karate for four years ago, and I've continued (11) _______ (do) it twice a week since then. I love it. I've visited some other karate clubs, but I prefer (12) _______ (learn) at my own club, because the teaching is so good.",
-            stems: [
-              { index: 9, word: '(go)', correctAnswerValue: 'going / to go', reason: 'begin + V-ing/to V' },
-              { index: 10, word: '(do)', correctAnswerValue: 'doing / to do', reason: 'continue + V-ing/to V' },
-              {
-                index: 11,
-                word: '(go)',
-                correctAnswerValue: 'going',
-                reason: 'tiếp tục đi học (thói quen, hành động đang diễn ra)',
-              },
-              { index: 12, word: '(learn)', correctAnswerValue: 'to learn', reason: 'prefer + to V' },
+            questionNumber: 19,
+            stem: 'Regret + ... : tiếc đã làm gì',
+            options: [
+              { key: 'A', value: 'V-ing' },
+              { key: 'B', value: 'To V' },
             ],
+            correctAnswerKey: 'A',
+            correctAnswerValue: 'V-ing',
+            note: 'Regret V-ing: tiếc về hành động đã xảy ra trong quá khứ.',
+          },
+          {
+            questionNumber: 20,
+            stem: 'Try + ... : cố gắng làm gì',
+            options: [
+              { key: 'A', value: 'V-ing' },
+              { key: 'B', value: 'To V' },
+            ],
+            correctAnswerKey: 'B',
+            correctAnswerValue: 'To V',
+            note: 'Try to V: cố gắng làm gì.',
+          },
+          {
+            questionNumber: 21,
+            stem: 'Stop + ... : dừng lại để làm gì',
+            options: [
+              { key: 'A', value: 'V-ing' },
+              { key: 'B', value: 'To V' },
+            ],
+            correctAnswerKey: 'B',
+            correctAnswerValue: 'To V',
+            note: 'Stop to V: dừng hành động đang làm để chuyển sang làm hành động khác.',
+          },
+        ],
+      },
+      {
+        exerciseOrder: 6,
+        exerciseType: EExerciseType.MultipleChoice,
+        exerciseTitle: 'Exercise 6: Đọc tình huống cho sẵn và chọn đáp án chứa từ phù hợp',
+        questions: [
+          {
+            questionNumber: 22,
+            stem: "Tình huống 1: <br/>JANE: 'Could you possibly lend me £5?' <br/>ANDY: 'Sure' <br/>Hoàn thành câu: Andy _______ to lend £5 to Jane.",
+            options: [
+              { key: 'A', value: 'wants' },
+              { key: 'B', value: 'agrees' },
+              { key: 'C', value: 'promises' },
+            ],
+            correctAnswerKey: 'B',
+            correctAnswerValue: 'agrees',
+            note: 'Agree + to V (đồng ý làm gì). "Sure" thể hiện sự đồng ý.',
+          },
+          {
+            questionNumber: 23,
+            stem: "Tình huống 2: <br/>JOE: 'Shall I go to the cinema or stay at home? Cinema, perhaps? No, I'll stay at home.' <br/>Hoàn thành câu: Joe _______ to stay at home.",
+            options: [
+              { key: 'A', value: 'decides' },
+              { key: 'B', value: 'stops' },
+              { key: 'C', value: 'refuses' },
+            ],
+            correctAnswerKey: 'A',
+            correctAnswerValue: 'decides',
+            note: 'Decide + to V (quyết định làm gì). "No, I\'ll stay at home" thể hiện quyết định cuối cùng.',
+          },
+          {
+            questionNumber: 24,
+            stem: 'Tình huống 3: <br/>Lizzie was expecting a call from Sarah. Sarah rang the number, but it was engaged. <br/>Hoàn thành câu: Sarah _______ Lizzie, but the number was engaged.',
+            options: [
+              { key: 'A', value: 'tried phoning' },
+              { key: 'B', value: 'tried to phone' },
+              { key: 'C', value: 'tried phone' },
+            ],
+            correctAnswerKey: 'B',
+            correctAnswerValue: 'tried to phone',
+            note: 'Try to V: cố gắng thực hiện hành động (nhưng không thành công vì máy bận).',
+          },
+          {
+            questionNumber: 25,
+            stem: "Tình huống 4: <br/>PATRICK: 'I will write to you every day, Barbara.' <br/>Hoàn thành câu: Patrick _______ to write to Barbara every day.",
+            options: [
+              { key: 'A', value: 'loves' },
+              { key: 'B', value: 'starts' },
+              { key: 'C', value: 'promises' },
+            ],
+            correctAnswerKey: 'C',
+            correctAnswerValue: 'promises',
+            note: 'Promise + to V (hứa làm gì). "I will write" là một lời hứa.',
+          },
+          {
+            questionNumber: 26,
+            stem: "Tình huống 5: <br/>BOB: 'I was going to post a birthday card to my mother, but I didn't remember.' <br/>Hoàn thành câu: Bob _______ his mother's birthday card.",
+            options: [
+              { key: 'A', value: 'forgot post' },
+              { key: 'B', value: 'forgot posting' },
+              { key: 'C', value: 'forgot to post' },
+            ],
+            correctAnswerKey: 'C',
+            correctAnswerValue: 'forgot to post',
+            note: 'Forget + to V: quên làm một việc cần phải làm (quên đăng thiệp).',
+          },
+          {
+            questionNumber: 27,
+            stem: "Tình huống 6: <br/>PHILIP: 'Please, please lend me your car. <br/>AGNES: 'No, no, no and no.' <br/>Hoàn thành câu: Agnes _______ her car to Philip.",
+            options: [
+              { key: 'A', value: 'refuses to lend' },
+              { key: 'B', value: 'regrets lending' },
+              { key: 'C', value: 'enjoys lending' },
+            ],
+            correctAnswerKey: 'A',
+            correctAnswerValue: 'refuses to lend',
+            note: 'Refuse + to V (từ chối làm gì). "No, no, no and no" thể hiện sự từ chối.',
+          },
+          {
+            questionNumber: 28,
+            stem: "Tình huống 7: <br/>Helen's parents are sending her to England for two weeks. Helen is not happy. <br/>Hoàn thành câu: Helen doesn't _______ to go to England.",
+            options: [
+              { key: 'A', value: 'continue' },
+              { key: 'B', value: 'want' },
+              { key: 'C', value: 'hate' },
+            ],
+            correctAnswerKey: 'B',
+            correctAnswerValue: 'want',
+            note: 'Want + to V (muốn làm gì). "Helen is not happy" (không vui) ngụ ý rằng cô ấy không muốn đi.',
+          },
+          {
+            questionNumber: 29,
+            stem: 'Tình huống 8: <br/>Susan said her first word when she was seven months old. <br/>Hoàn thành câu: Susan _______ to talk when she was seven months old.',
+            options: [
+              { key: 'A', value: 'started' },
+              { key: 'B', value: 'remembered' },
+              { key: 'C', value: 'decided' },
+            ],
+            correctAnswerKey: 'A',
+            correctAnswerValue: 'started',
+            note: 'Start + to V/V-ing (bắt đầu làm gì). Hành động "said her first word" đánh dấu sự khởi đầu của việc nói.',
+          },
+        ],
+      },
+      {
+        exerciseOrder: 7,
+        exerciseType: EExerciseType.MultipleSelect,
+        exerciseTitle: 'Exercise 7: Chọn đáp án chứa dạng từ đúng để hoàn thành đoạn văn sau',
+        exerciseStem:
+          "Lưu ý: Có thể có nhiều hơn 1 đáp án đúng<br/><br/>I'm eighteen, and I hope to be an airline pilot. My parents have agreed ____ (1) for lessons if I do well in my exams. My brother says girls shouldn't be pilots, but I refuse to listen to him.<br/>Now I've started ____ (2) here, my boss promised ____ (3) me interesting work, traveling to Europe and Asia. I expected to enjoy ____ (4) my job. But all my work is boring, and I don't do any traveling. I've tried ____ (5) to my boss, but she doesn't listen. I've decided ____ (6) for another job.<br/>I've always been afraid of water. Then one day last year I thought, 'I don't want ____ (7) this.' So I found some special lessons for people like me. I'm learning to swim, and next summer I plan to take water-skiing lessons.<br/>I needed to be at work early this morning. But I forgot ____ (8) my alarm clock, and I woke up at 7.30 instead of 6.30. Then everything seemed to go wrong. I had no clean shirts, the bus was late, ...<br/>I began ____ (9) karate four years ago, and I've continued ____ (10) to lessons twice a week since then. I love it. I've visited some other karate clubs, but I prefer to learn at my own club, because the teaching is so good.",
+        questions: [
+          {
+            questionNumber: 30,
+            stem: '(1) agreed ( ) for lessons',
+            options: [
+              { key: 'A', value: 'pay' },
+              { key: 'B', value: 'paying' },
+              { key: 'C', value: 'to pay' },
+            ],
+            correctAnswerKeys: ['C'],
+            correctAnswerValues: ['to pay'],
+            note: 'Agree + To V (đồng ý làm gì).',
+          },
+          {
+            questionNumber: 31,
+            stem: '(2) started ( ) here',
+            options: [
+              { key: 'A', value: 'work' },
+              { key: 'B', value: 'working' },
+              { key: 'C', value: 'to work' },
+            ],
+            correctAnswerKeys: ['B', 'C'],
+            correctAnswerValues: ['working', 'to work'],
+            note: 'Start có thể dùng cả V-ing và To V mà nghĩa không đổi.',
+          },
+          {
+            questionNumber: 32,
+            stem: '(3) promised ( ) me interesting work',
+            options: [
+              { key: 'A', value: 'give' },
+              { key: 'B', value: 'giving' },
+              { key: 'C', value: 'to give' },
+            ],
+            correctAnswerKeys: ['C'],
+            correctAnswerValues: ['to give'],
+            note: 'Promise + To V (hứa làm gì).',
+          },
+          {
+            questionNumber: 33,
+            stem: '(4) expected to enjoy ( ) my job',
+            options: [
+              { key: 'A', value: 'do' },
+              { key: 'B', value: 'doing' },
+              { key: 'C', value: 'to do' },
+            ],
+            correctAnswerKeys: ['B'],
+            correctAnswerValues: ['doing'],
+            note: 'Enjoy + V-ing (thích làm gì).',
+          },
+          {
+            questionNumber: 34,
+            stem: '(5) tried ( ) to my boss',
+            options: [
+              { key: 'A', value: 'talk' },
+              { key: 'B', value: 'talking' },
+              { key: 'C', value: 'to talk' },
+            ],
+            correctAnswerKeys: ['C'],
+            correctAnswerValues: ['to talk'],
+            note: 'Tried to V: cố gắng nói chuyện với sếp (nhưng không thành công).',
+          },
+          {
+            questionNumber: 35,
+            stem: '(6) decided ( ) for another job',
+            options: [
+              { key: 'A', value: 'look' },
+              { key: 'B', value: 'looking' },
+              { key: 'C', value: 'to look' },
+            ],
+            correctAnswerKeys: ['C'],
+            correctAnswerValues: ['to look'],
+            note: 'Decide + To V (quyết định làm gì).',
+          },
+          {
+            questionNumber: 36,
+            exerciseType: EExerciseType.MultipleSelect,
+            stem: '(7) want ( ) this',
+            options: [
+              { key: 'A', value: 'live' },
+              { key: 'B', value: 'living' },
+              { key: 'C', value: 'to live' },
+            ],
+            correctAnswerKeys: ['C'],
+            correctAnswerValues: ['to live'],
+            note: 'Want + To V (muốn làm gì). Cụm hoàn chỉnh: "I don\'t want to live this."',
+          },
+          {
+            questionNumber: 37,
+            stem: '(8) forgot ( ) my alarm clock',
+            options: [
+              { key: 'A', value: 'set' },
+              { key: 'B', value: 'setting' },
+              { key: 'C', value: 'to set' },
+            ],
+            correctAnswerKeys: ['C'],
+            correctAnswerValues: ['to set'],
+            note: 'Forgot + To V: quên làm việc cần phải làm (quên đặt báo thức).',
+          },
+          {
+            questionNumber: 38,
+            stem: '(9) began ( ) karate',
+            options: [
+              { key: 'A', value: 'learn' },
+              { key: 'B', value: 'learning' },
+              { key: 'C', value: 'to learn' },
+            ],
+            correctAnswerKeys: ['B', 'C'],
+            correctAnswerValues: ['learning', 'to learn'],
+            note: 'Begin có thể dùng cả V-ing và To V mà nghĩa không đổi.',
+          },
+          {
+            questionNumber: 39,
+            stem: '(10) continued ( ) to lessons',
+            options: [
+              { key: 'A', value: 'go' },
+              { key: 'B', value: 'going' },
+              { key: 'C', value: 'to go' },
+            ],
+            correctAnswerKeys: ['B', 'C'],
+            correctAnswerValues: ['going', 'to go'],
+            note: 'Continue có thể dùng cả V-ing và To V mà nghĩa không đổi.',
           },
         ],
       },
@@ -5892,186 +6953,625 @@ export const grammarTest = [
   },
 
   {
-    testName: 'Section 3: Đại từ phản thân (Reflexive Pronouns)',
-    testCategory: 'Pronouns',
+    testName: 'Section 3: Đại từ phản thân',
+    testCategory: ETestCategory.Grammar,
     courseSlug: 'toeic-foundation',
     exercises: [
       {
+        exerciseOrder: 1,
         exerciseType: EExerciseType.Matching,
         exerciseTitle: 'Exercise 1: Nối mỗi đại từ phản thân với ngôi đại từ tương ứng',
-        matchingPairs: [
-          { clue: 'Myself', correctMatch: 'Ngôi thứ nhất số ít' },
-          { clue: 'Ourselves', correctMatch: 'Ngôi thứ nhất số nhiều' },
-          { clue: 'Yourself', correctMatch: 'Ngôi thứ hai số ít' },
-          { clue: 'Yourselves', correctMatch: 'Ngôi thứ hai số nhiều' },
-          { clue: 'Himself', correctMatch: 'Ngôi thứ ba số ít (nam)' },
-          { clue: 'Herself', correctMatch: 'Ngôi thứ ba số ít (nữ)' },
-          { clue: 'Itself', correctMatch: 'Ngôi thứ ba số ít (vật)' },
-          { clue: 'Themselves', correctMatch: 'Ngôi thứ ba số nhiều' },
+        matchingOptions: [
+          'Ngôi thứ nhất số ít',
+          'Ngôi thứ nhất số nhiều',
+          'Ngôi thứ hai số ít',
+          'Ngôi thứ hai số nhiều',
+          'Ngôi thứ ba số ít (Nam)',
+          'Ngôi thứ ba số ít (Nữ)',
+          'Ngôi thứ ba số ít (Vật/Con vật)',
+          'Ngôi thứ ba số nhiều',
+        ],
+        questions: [
+          {
+            questionNumber: 1,
+            stem: 'Myself',
+            correctAnswerValue: 'Ngôi thứ nhất số ít',
+            note: 'Đại từ phản thân của I.',
+          },
+          {
+            questionNumber: 2,
+            stem: 'Ourselves',
+            correctAnswerValue: 'Ngôi thứ nhất số nhiều',
+            note: 'Đại từ phản thân của We.',
+          },
+          {
+            questionNumber: 3,
+            stem: 'Yourself',
+            correctAnswerValue: 'Ngôi thứ hai số ít',
+            note: 'Đại từ phản thân của You (số ít).',
+          },
+          {
+            questionNumber: 4,
+            stem: 'Yourselves',
+            correctAnswerValue: 'Ngôi thứ hai số nhiều',
+            note: 'Đại từ phản thân của You (số nhiều).',
+          },
+          {
+            questionNumber: 5,
+            stem: 'Himself',
+            correctAnswerValue: 'Ngôi thứ ba số ít (Nam)',
+            note: 'Đại từ phản thân của He.',
+          },
+          {
+            questionNumber: 6,
+            stem: 'Herself',
+            correctAnswerValue: 'Ngôi thứ ba số ít (Nữ)',
+            note: 'Đại từ phản thân của She.',
+          },
+          {
+            questionNumber: 7,
+            stem: 'Itself',
+            correctAnswerValue: 'Ngôi thứ ba số ít (Vật/Con vật)',
+            note: 'Đại từ phản thân của It.',
+          },
+          {
+            questionNumber: 8,
+            stem: 'Themselves',
+            correctAnswerValue: 'Ngôi thứ ba số nhiều',
+            note: 'Đại từ phản thân của They.',
+          },
         ],
       },
       {
+        exerciseOrder: 2,
         exerciseType: EExerciseType.TrueFalse,
         exerciseTitle: 'Exercise 2: Chọn True nếu khẳng định là đúng, False nếu khẳng định là sai',
         questions: [
           {
-            questionNumber: 1,
+            questionNumber: 9,
             stem: 'Đại từ phản thân có thể làm tân ngữ đứng sau cả động từ và giới từ.',
-            correctAnswerValue: 'TRUE',
-            explanation:
-              "Đúng. Ví dụ: 'He hurt himself' (sau động từ); 'They did it by themselves' (sau giới từ 'by').",
+            options: [
+              { key: 'A', value: 'True' },
+              { key: 'B', value: 'False' },
+            ],
+            correctAnswerKey: 'A',
+            correctAnswerValue: 'True',
+            note: 'Ví dụ: I enjoyed myself (sau động từ); I did it by myself (sau giới từ).',
           },
           {
-            questionNumber: 2,
+            questionNumber: 10,
             stem: 'Đại từ phản thân có thể đứng trước chủ thể để nhấn mạnh.',
-            correctAnswerValue: 'FALSE',
-            explanation:
-              "Sai. Đại từ phản thân dùng để nhấn mạnh phải đứng ngay sau chủ thể hoặc sau tân ngữ. Ví dụ: 'I myself did it'.",
+            options: [
+              { key: 'A', value: 'True' },
+              { key: 'B', value: 'False' },
+            ],
+            correctAnswerKey: 'B',
+            correctAnswerValue: 'False',
+            note: 'Đại từ phản thân dùng để nhấn mạnh phải đứng ngay sau chủ thể hoặc ở cuối câu. (Ví dụ: I myself did it.)',
           },
         ],
       },
       {
-        exerciseType: EExerciseType.FillInBlank,
-        exerciseTitle: 'Exercise 3: Hoàn thành các câu sau bằng các Đại từ phản thân cho sẵn',
+        exerciseOrder: 3,
+        exerciseType: EExerciseType.Matching,
+        exerciseTitle: 'Exercise 3: Hoàn thành các câu sau bằng các Đại từ phản thân cho sẵn trong bảng sau',
+        exerciseStem: ' Lưu ý: Mỗi từ chỉ sử dụng 1 lần',
+        matchingOptions: [
+          'yourselves',
+          'themselves',
+          'itself',
+          'myself',
+          'himself',
+          'yourself',
+          'ourselves',
+          'herself',
+        ],
         questions: [
           {
-            questionNumber: 1,
-            stem: 'No one can help us. We have to help **ourselves**.',
+            questionNumber: 11,
+            stem: 'No one can help us. We have to help ____.',
             correctAnswerValue: 'ourselves',
+            note: 'Chủ ngữ là "We" (chúng ta).',
           },
-          { questionNumber: 2, stem: 'Jane always makes the bed by **herself**.', correctAnswerValue: 'herself' },
-          { questionNumber: 3, stem: 'They painted the wall all by **themselves**.', correctAnswerValue: 'themselves' },
-          { questionNumber: 4, stem: 'I hurt **myself** in the playground yesterday.', correctAnswerValue: 'myself' },
           {
-            questionNumber: 5,
-            stem: 'John, you must behave **yourself** before your friends.',
+            questionNumber: 12,
+            stem: 'Jane always makes the bed by ____.',
+            correctAnswerValue: 'herself',
+            note: 'Chủ ngữ là "Jane" (cô ấy).',
+          },
+          {
+            questionNumber: 13,
+            stem: 'They painted the wall all by ____.',
+            correctAnswerValue: 'themselves',
+            note: 'Chủ ngữ là "They" (họ).',
+          },
+          {
+            questionNumber: 14,
+            stem: 'I hurt ____ in the playground yesterday.',
+            correctAnswerValue: 'myself',
+            note: 'Chủ ngữ là "I" (tôi).',
+          },
+          {
+            questionNumber: 15,
+            stem: 'John, you must behave ____ before your friends.',
             correctAnswerValue: 'yourself',
+            note: 'Chủ ngữ là "you" (số ít, nói với John).',
           },
           {
-            questionNumber: 6,
-            stem: 'Children, you must do the homework **yourselves**.',
+            questionNumber: 16,
+            stem: 'Children, you must do the homework ____.',
             correctAnswerValue: 'yourselves',
+            note: 'Chủ ngữ là "Children, you" (số nhiều).',
           },
-          { questionNumber: 7, stem: 'Tom defended **himself** against the bullies.', correctAnswerValue: 'himself' },
-          { questionNumber: 8, stem: 'The dog is scratching **itself**.', correctAnswerValue: 'itself' },
+          {
+            questionNumber: 17,
+            stem: 'Tom defended ____ against the bullies.',
+            correctAnswerValue: 'himself',
+            note: 'Chủ ngữ là "Tom" (anh ấy).',
+          },
+          {
+            questionNumber: 18,
+            stem: 'The dog is scratching ____.',
+            correctAnswerValue: 'itself',
+            note: 'Chủ ngữ là "The dog" (nó).',
+          },
+        ],
+      },
+      {
+        exerciseOrder: 4,
+        exerciseType: EExerciseType.FillInBlank,
+        exerciseTitle: 'Exercise 4: Điền đại từ phản thân phù hợp để hoàn thành câu',
+        exerciseStem: 'Ví dụ: Tommy told a lie. He was ashamed of <b><u>himself</u></b>.',
+        questions: [
+          {
+            questionNumber: 19,
+            stem: 'Masako cut ____ while she was chopping vegetables.',
+            correctAnswerValue: 'herself',
+            note: 'Chủ ngữ là "Masako" (She).',
+          },
+          {
+            questionNumber: 20,
+            stem: 'People surround ____ with friends and family during holidays.',
+            correctAnswerValue: 'themselves',
+            note: 'Chủ ngữ là "People" (They).',
+          },
+          {
+            questionNumber: 21,
+            stem: 'A: Should I marry Steve?<br/>B: No one can make that decision for you, Ann. Only you ____ can make such an important decision about your own life.',
+            correctAnswerValue: 'yourself',
+            note: 'Dùng để nhấn mạnh Chủ ngữ "you" (Ann).',
+          },
+          {
+            questionNumber: 22,
+            stem: "Emily and Ryan, be careful! You're going to hurt ____.",
+            correctAnswerValue: 'yourselves',
+            note: 'Chủ ngữ là "You" (số nhiều, nói với Emily và Ryan).',
+          },
+          {
+            questionNumber: 23,
+            stem: "A: I hate my job. <br/>B: Me too. I envy Jacob. He's self-employed. <br/>A: Yeah. I'd like to work for ____ too.",
+            correctAnswerValue: 'myself',
+            note: 'Chủ ngữ là "I".',
+          },
+          {
+            questionNumber: 24,
+            stem: 'Jason, you need to eat better and get more exercise. You should take better care of ____.',
+            correctAnswerValue: 'yourself',
+            note: 'Chủ ngữ là "You" (số ít, nói với Jason).',
+          },
+          {
+            questionNumber: 25,
+            stem: 'Your father takes care of ____ and I take care of ____.',
+            correctAnswerValue: 'himself|myself',
+            note: 'Your father (He) -> himself. I -> myself. (Chấp nhận cả 2 dạng: himself, myself)',
+          },
+          {
+            questionNumber: 26,
+            stem: 'Your father and I are healthy because we take good care of ____.',
+            correctAnswerValue: 'ourselves',
+            note: 'Chủ ngữ là "Your father and I" (We).',
+          },
+          {
+            questionNumber: 27,
+            stem: "People who take care of ____ have a better chance of staying healthy than those who don't.",
+            correctAnswerValue: 'themselves',
+            note: 'Chủ ngữ là "People" (They).',
+          },
+        ],
+      },
+      {
+        exerciseOrder: 5,
+        exerciseType: EExerciseType.FillInBlank,
+        exerciseTitle:
+          'Exercise 5: Điền Đại từ nhân xưng hoặc Đại từ phản thân phù hợp vào chỗ trống để hoàn thành câu',
+        exerciseStem: `Ví dụ: She looked at <b><u>me</u></b> and I looked at <b><u>her</u></b> but we didn't say anything.`,
+        questions: [
+          {
+            questionNumber: 28,
+            stem: "When I'm alone I don't always cook for ____.",
+            correctAnswerValue: 'myself',
+            note: 'Tân ngữ là Chủ ngữ ("I"), theo sau giới từ "for".',
+          },
+          {
+            questionNumber: 29,
+            stem: 'When he looks at ____ in the mirror, he gets very depressed.',
+            correctAnswerValue: 'himself',
+            note: 'Tân ngữ là Chủ ngữ ("he"), theo sau động từ có giới từ "looks at".',
+          },
+          {
+            questionNumber: 30,
+            stem: "Don't help ____. I want to do it by ____.",
+            correctAnswerValue: 'me|myself',
+            note: 'Vế 1: Đại từ nhân xưng làm tân ngữ của "help" ("me"). Vế 2: Cụm "by myself" (tự tôi). (Chấp nhận cả 2 dạng: me, myself)',
+          },
+          {
+            questionNumber: 31,
+            stem: "I'm sorry. I haven't got time to teach ____ to cook. You'll have to teach ____.",
+            correctAnswerValue: 'you|yourself',
+            note: 'Vế 1: Đại từ nhân xưng làm tân ngữ của "teach" ("you"). Vế 2: Tân ngữ là Chủ ngữ ("You") -> đại từ phản thân ("yourself"). (Chấp nhận cả 2 dạng: you, yourself)',
+          },
+        ],
+      },
+      {
+        exerciseOrder: 6,
+        exerciseType: EExerciseType.MultipleChoice,
+        exerciseTitle: 'Exercise 6: Chọn đáp án chứa đại từ phù hợp để hoàn thành đoạn văn sau',
+        exerciseStem:
+          "My brother and (1) ____ girlfriend have known each other for about five years, but (2) ____ have only been going out together for six months.<br/>Before that, he didn't like (3) ____ and (4) ____ didn't like him, but later (5) ____ became good friends, and started going out together.<br/>(6) ____ both have small flats. His flat is in the town centre, and (7) ____ very comfortable. (8) ____ is a long way out, and it's not as nice. So they spend most of (9) ____ free time at his place.<br/>He works in a garage, and she's a teacher, but she doesn't let him touch her car - she looks after it (10) ____. I like them both very much, and I think they are good for each other, so I hope they will stay together.",
+        questions: [
+          {
+            questionNumber: 32,
+            stem: '(1) My brother and ____ girlfriend',
+            options: [
+              { key: 'A', value: 'Him' },
+              { key: 'B', value: 'His' },
+              { key: 'C', value: 'He' },
+            ],
+            correctAnswerKey: 'B',
+            correctAnswerValue: 'His',
+            note: 'Tính từ sở hữu "His" bổ nghĩa cho danh từ "girlfriend".',
+          },
+          {
+            questionNumber: 33,
+            stem: '(2) but ____ have only been going out',
+            options: [
+              { key: 'A', value: 'He' },
+              { key: 'B', value: 'She' },
+              { key: 'C', value: 'They' },
+            ],
+            correctAnswerKey: 'C',
+            correctAnswerValue: 'They',
+            note: 'Đại từ nhân xưng "They" làm chủ ngữ, thay thế cho "My brother and his girlfriend".',
+          },
+          {
+            questionNumber: 34,
+            stem: "(3) he didn't like ____",
+            options: [
+              { key: 'A', value: 'She' },
+              { key: 'B', value: 'Her' },
+              { key: 'C', value: 'They' },
+            ],
+            correctAnswerKey: 'B',
+            correctAnswerValue: 'Her',
+            note: 'Đại từ nhân xưng "Her" làm tân ngữ, thay thế cho "girlfriend".',
+          },
+          {
+            questionNumber: 35,
+            stem: "(4) and ____ didn't like him",
+            options: [
+              { key: 'A', value: 'She' },
+              { key: 'B', value: 'Her' },
+              { key: 'C', value: 'Them' },
+            ],
+            correctAnswerKey: 'A',
+            correctAnswerValue: 'She',
+            note: 'Đại từ nhân xưng "She" làm chủ ngữ, thay thế cho "girlfriend".',
+          },
+          {
+            questionNumber: 36,
+            stem: '(5) but later ____ became good friends',
+            options: [
+              { key: 'A', value: 'They' },
+              { key: 'B', value: 'We' },
+              { key: 'C', value: 'Them' },
+            ],
+            correctAnswerKey: 'A',
+            correctAnswerValue: 'They',
+            note: 'Đại từ nhân xưng "They" làm chủ ngữ, thay thế cho "My brother and his girlfriend".',
+          },
+          {
+            questionNumber: 37,
+            stem: '(6) ____ both have small flats.',
+            options: [
+              { key: 'A', value: 'He' },
+              { key: 'B', value: 'She' },
+              { key: 'C', value: 'They' },
+            ],
+            correctAnswerKey: 'C',
+            correctAnswerValue: 'They',
+            note: 'Đại từ nhân xưng "They" làm chủ ngữ, thay thế cho cả hai người.',
+          },
+          {
+            questionNumber: 38,
+            stem: '(7) and ____ very comfortable.',
+            options: [
+              { key: 'A', value: 'It' },
+              { key: 'B', value: "It's" },
+              { key: 'C', value: 'Its' },
+            ],
+            correctAnswerKey: 'B',
+            correctAnswerValue: "It's",
+            note: '"It\'s" (It is) làm chủ ngữ và động từ, thay thế cho "His flat".',
+          },
+          {
+            questionNumber: 39,
+            stem: "(8) ____ is a long way out, and it's not as nice.",
+            options: [
+              { key: 'A', value: 'Hers' },
+              { key: 'B', value: 'Her' },
+              { key: 'C', value: 'She' },
+            ],
+            correctAnswerKey: 'A',
+            correctAnswerValue: 'Hers',
+            note: 'Đại từ sở hữu "Hers" (thay thế cho "Her flat") làm chủ ngữ.',
+          },
+          {
+            questionNumber: 40,
+            stem: '(9) most of ____ free time',
+            options: [
+              { key: 'A', value: 'My' },
+              { key: 'B', value: 'Them' },
+              { key: 'C', value: 'Their' },
+            ],
+            correctAnswerKey: 'C',
+            correctAnswerValue: 'Their',
+            note: 'Tính từ sở hữu "Their" bổ nghĩa cho danh từ "free time".',
+          },
+          {
+            questionNumber: 41,
+            stem: '(10) she looks after it ____.',
+            options: [
+              { key: 'A', value: 'Him' },
+              { key: 'B', value: 'It' },
+              { key: 'C', value: 'Herself' },
+            ],
+            correctAnswerKey: 'C',
+            correctAnswerValue: 'Herself',
+            note: 'Đại từ phản thân "Herself" dùng để nhấn mạnh hành động tự làm (cô ấy tự chăm sóc xe).',
+          },
         ],
       },
     ],
   },
   // Tính từ và trạng từ
   {
-    testName: 'TÍNH TỪ (ADJECTIVE)',
-    testCategory: 'Grammar',
+    testName: 'Section 1: Tính từ',
+    testCategory: ETestCategory.Grammar,
     courseSlug: 'toeic-foundation',
     exercises: [
       {
-        exerciseType: EExerciseType.MultipleChoice,
+        exerciseOrder: 1,
+        exerciseType: EExerciseType.MultipleSelect,
         exerciseTitle: 'Exercise 1: Hãy chọn những phát biểu đúng.',
-        questions: [
-          // Do không có thông tin cụ thể về các phát biểu trong file PDF,
-          // đây là kết quả giả định dựa trên nội dung mục Tính từ của AI.
-          // Bạn có thể tìm thấy bài tập này tại prep.vn.
-        ],
-      },
-      {
-        exerciseType: EExerciseType.MultipleChoice,
-        exerciseTitle: 'Exercise 2: Chọn các động từ có thể theo sau bởi tính từ.',
-        questions: [
-          // Do không có danh sách các động từ trong file PDF,
-          // đây là kết quả giả định dựa trên kiến thức AI về Linking Verbs.
-          // Bạn có thể tìm thấy bài tập này tại prep.vn.
-        ],
-      },
-      {
-        exerciseType: EExerciseType.FillInBlank,
-        exerciseTitle: 'Exercise 3: Xác định và điền tính từ trong mỗi câu sau vào ô trống bên cạnh.',
-        hint: 'Gợi ý: ta có thể dựa vào kiến thức về vị trí của tính từ trong câu để xác định tính từ.',
         questions: [
           {
             questionNumber: 1,
-            stem: 'There is an empty room over there.',
+            stem: 'Chọn TẤT CẢ những phát biểu đúng về tính từ',
+            options: [
+              {
+                key: 'A',
+                value: 'Tính từ là từ mô tả tính chất của một vật nào đó',
+              },
+              {
+                key: 'B',
+                value: 'Tính từ có thể đứng trước động từ',
+              },
+              {
+                key: 'C',
+                value: 'Tính từ có thể đứng sau động từ to be',
+              },
+              {
+                key: 'D',
+                value: 'Tính từ có thể đứng sau một số động từ nhất định (ví dụ: look, feel, taste...)',
+              },
+            ],
+            correctAnswerKeys: ['A', 'C', 'D'],
+            correctAnswerValues: [
+              'Tính từ là từ mô tả tính chất của một vật nào đó',
+              'Tính từ có thể đứng sau động từ to be',
+              'Tính từ có thể đứng sau một số động từ nhất định (ví dụ: look, feel, taste...)',
+            ],
+            note: 'Phát biểu B sai: Tính từ bổ nghĩa cho danh từ, không đứng trước động từ. Phát biểu C và D đều đúng vì to be là một loại động từ liên kết (linking verb), và tính từ đứng sau nó hoặc các linking verbs khác.',
+          },
+        ],
+      },
+      {
+        exerciseOrder: 2,
+        exerciseType: EExerciseType.MultipleSelect,
+        exerciseTitle: 'Exercise 2: Chọn các động từ có thể theo sau bởi tính từ.',
+        questions: [
+          {
+            questionNumber: 2,
+            stem: 'Chọn TẤT CẢ các động từ có thể theo sau bởi tính từ',
+            options: [
+              {
+                key: 'A',
+                value: 'go',
+              },
+              {
+                key: 'B',
+                value: 'run',
+              },
+              {
+                key: 'C',
+                value: 'feel',
+              },
+              {
+                key: 'D',
+                value: 'make',
+              },
+              {
+                key: 'E',
+                value: 'be',
+              },
+              {
+                key: 'F',
+                value: 'appear',
+              },
+              {
+                key: 'G',
+                value: 'look',
+              },
+              {
+                key: 'H',
+                value: 'try',
+              },
+              {
+                key: 'I',
+                value: 'taste',
+              },
+              {
+                key: 'J',
+                value: 'walk',
+              },
+              {
+                key: 'K',
+                value: 'belong',
+              },
+              {
+                key: 'L',
+                value: 'have',
+              },
+              {
+                key: 'M',
+                value: 'seem',
+              },
+            ],
+            correctAnswerKeys: ['C', 'E', 'F', 'G', 'I', 'M'],
+            correctAnswerValues: ['feel', 'be', 'appear', 'look', 'taste', 'seem'],
+            note: 'Các động từ liên kết (linking verbs) và động từ giác quan (C, E, F, G, I, M) có thể theo sau bởi tính từ. Các động từ khác (A, B, D, H, J, K, L) không phù hợp.',
+          },
+        ],
+      },
+      {
+        exerciseOrder: 3,
+        exerciseType: EExerciseType.FillInBlank,
+        exerciseTitle: 'Exercise 3: Xác định và điền tính từ trong mỗi câu sau vào ô trống bên cạnh.',
+        exerciseStem: 'Gợi ý: ta có thể dựa vào kiến thức về vị trí của tính từ trong câu để xác định tính từ.',
+        questions: [
+          {
+            questionNumber: 3,
+            stem: 'There is an empty room over there. → ___________',
             correctAnswerValue: 'empty',
           },
           {
-            questionNumber: 2,
-            stem: "It's a hot summer.",
+            questionNumber: 4,
+            stem: "It's a hot summer. → ___________",
             correctAnswerValue: 'hot',
           },
           {
-            questionNumber: 3,
-            stem: 'You are so kind.',
+            questionNumber: 5,
+            stem: 'You are so kind. → ___________',
             correctAnswerValue: 'kind',
           },
           {
-            questionNumber: 4,
-            stem: 'This park is clean and green.',
-            correctAnswerValue: 'clean, green',
-          },
-          {
-            questionNumber: 5,
-            stem: 'I think these eggs are rotten.',
-            correctAnswerValue: 'rotten',
-          },
-          {
             questionNumber: 6,
-            stem: 'James was absent because he was ill.',
-            correctAnswerValue: 'absent, ill',
+            stem: 'This park is clean and green. → ___________, ___________',
+            correctAnswerValue: 'clean, green',
+            alternativeAnswers: ['clean and green', 'green, clean', 'green and clean'],
           },
           {
             questionNumber: 7,
-            stem: "We are all bored. There isn't anything to do.",
+            stem: 'I think these eggs are rotten. → ___________',
+            correctAnswerValue: 'rotten',
+          },
+          {
+            questionNumber: 8,
+            stem: 'James was absent because he was ill. → ___________, ___________',
+            correctAnswerValue: 'absent, ill',
+            alternativeAnswers: ['ill, absent'],
+          },
+          {
+            questionNumber: 9,
+            stem: "We are all bored. There isn't anything to do. → ___________",
             correctAnswerValue: 'bored',
           },
         ],
       },
       {
-        exerciseType: EExerciseType.MultipleChoice,
+        exerciseOrder: 4,
+        exerciseType: EExerciseType.MultipleSelect,
         exerciseTitle: 'Exercise 4: Hãy chọn tất cả các tính từ trong danh sách sau.',
         questions: [
-          // Do không có danh sách từ trong file PDF,
-          // đây là kết quả giả định theo AI.
-          // Bạn có thể tìm thấy bài tập này tại prep.vn.
+          {
+            questionNumber: 10,
+            stem: 'Chọn TẤT CẢ các tính từ',
+            options: [
+              { key: 'A', value: 'beautiful' },
+              { key: 'B', value: 'quickly' },
+              { key: 'C', value: 'happy' },
+              { key: 'D', value: 'intelligence' },
+              { key: 'E', value: 'big' },
+              { key: 'F', value: 'slowly' },
+              { key: 'G', value: 'interesting' },
+              { key: 'H', value: 'difficulty' },
+              { key: 'I', value: 'small' },
+              { key: 'J', value: 'good' },
+              { key: 'K', value: 'well' },
+              { key: 'L', value: 'old' },
+            ],
+            correctAnswerKeys: ['A', 'C', 'E', 'G', 'I', 'J', 'L'],
+            correctAnswerValues: ['beautiful', 'happy', 'big', 'interesting', 'small', 'good', 'old'],
+            note: 'Các từ còn lại: quickly, slowly, well (trạng từ); intelligence, difficulty (danh từ)',
+          },
         ],
       },
       {
+        exerciseOrder: 5,
         exerciseType: EExerciseType.FillInBlank,
         exerciseTitle: 'Exercise 5: Điền tính từ trong ngoặc vào vị trí thích hợp trong câu.',
-        example: "Ví dụ: It's very ___ in the summer. (hot) -> It's very **hot** in the summer.",
+        exerciseStem: "Ví dụ: It's very in the summer. (hot) → It's very hot in the summer.",
         questions: [
           {
-            questionNumber: 8,
-            stem: 'These puppies are very ___. (sweet) ',
-            correctAnswerValue: 'sweet',
-          },
-          {
-            questionNumber: 9,
-            stem: 'They live in a ___ house. (large) ',
-            correctAnswerValue: 'large',
-          },
-          {
-            questionNumber: 10,
-            stem: 'Many ___ people have no home. (poor) ',
-            correctAnswerValue: 'poor',
-          },
-          {
             questionNumber: 11,
-            stem: 'The company is giving away ___ gifts to its customers. (free) ',
-            correctAnswerValue: 'free',
+            stem: 'These puppies are very. (sweet) → ___________',
+            correctAnswerValue: 'These puppies are very sweet',
+            alternativeAnswers: ['These puppies are very sweet.'],
           },
           {
             questionNumber: 12,
-            stem: 'The climbers are climbing up a ___ mountain. (high) ',
-            correctAnswerValue: 'high',
+            stem: 'They live in a house. (large) → ___________',
+            correctAnswerValue: 'They live in a large house',
+            alternativeAnswers: ['They live in a large house.'],
+          },
+          {
+            questionNumber: 13,
+            stem: 'Many people have no home. (poor) → ___________',
+            correctAnswerValue: 'Many poor people have no home',
+            alternativeAnswers: ['Many poor people have no home.'],
+          },
+          {
+            questionNumber: 14,
+            stem: 'The company is giving away gifts to its customers. (free) → ___________',
+            correctAnswerValue: 'The company is giving away free gifts to its customers',
+            alternativeAnswers: ['The company is giving away free gifts to its customers.'],
+          },
+          {
+            questionNumber: 15,
+            stem: 'The climbers are climbing up a mountain. (high) → ___________',
+            correctAnswerValue: 'The climbers are climbing up a high mountain',
+            alternativeAnswers: ['The climbers are climbing up a high mountain.'],
           },
         ],
       },
       {
+        exerciseOrder: 6,
         exerciseType: EExerciseType.MultipleChoice,
-        exerciseTitle: 'Exercise 6: Chọn 1 trong 4 từ/ cụm từ được gạch chân có chứa lỗi sai ở mỗi câu hỏi.',
+        exerciseTitle: 'Exercise 6: Chọn 1 trong 4 từ/cụm từ được gạch chân có chứa lỗi sai ở mỗi câu hỏi.',
         questions: [
           {
-            questionNumber: 13,
-            stem: 'Ann is an **intelligence** student.',
+            questionNumber: 16,
+            stem: '<u>Ann</u> <u>is</u> an <u>intelligence</u> <u>student</u>.',
             options: [
               { key: 'A', value: 'Ann' },
               { key: 'B', value: 'is' },
@@ -6080,12 +7580,13 @@ export const grammarTest = [
             ],
             correctAnswerKey: 'C',
             correctAnswerValue: 'intelligence',
-            errorType: 'Danh từ thay vì tính từ',
+            errorType: 'Dùng danh từ thay vì tính từ',
             correctForm: 'intelligent',
+            note: '"intelligence" là danh từ, cần dùng tính từ "intelligent" để bổ nghĩa cho danh từ "student"',
           },
           {
-            questionNumber: 14,
-            stem: 'I saw some **beautifuls** pictures.',
+            questionNumber: 17,
+            stem: '<u>I</u> <u>saw</u> some <u>beautifuls</u> <u>pictures</u>.',
             options: [
               { key: 'A', value: 'I' },
               { key: 'B', value: 'saw' },
@@ -6094,12 +7595,13 @@ export const grammarTest = [
             ],
             correctAnswerKey: 'C',
             correctAnswerValue: 'beautifuls',
-            errorType: 'Tính từ không có dạng số nhiều',
+            errorType: 'Tính từ không chia số nhiều',
             correctForm: 'beautiful',
+            note: 'Tính từ trong tiếng Anh không có dạng số nhiều',
           },
           {
-            questionNumber: 15,
-            stem: 'Alex needs batteries **new** for his camera.',
+            questionNumber: 18,
+            stem: 'Alex <u>needs</u> batteries <u>new</u> <u>for</u> his <u>camera</u>.',
             options: [
               { key: 'A', value: 'needs' },
               { key: 'B', value: 'new' },
@@ -6108,12 +7610,13 @@ export const grammarTest = [
             ],
             correctAnswerKey: 'B',
             correctAnswerValue: 'new',
-            errorType: 'Sai vị trí của tính từ (Adj + N)',
+            errorType: 'Vị trí tính từ sai',
             correctForm: 'new batteries',
+            note: 'Tính từ phải đứng TRƯỚC danh từ trong tiếng Anh',
           },
           {
-            questionNumber: 16,
-            stem: 'I put the **happy** of my family above other things.',
+            questionNumber: 19,
+            stem: 'I <u>put</u> the <u>happy</u> of my <u>family</u> above other <u>things</u>.',
             options: [
               { key: 'A', value: 'put' },
               { key: 'B', value: 'happy' },
@@ -6122,331 +7625,405 @@ export const grammarTest = [
             ],
             correctAnswerKey: 'B',
             correctAnswerValue: 'happy',
-            errorType: "Tính từ thay vì danh từ (sau 'the')",
+            errorType: 'Dùng tính từ thay vì danh từ',
             correctForm: 'happiness',
+            note: 'Sau "the" và trước "of" cần danh từ "happiness", không phải tính từ "happy"',
           },
         ],
       },
       {
+        exerciseOrder: 7,
         exerciseType: EExerciseType.FillInBlank,
         exerciseTitle:
           'Exercise 7: Hoàn thành những câu sau, sử dụng một động từ ở bảng bên trái và một tính từ ở bảng bên phải.',
-        table: {
-          VERB: ['feel', 'look', 'seem', 'smell', 'sound', 'taste'],
-          ADJECTIVE: ['awful', 'nervous', 'interesting', 'nice', 'upset', 'wet'],
-        },
-        example: 'Ví dụ: Helen **seemed upset** this morning. Do you know what was wrong?',
+        exerciseImage: 'https://hxd8m65scvrb2r3d.public.blob.vercel-storage.com/Tinh_tu_section_1_exercise_7.png',
+        exerciseStem: 'Ví dụ: Helen seemed upset this morning. Do you know what was wrong?',
         questions: [
           {
-            questionNumber: 17,
-            stem: "I can't eat this. I've just tried it and it ___ ___.",
-            correctAnswerValue: 'tastes awful',
-          },
-          {
-            questionNumber: 18,
-            stem: "It's normal to ___ ___ before an exam or an interview.",
-            correctAnswerValue: 'feel nervous',
-          },
-          {
-            questionNumber: 19,
-            stem: 'What beautiful flowers! They ___ ___ too.',
-            correctAnswerValue: 'smell nice',
-          },
-          {
             questionNumber: 20,
-            stem: 'You ___ ___. Have you been out in the rain?',
-            correctAnswerValue: 'look wet',
+            stem: "I can't eat this. I've just tried it and it ___________.",
+            correctAnswerValue: 'tastes awful',
+            alternativeAnswers: ['tastes terrible', 'tastes bad'],
           },
           {
             questionNumber: 21,
-            stem: 'James told me about his new job. It ___ ___ much better than his old job.',
+            stem: "It's normal to ___________ before an exam or an interview.",
+            correctAnswerValue: 'feel nervous',
+          },
+          {
+            questionNumber: 22,
+            stem: 'What beautiful flowers! They ___________ too.',
+            correctAnswerValue: 'smell nice',
+            alternativeAnswers: ['smell good', 'look nice', 'look beautiful'],
+          },
+          {
+            questionNumber: 23,
+            stem: 'You ___________. Have you been out in the rain?',
+            correctAnswerValue: 'look wet',
+            alternativeAnswers: ['seem wet'],
+          },
+          {
+            questionNumber: 24,
+            stem: 'James told me about his new job. It ___________ – much better than his old job.',
             correctAnswerValue: 'sounds interesting',
+            alternativeAnswers: ['sounds nice', 'sounds good'],
           },
         ],
       },
     ],
   },
   {
-    testName: 'THỨ TỰ TÍNH TỪ (ADJECTIVE ORDER)',
-    testCategory: 'Grammar',
+    testName: 'Section 2: Thứ tự tính từ',
+    testCategory: ETestCategory.Grammar,
     courseSlug: 'toeic-foundation',
     exercises: [
       {
+        exerciseOrder: 1,
         exerciseType: EExerciseType.FillInBlank,
         exerciseTitle: 'Exercise 1: Phân loại và điền các tính từ trong bảng vào loại tính từ thích hợp.',
-        hint: 'Chỉ điền 1 tính từ vào mỗi ô trống.',
-        adjectivePool:
-          'pretty, large, wonderful, Chinese, red, blue, round, young, wooden, British, paper, plastic, long, sports',
+        exerciseStem:
+          'Chỉ điền 1 tính từ vào mỗi ô trống.<br/>Ví dụ câu trả lời: <b>pretty, large</b><br/><br/>Các tính từ cho sẵn: <b>pretty, large, wonderful, red, Chinese, blue, round, young, wooden, British, paper, plastic, long, sports</b>',
         questions: [
           {
             questionNumber: 1,
-            stem: 'Tính từ chỉ quan điểm - OPINION:',
-            correctAnswerValue: 'wonderful', // Giả định theo AI
+            stem: 'Tính từ chỉ quan điểm - OPINION: ___________, ___________',
+            correctAnswerValue: 'pretty, wonderful',
+            alternativeAnswers: ['wonderful, pretty'],
           },
           {
             questionNumber: 2,
-            stem: 'Tính từ chỉ kích thước - SIZE:',
-            correctAnswerValue: 'large', // Giả định theo AI
+            stem: 'Tính từ chỉ kích thước - SIZE: ___________, ___________',
+            correctAnswerValue: 'large, long',
+            alternativeAnswers: ['long, large'],
           },
           {
             questionNumber: 3,
-            stem: 'Tính từ chỉ tuổi tác - AGE:',
-            correctAnswerValue: 'young', // Giả định theo AI
+            stem: 'Tính từ chỉ tuổi tác - AGE: ___________',
+            correctAnswerValue: 'young',
           },
           {
             questionNumber: 4,
-            stem: 'Tính từ chỉ hình dạng - SHAPE:',
-            correctAnswerValue: 'round', // Giả định theo AI
+            stem: 'Tính từ chỉ hình dạng - SHAPE: ___________',
+            correctAnswerValue: 'round',
           },
           {
             questionNumber: 5,
-            stem: 'Tính từ chỉ màu sắc - COLOUR:',
-            correctAnswerValue: 'red', // Giả định theo AI
+            stem: 'Tính từ chỉ màu sắc - COLOUR: ___________, ___________',
+            correctAnswerValue: 'red, blue',
+            alternativeAnswers: ['blue, red'],
           },
           {
             questionNumber: 6,
-            stem: 'Tính từ chỉ nguồn gốc - ORIGIN:',
-            correctAnswerValue: 'Chinese', // Giả định theo AI
+            stem: 'Tính từ chỉ nguồn gốc - ORIGIN: ___________, ___________',
+            correctAnswerValue: 'Chinese, British',
+            alternativeAnswers: ['British, Chinese'],
           },
           {
             questionNumber: 7,
-            stem: 'Tính từ chỉ chất liệu - MATERIAL:',
-            correctAnswerValue: 'wooden', // Giả định theo AI
+            stem: 'Tính từ chỉ chất liệu - MATERIAL: ___________, ___________, ___________',
+            correctAnswerValue: 'wooden, paper, plastic',
+            alternativeAnswers: [
+              'wooden, plastic, paper',
+              'paper, wooden, plastic',
+              'paper, plastic, wooden',
+              'plastic, wooden, paper',
+              'plastic, paper, wooden',
+            ],
           },
           {
             questionNumber: 8,
-            stem: 'Tính từ chỉ mục đích - PURPOSE:',
-            correctAnswerValue: 'sports', // Giả định theo AI
+            stem: 'Tính từ chỉ mục đích - PURPOSE: ___________',
+            correctAnswerValue: 'sports',
           },
         ],
       },
       {
-        exerciseType: EExerciseType.Rearrangement,
+        exerciseOrder: 2,
+        exerciseType: EExerciseType.FillInBlank,
         exerciseTitle: 'Exercise 2: Sắp xếp các tính từ sau để chúng theo đúng thứ tự.',
+        exerciseStem: 'Ví dụ: <b>new/an/car/expensive → an expensive new car</b>',
         questions: [
           {
-            questionNumber: 1,
-            stem: 'hair/long/black',
+            questionNumber: 9,
+            stem: 'hair/long/black → ___________',
             correctAnswerValue: 'long black hair',
           },
           {
-            questionNumber: 2,
-            stem: 'an/old/chair/wooden',
+            questionNumber: 10,
+            stem: 'an/old/chair/wooden → ___________',
             correctAnswerValue: 'an old wooden chair',
           },
           {
-            questionNumber: 3,
-            stem: 'an/book/interesting/old',
+            questionNumber: 11,
+            stem: 'an/book/interesting/old → ___________',
             correctAnswerValue: 'an interesting old book',
           },
           {
-            questionNumber: 4,
-            stem: 'a/house/beautiful/modern',
+            questionNumber: 12,
+            stem: 'a/house/beautiful/modern → ___________',
             correctAnswerValue: 'a beautiful modern house',
           },
           {
-            questionNumber: 5,
-            stem: 'student/a/friendly/Vietnamese',
+            questionNumber: 13,
+            stem: 'student/a/friendly/Vietnamese → ___________',
             correctAnswerValue: 'a friendly Vietnamese student',
           },
           {
-            questionNumber: 6,
-            stem: 'brown/cup/German/huge/a/glass',
-            correctAnswerValue: 'a huge brown German glass cup', // Size - Colour - Origin - Material - Noun
+            questionNumber: 14,
+            stem: 'brown/ cup/ German/ huge/ a/ glass → ___________',
+            correctAnswerValue: 'a huge brown German glass cup',
           },
         ],
       },
       {
-        exerciseType: EExerciseType.Rewrite,
+        exerciseOrder: 3,
+        exerciseType: EExerciseType.FillInBlank,
         exerciseTitle:
           'Exercise 3: Viết lại những câu sau bằng cách sắp xếp các tính từ trong ngoặc đơn vào vị trí phù hợp.',
-        example: 'Ví dụ: One day, a time ago, (long, fine) -> **One fine day, a long time ago,**',
+        exerciseStem: 'Ví dụ: One day, a time ago, (long, fine) → One fine day, a long time ago,',
         questions: [
           {
-            questionNumber: 1,
-            stem: 'a girl (beautiful, little) / in a coat (red, long) / was walking through a forest (dark) / with a bag (big, yellow) / of apples (red, wonderful) / to see her grandmother. (old)',
-            correctAnswerValue:
-              'A **beautiful little** girl in a **long red** coat was walking through a **dark** forest with a **big yellow** bag of **wonderful red** apples to see her **old** grandmother.',
+            questionNumber: 15,
+            stem: 'a girl (beautiful, little) → ___________',
+            correctAnswerValue: 'a beautiful little girl',
           },
           {
-            questionNumber: 2,
-            stem: 'She saw a wolf (big) / with teeth (white, long) / under a tree. (tall, green)',
-            correctAnswerValue: 'She saw a **big** wolf with **long white** teeth under a **tall green** tree.',
+            questionNumber: 16,
+            stem: 'in a coat (red, long) → ___________',
+            correctAnswerValue: 'in a long red coat',
           },
           {
-            questionNumber: 3,
-            stem: 'The house is for sale. (cute, little)',
-            correctAnswerValue: 'The **cute little** house is for sale.', // Opinion - Size
+            questionNumber: 17,
+            stem: 'was walking through a forest (dark) → ___________',
+            correctAnswerValue: 'was walking through a dark forest',
           },
           {
-            questionNumber: 4,
-            stem: 'I need a watch. (Swiss, new)',
-            correctAnswerValue: 'I need a **new Swiss** watch.', // Age - Origin
+            questionNumber: 18,
+            stem: 'with a bag (big, yellow) → ___________',
+            correctAnswerValue: 'with a big yellow bag',
           },
           {
-            questionNumber: 5,
-            stem: "I'm going to buy some roses. (nice, red)",
-            correctAnswerValue: "I'm going to buy some **nice red** roses.", // Opinion - Colour
+            questionNumber: 19,
+            stem: 'of apples (red, wonderful) → ___________',
+            correctAnswerValue: 'of wonderful red apples',
+          },
+          {
+            questionNumber: 20,
+            stem: 'to see her grandmother. (old) → ___________',
+            correctAnswerValue: 'to see her old grandmother',
+          },
+          {
+            questionNumber: 21,
+            stem: 'She saw a wolf (big) → ___________',
+            correctAnswerValue: 'She saw a big wolf',
+          },
+          {
+            questionNumber: 22,
+            stem: 'with teeth (white, long) → ___________',
+            correctAnswerValue: 'with long white teeth',
+          },
+          {
+            questionNumber: 23,
+            stem: 'under a tree. (tall, green) → ___________',
+            correctAnswerValue: 'under a tall green tree',
+          },
+          {
+            questionNumber: 24,
+            stem: 'The house is for sale. (cute, little) → ___________',
+            correctAnswerValue: 'The cute little house is for sale',
+            alternativeAnswers: ['The cute little house is for sale.'],
+          },
+          {
+            questionNumber: 25,
+            stem: 'I need a watch. (Swiss, new) → ___________',
+            correctAnswerValue: 'I need a new Swiss watch',
+            alternativeAnswers: ['I need a new Swiss watch.'],
+          },
+          {
+            questionNumber: 26,
+            stem: `I'm going to buy some roses. (nice, red) → ___________`,
+            correctAnswerValue: "I'm going to buy some nice red roses",
+            alternativeAnswers: [
+              "I'm going to buy some nice red roses.",
+              'I am going to buy some nice red roses',
+              'I am going to buy some nice red roses.',
+            ],
           },
         ],
       },
       {
-        exerciseType: EExerciseType.Rearrangement,
+        exerciseOrder: 4,
+        exerciseType: EExerciseType.FillInBlank,
         exerciseTitle: 'Exercise 4: Hãy sắp xếp các từ trong thông báo thanh lý đồ đạc sau theo đúng thứ tự.',
-        stem: 'HOUSE SALE! We are moving house and have decided to sell these things:',
-        example: '0. round/table/ plastic/big/a -> a big round plastic table',
+        exerciseStem:
+          'HOUSE SALE!<br/>We are moving house and have decided to sell these things:<br/><br/>round/ table/ plastic/ big/ a → a big round plastic table',
         questions: [
           {
-            questionNumber: 1,
-            stem: 'curtains/long/some/ Indian',
-            correctAnswerValue: 'some long Indian curtains', // Size - Origin
+            questionNumber: 27,
+            stem: 'curtains/ long/ some/ Indian → ___________',
+            correctAnswerValue: 'some long Indian curtains',
           },
           {
-            questionNumber: 2,
-            stem: 'black/ metal/chair/a/ comfortable',
-            correctAnswerValue: 'a comfortable black metal chair', // Opinion - Colour - Material
+            questionNumber: 28,
+            stem: 'black/ metal/ chair/ a/ comfortable → ___________',
+            correctAnswerValue: 'a comfortable black metal chair',
           },
           {
-            questionNumber: 3,
-            stem: 'oil/ Dutch/ beautiful/ painting/ a',
-            correctAnswerValue: 'a beautiful Dutch oil painting', // Opinion - Origin - Material (Oil as a noun/type of painting)
+            questionNumber: 29,
+            stem: 'oil/ Dutch/ beautiful/ painting/ a → ___________',
+            correctAnswerValue: 'a beautiful Dutch oil painting',
           },
           {
-            questionNumber: 4,
-            stem: 'huge/ wardrobe/ wooden/ a(n)',
-            correctAnswerValue: 'a huge wooden wardrobe', // Size - Material
+            questionNumber: 30,
+            stem: 'huge/ wardrobe/ wooden/ a(n) → ___________',
+            correctAnswerValue: 'a huge wooden wardrobe',
+            alternativeAnswers: ['an huge wooden wardrobe'],
           },
           {
-            questionNumber: 5,
-            stem: 'a/ carpet/little/ lovely/ round',
-            correctAnswerValue: 'a lovely little round carpet', // Opinion - Size - Shape
+            questionNumber: 31,
+            stem: 'a/ carpet/ little/ lovely/ round → ___________',
+            correctAnswerValue: 'a lovely little round carpet',
           },
           {
-            questionNumber: 6,
-            stem: 'Peruvian/ a/ square/ bedcover',
-            correctAnswerValue: 'a square Peruvian bedcover', // Shape - Origin
+            questionNumber: 32,
+            stem: 'Peruvian/ a/ square/ bedcover → ___________',
+            correctAnswerValue: 'a square Peruvian bedcover',
           },
         ],
       },
       {
-        exerciseType: EExerciseType.SentenceRearrangement,
+        exerciseOrder: 5,
+        exerciseType: EExerciseType.FillInBlank,
         exerciseTitle: 'Exercise 5: Sắp xếp từ trong các câu sau để tạo thành câu đúng.',
         questions: [
           {
-            questionNumber: 1,
-            stem: 'wedding/dress/she/long/wore/white/ a.',
-            correctAnswerValue: 'She wore a long white wedding dress.', // Size - Colour - Purpose
+            questionNumber: 33,
+            stem: 'wedding/ dress/ she/ long/ wore/ white/ a. → ___________',
+            correctAnswerValue: 'She wore a long white wedding dress',
+            alternativeAnswers: ['She wore a long white wedding dress.'],
           },
           {
-            questionNumber: 2,
-            stem: 'woman/ English/is/an/young/ intelligent/ this..',
-            correctAnswerValue: 'This young intelligent English woman is an.', // Age - Opinion - Origin (Giả định: 'this' là từ hạn định, 'an' ở cuối bị dư/đánh máy nhầm)
+            questionNumber: 34,
+            stem: 'woman/ English/is/an/ young/ intelligent/ this. → ___________',
+            correctAnswerValue: 'This is an intelligent young English woman',
+            alternativeAnswers: ['This is an intelligent young English woman.'],
           },
           {
-            questionNumber: 3,
-            stem: 'is/ bag/this/ sleeping/ black/ a/ new.',
-            correctAnswerValue: 'This is a new black sleeping bag.', // Age - Colour - Purpose
+            questionNumber: 35,
+            stem: 'is/ bag/ this/ sleeping/ black/ a/ new. → ___________',
+            correctAnswerValue: 'This is a new black sleeping bag',
+            alternativeAnswers: ['This is a new black sleeping bag.'],
           },
           {
-            questionNumber: 4,
-            stem: 'pink/she/house/ bought/big/beautiful/a.',
-            correctAnswerValue: 'She bought a beautiful big pink house.', // Opinion - Size - Colour
+            questionNumber: 36,
+            stem: 'pink/ she/ house/ bought/ big/beautiful/ a. → ___________',
+            correctAnswerValue: 'She bought a beautiful big pink house',
+            alternativeAnswers: ['She bought a beautiful big pink house.'],
           },
           {
-            questionNumber: 5,
-            stem: 'gave/ dinosaur/him/she/cute/small/a/ plastic.',
-            correctAnswerValue: 'She gave him a cute small plastic dinosaur.', // Opinion - Size - Material
+            questionNumber: 37,
+            stem: 'gave/ dinosaur/ him/ she/ cute/ small/ a/ plastic. → ___________',
+            correctAnswerValue: 'She gave him a cute small plastic dinosaur',
+            alternativeAnswers: ['She gave him a cute small plastic dinosaur.'],
           },
         ],
       },
       {
+        exerciseOrder: 6,
         exerciseType: EExerciseType.MultipleChoice,
         exerciseTitle:
           'Exercise 6: Mark the letter A, B, C, or D on your answer sheet to indicate the corrected answer to each other following questions.',
         questions: [
           {
-            questionNumber: 1,
-            stem: "They say he's a ___ student for his age.",
+            questionNumber: 38,
+            stem: "They say he's a _____ student for his age.",
             options: [
-              { key: 'A', value: 'tall mature brilliant' }, // Size - Age - Opinion
-              { key: 'B', value: 'mature brilliant tall' }, // Age - Opinion - Size
-              { key: 'C', value: 'brilliant tall mature' }, // Opinion - Size - Age
-              { key: 'D', value: 'tall brilliant mature' }, // Size - Opinion - Age
+              { key: 'A', value: 'tall mature brilliant' },
+              { key: 'B', value: 'mature brilliant tall' },
+              { key: 'C', value: 'brilliant tall mature' },
+              { key: 'D', value: 'tall brilliant mature' },
             ],
-            correctAnswerKey: 'C',
-            correctAnswerValue: 'brilliant tall mature', // Opinion (brilliant) - Size (tall) - Age (mature). **AI phân tích: Trật tự OSASCOMP: Opinion(brilliant) - Size(tall) - Age(mature) là hợp lý nhất.**
+            correctAnswerKey: 'D',
+            correctAnswerValue: 'tall brilliant mature',
+            note: 'Thứ tự: SIZE (tall) - OPINION (brilliant) - AGE (mature)',
           },
           {
-            questionNumber: 2,
-            stem: 'The speaker is a ___ professor.',
+            questionNumber: 39,
+            stem: 'The speaker is a _____ professor.',
             options: [
               { key: 'A', value: 'old short American kind' },
-              { key: 'B', value: 'kind short old American' }, // Opinion - Size - Age - Origin
+              { key: 'B', value: 'kind short old American' },
               { key: 'C', value: 'American kind old short' },
               { key: 'D', value: 'kind American short old' },
             ],
             correctAnswerKey: 'B',
-            correctAnswerValue: 'kind short old American', // Opinion (kind) - Size (short) - Age (old) - Origin (American)
+            correctAnswerValue: 'kind short old American',
+            note: 'Thứ tự: OPINION (kind) - SIZE (short) - AGE (old) - ORIGIN (American)',
           },
           {
-            questionNumber: 3,
-            stem: 'My sister lives in a ___ apartment.',
+            questionNumber: 40,
+            stem: 'My sister lives in a _____ apartment.',
             options: [
               { key: 'A', value: 'nice wooden new' },
               { key: 'B', value: 'new nice wooden' },
-              { key: 'C', value: 'nice new wooden' }, // Opinion - Age - Material
+              { key: 'C', value: 'nice new wooden' },
               { key: 'D', value: 'wooden nice new' },
             ],
             correctAnswerKey: 'C',
-            correctAnswerValue: 'nice new wooden', // Opinion (nice) - Age (new) - Material (wooden)
+            correctAnswerValue: 'nice new wooden',
+            note: 'Thứ tự: OPINION (nice) - AGE (new) - MATERIAL (wooden)',
           },
           {
-            questionNumber: 4,
-            stem: 'My cousin bought a ___ bowl.',
+            questionNumber: 41,
+            stem: 'My cousin bought a _____ bowl.',
             options: [
               { key: 'A', value: 'blue ancient lovely small' },
               { key: 'B', value: 'lovely blue small ancient' },
               { key: 'C', value: 'small blue ancient lovely' },
-              { key: 'D', value: 'lovely small ancient blue' }, // Opinion - Size - Age - Colour
+              { key: 'D', value: 'lovely small ancient blue' },
             ],
             correctAnswerKey: 'D',
-            correctAnswerValue: 'lovely small ancient blue', // Opinion (lovely) - Size (small) - Age (ancient) - Colour (blue)
+            correctAnswerValue: 'lovely small ancient blue',
+            note: 'Thứ tự: OPINION (lovely) - SIZE (small) - AGE (ancient) - COLOUR (blue)',
           },
           {
-            questionNumber: 5,
-            stem: 'They visited a ___ building with their children.',
+            questionNumber: 42,
+            stem: 'They visited a _____ building with their children.',
             options: [
-              { key: 'A', value: 'beautiful big traditional Vietnamese' }, // Opinion - Size - Age/Type - Origin
+              { key: 'A', value: 'beautiful big traditional Vietnamese' },
               { key: 'B', value: 'Vietnamese delicious big traditional' },
               { key: 'C', value: 'traditional delicious big Vietnamese' },
               { key: 'D', value: 'big delicious traditional Vietnamese' },
             ],
             correctAnswerKey: 'A',
-            correctAnswerValue: 'beautiful big traditional Vietnamese', // Opinion (beautiful) - Size (big) - Age/Type (traditional) - Origin (Vietnamese)
+            correctAnswerValue: 'beautiful big traditional Vietnamese',
+            note: 'Thứ tự: OPINION (beautiful) - SIZE (big) - AGE (traditional) - ORIGIN (Vietnamese)',
           },
           {
-            questionNumber: 6,
-            stem: 'She is doing extremely well in her ___ graduate course.',
+            questionNumber: 43,
+            stem: 'She is doing extremely well in her _____ graduate course.',
             options: [
-              { key: 'A', value: 'intensive one-year English' }, // Opinion/Type - Age - Origin
+              { key: 'A', value: 'intensive one-year English' },
               { key: 'B', value: 'one-year English intensive' },
               { key: 'C', value: 'intensive English one-year' },
               { key: 'D', value: 'English intensive one-year' },
             ],
             correctAnswerKey: 'A',
-            correctAnswerValue: 'intensive one-year English', // Opinion/Type (intensive) - Age/Duration (one-year) - Origin/Language (English)
+            correctAnswerValue: 'intensive one-year English',
+            note: 'Thứ tự: OPINION (intensive) - AGE/TIME (one-year) - ORIGIN (English)',
           },
           {
-            questionNumber: 7,
-            stem: 'During the winter I like having a ___ house.',
+            questionNumber: 44,
+            stem: 'During the winter I like having a _____ house.',
             options: [
-              { key: 'A', value: 'pretty small red wooden' }, // Opinion - Size - Colour - Material
+              { key: 'A', value: 'pretty small red wooden' },
               { key: 'B', value: 'wooden pretty small red' },
               { key: 'C', value: 'small pretty red wooden' },
               { key: 'D', value: 'red wooden pretty small' },
             ],
             correctAnswerKey: 'A',
-            correctAnswerValue: 'pretty small red wooden', // Opinion (pretty) - Size (small) - Colour (red) - Material (wooden)
+            correctAnswerValue: 'pretty small red wooden',
+            note: 'Thứ tự: OPINION (pretty) - SIZE (small) - COLOUR (red) - MATERIAL (wooden)',
           },
         ],
       },
@@ -7260,7 +8837,7 @@ export const grammarTest = [
   },
   // Các mẫu câu
   {
-    testName: 'Section 4: Thì quá khứ đơn',
+    testName: 'Section 4: Thì quá khứ đơn_',
     testCategory: 'Tenses',
     courseSlug: 'toeic-foundation',
     exercises: [
@@ -7456,7 +9033,7 @@ export const grammarTest = [
         ],
       },
       {
-        exerciseType: EExerciseType.SentenceOrdering,
+        exerciseType: EExerciseType.FillInBlank,
         exerciseTitle: 'Exercise 3: Sắp xếp thứ tự các từ cho sẵn để được câu khẳng định hoàn chỉnh',
         questions: [
           {
@@ -7508,7 +9085,7 @@ export const grammarTest = [
     ],
   },
   {
-    testName: 'Section 6: Danh động từ và Động từ nguyên thể',
+    testName: 'Section 6: Danh động từ và Động từ nguyên thể_',
     testCategory: 'Verb Forms',
     courseSlug: 'toeic-foundation',
     exercises: [

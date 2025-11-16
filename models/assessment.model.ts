@@ -6,26 +6,13 @@ export interface IOption extends Document {
 }
 
 export enum EExerciseType {
+  TrueFalse = 'true_false',
   MultipleChoice = 'multiple_choice',
   MultipleSelect = 'multiple_select',
   FillInBlank = 'fill_in_blank',
   Matching = 'matching',
-  TrueFalse = 'true_false',
-  Writing = 'writing',
-  Conjugation = 'conjugation',
   ErrorCorrection = 'error_correction',
-  ClozeTest = 'cloze_test',
-  TableCompletion = 'table_completion',
-  Rewrite = 'rewrite',
-  Rearrangement = 'rearrangement',
-  SentenceRearrangement = 'sentence_rearrangement',
-  SentenceOrdering = 'sentence_ordering',
   Correction = 'correction',
-  Pluralization = 'pluralization',
-  PictureCompletion = 'picture_completion',
-  Transformation = 'transformation',
-  ImageCompletion = 'image_completion',
-  SentenceArrangement = 'sentence_arrangement',
 }
 
 export enum ETestCategory {
