@@ -18,30 +18,7 @@ const QuestionResultFeedback: React.FC<QuestionResultFeedbackProps> = ({ questio
     alternativeAnswers,
   } = question
 
-  console.log(question)
-
   const isCorrect = checkQuestionAnswer(question, answer)
-
-  const renderCorrectAnswer = () => {
-    if (correctAnswerKeys?.length && correctAnswerValues?.length) {
-      const answers = correctAnswerKeys.map((key, index) => `${key}. ${correctAnswerValues[index]}`).join(', ')
-      return <span className="font-bold">{answers}</span>
-    }
-
-    if (correctAnswerKey && correctAnswerValue) {
-      return (
-        <span className="font-bold">
-          {correctAnswerKey}. {correctAnswerValue}
-        </span>
-      )
-    }
-
-    if (correctAnswerValue) {
-      return <span className="font-bold">{correctAnswerValue}</span>
-    }
-
-    return null
-  }
 
   // Handle simple markdown for note
   const formattedNote = note?.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
@@ -53,7 +30,7 @@ const QuestionResultFeedback: React.FC<QuestionResultFeedbackProps> = ({ questio
       ) : (
         <div className="space-y-2">
           <p className="text-red-700 font-medium">❌ Chưa đúng</p>
-          <p className="text-sm">Đáp án đúng: {renderCorrectAnswer()}</p>
+          <p className="text-sm">Đáp án đúng: {renderCorrectAnswer(question)}</p>
 
           {alternativeAnswers && alternativeAnswers.length > 0 && (
             <p className="text-sm">
@@ -79,6 +56,29 @@ const QuestionResultFeedback: React.FC<QuestionResultFeedbackProps> = ({ questio
 }
 
 export default QuestionResultFeedback
+
+export const renderCorrectAnswer = (question: IQuestion) => {
+  const { correctAnswerKeys, correctAnswerValues, correctAnswerKey, correctAnswerValue } = question
+
+  if (correctAnswerKeys?.length && correctAnswerValues?.length) {
+    const answers = correctAnswerKeys.map((key, index) => `${key}. ${correctAnswerValues[index]}`).join(', ')
+    return <span className="font-bold">{answers}</span>
+  }
+
+  if (correctAnswerKey && correctAnswerValue) {
+    return (
+      <span className="font-bold">
+        {correctAnswerKey}. {correctAnswerValue}
+      </span>
+    )
+  }
+
+  if (correctAnswerValue) {
+    return <span className="font-bold">{correctAnswerValue}</span>
+  }
+
+  return null
+}
 
 /**
  * Checks the correctness of the user's answer based on the question type.

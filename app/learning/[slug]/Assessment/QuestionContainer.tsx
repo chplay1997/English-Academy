@@ -6,8 +6,9 @@ import { Correction } from './Correction'
 import { EExerciseType, IQuestion } from '@/models/assessment.model'
 import { MultipleSelect } from './MultipleSelect'
 import { Dispatch, memo, SetStateAction, useCallback } from 'react'
-import QuestionResultFeedback from './QuestionResultFeedback'
+import QuestionResultFeedback, { renderCorrectAnswer } from './QuestionResultFeedback'
 import { cn } from '@/lib/utils'
+import { getTestMode } from '@/services/getTestMode'
 
 interface QuestionContainerProps {
   question: IQuestion
@@ -30,6 +31,7 @@ function QuestionContainerComponent({
   const { setAnswers, isSubmitted, userAnswer } = rest
   const value = userAnswer?.[0] || ''
   const isShowError = showError && !userAnswer?.length
+  const testMode = getTestMode()
 
   const handleToggleAnswer = (questionId: string, value: string) => {
     if (isSubmitted) return
@@ -88,7 +90,7 @@ function QuestionContainerComponent({
           'space-y-3'
         )}
       >
-        //{question.correctAnswerValue}//
+        {testMode && <p className="text-sm text-blue-600">Đáp án: {renderCorrectAnswer(question)}</p>}
         {renderQuestionComponent()}
         {isSubmitted && <QuestionResultFeedback question={question} answer={userAnswer} />}
       </div>
