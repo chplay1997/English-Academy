@@ -5,6 +5,7 @@ import Lesson from '@/models/lesson.model'
 import Assessment from '@/models/assessment.model'
 import { courses, courseContent } from '@/data/defaultData'
 import { grammarTest } from './grammarTestData'
+import { redis } from '@/lib/redis'
 
 // 🧩 Helper: convert "hh:mm:ss" | "mm:ss" → seconds (number)
 function parseDurationToSeconds(duration?: string): number {
@@ -242,6 +243,9 @@ export async function runSeed() {
       })
     }
   }
+
+  // Clear Redis cache
+  await redis.flushall()
 
   console.info('🎉 Seeding completed successfully!')
   return { message: 'Seeding completed with smart override!' }

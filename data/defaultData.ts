@@ -31,7 +31,7 @@ export const courses = [
 export const courseContent = {
   'toeic-foundation': [
     {
-      title: 'Lesson 1 Giới thiệu',
+      title: 'Day 1: Giới thiệu',
       details: [
         {
           title: 'Giới thiệu',
@@ -48,7 +48,7 @@ export const courseContent = {
       ],
     },
     {
-      title: 'Lesson 2 Danh từ',
+      title: 'Day 2: Danh từ',
       details: [
         {
           title: 'Các loại danh từ',
@@ -77,7 +77,7 @@ export const courseContent = {
       ],
     },
     {
-      title: 'Mini test 1',
+      title: 'Day 3: Mini test 1',
       details: [
         {
           title: 'MINI TEST 1',
@@ -87,7 +87,7 @@ export const courseContent = {
       ],
     },
     {
-      title: 'Lesson 3 Động từ',
+      title: 'Day 4: Động từ',
       details: [
         {
           title: '1',
@@ -134,7 +134,7 @@ export const courseContent = {
       ],
     },
     {
-      title: 'Mini test 2',
+      title: 'Day 5: Mini test 2',
       details: [
         {
           title: 'MINI TEST 2',
@@ -144,7 +144,7 @@ export const courseContent = {
       ],
     },
     {
-      title: 'Lesson 4 Đại từ',
+      title: 'Day 6: Đại từ',
       details: [
         {
           title: '1',
@@ -177,7 +177,7 @@ export const courseContent = {
       ],
     },
     {
-      title: 'Mini test 3',
+      title: 'Day 7: Mini test 3',
       details: [
         {
           title: 'MINI TEST 3',
@@ -207,7 +207,7 @@ export const courseContent = {
       ],
     },
     {
-      title: 'Lesson 5 Tính từ và trạng từ',
+      title: 'Day 8: Tính từ và trạng từ',
       details: [
         {
           title: '1',
@@ -247,7 +247,7 @@ export const courseContent = {
       ],
     },
     {
-      title: 'Lesson 6 Giới từ',
+      title: 'Day 9: Giới từ',
       details: [
         {
           title: '1',
@@ -365,32 +365,73 @@ export const courseContent = {
       title: 'Day 12: Bài tập Trạng từ',
       details: [
         {
-          title: 'MINI TEST 4',
+          title: 'Section 3: Trạng từ',
           type: 'grammar-test',
-          assessmentName: 'MINI TEST 4',
+          assessmentName: 'Section 3: Trạng từ',
         },
         {
-          title: 'Ôn tập Section 1: Các loại danh từ (Types of Nouns)',
+          title: 'Section 4: Vị trí trạng từ',
           type: 'grammar-test',
-          assessmentName: 'Section 1: Các loại danh từ (Types of Nouns)',
+          assessmentName: 'Section 4: Vị trí trạng từ',
         },
         {
-          title: 'Ôn tập Section 2: Danh từ đếm được và không đếm được. Số ít và số nhiều',
+          title: 'Section 5: So sánh tính từ/trạng từ',
           type: 'grammar-test',
-          assessmentName: 'Section 2: Danh từ đếm được và không đếm được. Số ít và số nhiều',
+          assessmentName: 'Section 5: So sánh tính từ/trạng từ',
         },
         {
-          title: 'Ôn tập Section 3: Sở hữu cách',
+          title: 'Ôn tập - MINI TEST 3',
           type: 'grammar-test',
-          assessmentName: 'Section 3: Sở hữu cách',
-        },
-        {
-          title: 'Ôn tập Section 4: Hạn định từ',
-          type: 'grammar-test',
-          assessmentName: 'Section 4: Hạn định từ',
+          assessmentName: 'MINI TEST 3',
         },
       ],
     },
+    {
+      title: 'Day 13: Bài tập Giới từ',
+      details: [
+        {
+          title: 'Section 1: Giới từ chỉ địa điểm',
+          type: 'grammar-test',
+          assessmentName: 'Section 1: Giới từ chỉ địa điểm',
+        },
+        {
+          title: 'Section 2: Giới từ chỉ thời gian',
+          type: 'grammar-test',
+          assessmentName: 'Section 2: Giới từ chỉ thời gian',
+        },
+      ],
+    },
+    {
+      title: 'Day 14: Bài tập Các mẫu câu',
+      details: [
+        {
+          title: 'Section 1: Bổ ngữ',
+          type: 'grammar-test',
+          assessmentName: 'Section 1: Bổ ngữ',
+        },
+        {
+          title: 'Section 2: Các mẫu câu (1)',
+          type: 'grammar-test',
+          assessmentName: 'Section 2: Các mẫu câu (1)',
+        },
+        {
+          title: 'Section 3: Các mẫu câu (2)',
+          type: 'grammar-test',
+          assessmentName: 'Section 3: Các mẫu câu (2)',
+        },
+        {
+          title: 'Ôn tập - MINI TEST 4',
+          type: 'grammar-test',
+          assessmentName: 'MINI TEST 4',
+        },
+      ],
+    },
+    {
+      title: 'Day 15: Nghỉ ngơi',
+      details: [],
+    },
+
+    // Từ vựng
     {
       title: 'Từ vựng cơ bản',
       details: [
