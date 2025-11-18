@@ -28,8 +28,39 @@ export const courses = [
   },
 ]
 
+const miniTest1 = {
+  title: 'MINI TEST 1',
+  type: 'grammar-test',
+  assessmentName: 'MINI TEST 1',
+  duration: '18:30',
+}
+const miniTest2 = {
+  title: 'MINI TEST 2',
+  type: 'grammar-test',
+  assessmentName: 'MINI TEST 2',
+  duration: '17:45',
+}
+const miniTest3 = {
+  title: 'MINI TEST 3',
+  type: 'grammar-test',
+  assessmentName: 'MINI TEST 3',
+  duration: '16:15',
+}
+const miniTest4 = {
+  title: 'MINI TEST 4',
+  type: 'grammar-test',
+  assessmentName: 'MINI TEST 4',
+  duration: '13:30',
+}
+const miniTest5 = {
+  title: 'MINI TEST 5',
+  type: 'grammar-test',
+  assessmentName: 'MINI TEST 5',
+}
+
 export const courseContent = {
   'toeic-foundation': [
+    // ========== PHẦN NGỮ PHÁP (Day 1-15) ==========
     {
       title: 'Day 1: Giới thiệu',
       details: [
@@ -80,9 +111,7 @@ export const courseContent = {
       title: 'Day 3: Mini test 1',
       details: [
         {
-          title: 'MINI TEST 1',
-          type: 'grammar-test',
-          assessmentName: 'MINI TEST 1',
+          ...miniTest1,
         },
       ],
     },
@@ -90,25 +119,25 @@ export const courseContent = {
       title: 'Day 4: Động từ',
       details: [
         {
-          title: '1',
+          title: 'Các loại động từ',
           duration: '15:43',
           vimeoID: '1127911519',
           type: 'video',
         },
         {
-          title: '2',
+          title: 'Thì hiện tại đơn',
           duration: '10:49',
           vimeoID: '1127911604',
           type: 'video',
         },
         {
-          title: '3',
+          title: 'Thể phủ định và nghĩ vấn',
           duration: '3:57',
           vimeoID: '1127911645',
           type: 'video',
         },
         {
-          title: '4',
+          title: 'Thì hiện tại tiếp diễn',
           duration: '13:37',
           vimeoID: '1127911674',
           type: 'video',
@@ -120,13 +149,13 @@ export const courseContent = {
           type: 'video',
         },
         {
-          title: '6',
+          title: 'Thì tương lai đơn, thì tương lai gần',
           duration: '15:23',
           vimeoID: '1127911784',
           type: 'video',
         },
         {
-          title: '7',
+          title: 'Danh động từ và động từ nguyên thể',
           duration: '16:44',
           vimeoID: '1127911839',
           type: 'video',
@@ -137,9 +166,7 @@ export const courseContent = {
       title: 'Day 5: Mini test 2',
       details: [
         {
-          title: 'MINI TEST 2',
-          type: 'grammar-test',
-          assessmentName: 'MINI TEST 2',
+          ...miniTest2,
         },
       ],
     },
@@ -165,14 +192,16 @@ export const courseContent = {
           type: 'video',
         },
         {
-          title: 'Section 1',
+          title: 'Ôn tập - Section 1: Các loại danh từ',
           type: 'grammar-test',
           assessmentName: 'Section 1: Các loại danh từ',
+          duration: '38:00',
         },
         {
-          title: 'Section 2',
+          title: 'Ôn tập - Section 2: Danh từ đếm được và không đếm được. Số ít và số nhiều',
           type: 'grammar-test',
           assessmentName: 'Section 2: Danh từ đếm được và không đếm được. Số ít và số nhiều',
+          duration: '45:00',
         },
       ],
     },
@@ -180,29 +209,29 @@ export const courseContent = {
       title: 'Day 7: Mini test 3',
       details: [
         {
-          title: 'MINI TEST 3',
-          type: 'grammar-test',
-          assessmentName: 'MINI TEST 3',
+          ...miniTest3,
         },
         {
+          ...miniTest1,
           title: 'Ôn tập - MINI TEST 1',
-          type: 'grammar-test',
-          assessmentName: 'MINI TEST 1',
         },
         {
           title: 'Ôn tập - Section 1: Các loại động từ',
           type: 'grammar-test',
           assessmentName: 'Section 1: Các loại động từ',
+          duration: '18:00',
         },
         {
           title: 'Ôn tập - Section 2.2: Thì hiện tại đơn',
           type: 'grammar-test',
           assessmentName: 'Section 2.2: Thì hiện tại đơn',
+          duration: '23:00',
         },
         {
           title: 'Ôn tập - Section 3: Thì hiện tại tiếp diễn',
           type: 'grammar-test',
           assessmentName: 'Section 3: Thì hiện tại tiếp diễn',
+          duration: '33:00',
         },
       ],
     },
@@ -240,9 +269,8 @@ export const courseContent = {
           type: 'video',
         },
         {
+          ...miniTest2,
           title: 'Ôn tập - MINI TEST 2',
-          type: 'grammar-test',
-          assessmentName: 'MINI TEST 2',
         },
       ],
     },
@@ -265,16 +293,17 @@ export const courseContent = {
           title: 'Ôn tập - Section 1: Đại từ nhân xưng',
           type: 'grammar-test',
           assessmentName: 'Section 1: Đại từ nhân xưng',
+          duration: '18:00',
         },
         {
           title: 'Ôn tập - Section 2: Tính từ sở hữu và Đại từ sở hữu',
           type: 'grammar-test',
           assessmentName: 'Section 2: Tính từ sở hữu và Đại từ sở hữu',
+          duration: '22:30',
         },
         {
+          ...miniTest3,
           title: 'Ôn tập - MINI TEST 3',
-          type: 'grammar-test',
-          assessmentName: 'MINI TEST 3',
         },
       ],
     },
@@ -282,34 +311,35 @@ export const courseContent = {
       title: 'Day 10: Mini test 4',
       details: [
         {
-          title: 'MINI TEST 4',
-          type: 'grammar-test',
-          assessmentName: 'MINI TEST 4',
+          ...miniTest4,
         },
         {
           title: 'Ôn tập - Section 1: Tính từ',
           type: 'grammar-test',
           assessmentName: 'Section 1: Tính từ',
+          duration: '11:00',
         },
         {
           title: 'Ôn tập - Section 2: Thứ tự tính từ',
           type: 'grammar-test',
           assessmentName: 'Section 2: Thứ tự tính từ',
+          duration: '20:00',
         },
         {
           title: 'Ôn tập - Section 3: Sở hữu cách',
           type: 'grammar-test',
           assessmentName: 'Section 3: Sở hữu cách',
+          duration: '17:00',
         },
         {
           title: 'Ôn tập - Section 4: Hạn định từ',
           type: 'grammar-test',
           assessmentName: 'Section 4: Hạn định từ',
+          duration: '19:00',
         },
         {
-          title: 'On tập - MINI TEST 1',
-          type: 'grammar-test',
-          assessmentName: 'MINI TEST 1',
+          ...miniTest1,
+          title: 'Ôn tập - MINI TEST 1',
         },
       ],
     },
@@ -338,26 +368,29 @@ export const courseContent = {
           title: 'Ôn tập - Section 4: Thì quá khứ đơn',
           type: 'grammar-test',
           assessmentName: 'Section 4: Thì quá khứ đơn',
+          duration: '22:00',
         },
         {
           title: 'Ôn tập - Section 5: Thì tương lai đơn và tương lai gần',
           type: 'grammar-test',
           assessmentName: 'Section 5: Thì tương lai đơn và tương lai gần',
+          duration: '16:30',
         },
         {
           title: 'Ôn tập - Section 6: Danh động từ và Động từ nguyên thể',
           type: 'grammar-test',
           assessmentName: 'Section 6: Danh động từ và Động từ nguyên thể',
+          duration: '17:00',
         },
         {
           title: 'Ôn tập - Section 3: Đại từ phản thân',
           type: 'grammar-test',
           assessmentName: 'Section 3: Đại từ phản thân',
+          duration: '18:00',
         },
         {
+          ...miniTest2,
           title: 'Ôn tập - MINI TEST 2',
-          type: 'grammar-test',
-          assessmentName: 'MINI TEST 2',
         },
       ],
     },
@@ -368,21 +401,23 @@ export const courseContent = {
           title: 'Section 3: Trạng từ',
           type: 'grammar-test',
           assessmentName: 'Section 3: Trạng từ',
+          duration: '26:00',
         },
         {
           title: 'Section 4: Vị trí trạng từ',
           type: 'grammar-test',
           assessmentName: 'Section 4: Vị trí trạng từ',
+          duration: '18:00',
         },
         {
           title: 'Section 5: So sánh tính từ/trạng từ',
           type: 'grammar-test',
           assessmentName: 'Section 5: So sánh tính từ/trạng từ',
+          duration: '21:00',
         },
         {
+          ...miniTest3,
           title: 'Ôn tập - MINI TEST 3',
-          type: 'grammar-test',
-          assessmentName: 'MINI TEST 3',
         },
       ],
     },
@@ -393,11 +428,13 @@ export const courseContent = {
           title: 'Section 1: Giới từ chỉ địa điểm',
           type: 'grammar-test',
           assessmentName: 'Section 1: Giới từ chỉ địa điểm',
+          duration: '15:00',
         },
         {
           title: 'Section 2: Giới từ chỉ thời gian',
           type: 'grammar-test',
           assessmentName: 'Section 2: Giới từ chỉ thời gian',
+          duration: '10:00',
         },
       ],
     },
@@ -408,21 +445,23 @@ export const courseContent = {
           title: 'Section 1: Bổ ngữ',
           type: 'grammar-test',
           assessmentName: 'Section 1: Bổ ngữ',
+          duration: '07:00',
         },
         {
           title: 'Section 2: Các mẫu câu (1)',
           type: 'grammar-test',
           assessmentName: 'Section 2: Các mẫu câu (1)',
+          duration: '09:00',
         },
         {
           title: 'Section 3: Các mẫu câu (2)',
           type: 'grammar-test',
           assessmentName: 'Section 3: Các mẫu câu (2)',
+          duration: '09:00',
         },
         {
+          ...miniTest4,
           title: 'Ôn tập - MINI TEST 4',
-          type: 'grammar-test',
-          assessmentName: 'MINI TEST 4',
         },
       ],
     },
@@ -431,7 +470,319 @@ export const courseContent = {
       details: [],
     },
 
-    // Từ vựng
+    // ========== PHẦN TỪ VỰNG (Day 16-35) ==========
+    {
+      title: 'Day 16: Từ vựng cơ bản',
+      details: [
+        {
+          title: 'QUỐC GIA - QUỐC TỊCH',
+          duration: '29:33',
+          vimeoID: '1127913927',
+          type: 'video',
+        },
+        {
+          title: 'SỐ ĐẾM (PHẦN 1)',
+          duration: '11:51',
+          vimeoID: '1127914011',
+          type: 'video',
+        },
+        {
+          title: 'SỐ ĐẾM (PHẦN 2)',
+          duration: '17:48',
+          vimeoID: '1127914073',
+          type: 'video',
+        },
+      ],
+    },
+    {
+      title: 'Day 17: Từ vựng về chủ đề Thế giới tự nhiên',
+      details: [
+        {
+          title: 'CÁC TÍNH TỪ PHỔ BIẾN',
+          duration: '11:52',
+          vimeoID: '1127914789',
+          type: 'video',
+        },
+        {
+          title: 'THỜI TIẾT',
+          duration: '10:52',
+          vimeoID: '1127914838',
+          type: 'video',
+        },
+        {
+          title: 'ĐỘNG VẬT (PHẦN 1)',
+          duration: '06:11',
+          vimeoID: '1127914907',
+          type: 'video',
+        },
+        {
+          title: 'ĐỘNG VẬT (PHẦN 2)',
+          duration: '07:28',
+          vimeoID: '1127914512',
+          type: 'video',
+        },
+        {
+          title: 'ĐỊA ĐIỂM',
+          duration: '15:28',
+          vimeoID: '1127914546',
+          type: 'video',
+        },
+      ],
+    },
+    {
+      title: 'Day 18: Mini-test 1',
+      details: [
+        {
+          ...miniTest1,
+          title: 'MINI-TEST 1',
+        },
+      ],
+    },
+    {
+      title: 'Day 19: Từ vựng về chủ đề Hoạt động hàng ngày',
+      details: [
+        {
+          title: 'HOẠT ĐỘNG HÀNG NGÀY (PHẦN 1)',
+          duration: '13:09',
+          vimeoID: '1127914604',
+          type: 'video',
+        },
+        {
+          title: 'HOẠT ĐỘNG HÀNG NGÀY (PHẦN 2)',
+          duration: '12:22',
+          vimeoID: '1127914668',
+          type: 'video',
+        },
+        {
+          title: 'HOẠT ĐỘNG HÀNG NGÀY (PHẦN 3)',
+          duration: '12:17',
+          vimeoID: '1127914726',
+          type: 'video',
+        },
+      ],
+    },
+    {
+      title: 'Day 20: Từ vựng về chủ đề Gia đình',
+      details: [
+        {
+          title: 'GIA PHẢ (PHẦN 1)',
+          duration: '09:08',
+          vimeoID: '1127915123',
+          type: 'video',
+        },
+        {
+          title: 'GIA PHẢ (PHẦN 2)',
+          duration: '06:44',
+          vimeoID: '1127915180',
+          type: 'video',
+        },
+        {
+          title: 'ĐỒ ĂN VÀ THỨC UỐNG',
+          duration: '18:08',
+          vimeoID: '1127915723',
+          type: 'video',
+        },
+      ],
+    },
+    {
+      title: 'Day 21: Mini-test 2',
+      details: [
+        {
+          ...miniTest2,
+          title: 'MINI-TEST 2',
+        },
+      ],
+    },
+    {
+      title: 'Day 22: Từ vựng về chủ đề Kiến trúc và nội thất',
+      details: [
+        {
+          title: 'MÔ TẢ CĂN NHÀ',
+          duration: '20:05',
+          vimeoID: '1127915790',
+          type: 'video',
+        },
+        {
+          title: 'MÔ TẢ CĂN PHÒNG',
+          duration: '08:49',
+          vimeoID: '1127915615',
+          type: 'video',
+        },
+      ],
+    },
+    {
+      title: 'Day 23: Từ vựng về chủ đề Sức khỏe',
+      details: [
+        {
+          title: 'CƠ THỂ CON NGƯỜI',
+          duration: '17:31',
+          vimeoID: '1127915657',
+          type: 'video',
+        },
+        {
+          title: 'SỨC KHỎE CON NGƯỜI',
+          duration: '13:41',
+          vimeoID: '1127916360',
+          type: 'video',
+        },
+      ],
+    },
+    {
+      title: 'Day 24: Mini-test 3',
+      details: [
+        {
+          ...miniTest3,
+          title: 'MINI-TEST 3',
+        },
+      ],
+    },
+    {
+      title: 'Day 25: Từ vựng về chủ đề Đời sống sinh viên',
+      details: [
+        {
+          title: 'HỌC TẬP',
+          duration: '15:58',
+          vimeoID: '1128910950',
+          type: 'video',
+        },
+      ],
+    },
+    {
+      title: 'Day 26: Từ vựng về chủ đề Thời gian rảnh rỗi',
+      details: [
+        {
+          title: 'HOẠT ĐỘNG GIẢI TRÍ',
+          duration: '13:02',
+          vimeoID: '1127916096',
+          type: 'video',
+        },
+        {
+          title: 'MUA SẮM',
+          duration: '10:22',
+          vimeoID: '1128910882',
+          type: 'video',
+        },
+        {
+          title: 'DU LỊCH VÀ CÁC KÌ NGHỈ',
+          duration: '11:18',
+          vimeoID: '1128911021',
+          type: 'video',
+        },
+        {
+          title: 'ÂM NHẠC VÀ PHIM ẢNH',
+          duration: '14:55',
+          vimeoID: '1128911104',
+          type: 'video',
+        },
+        {
+          title: 'THỂ THAO',
+          duration: '12:42',
+          vimeoID: '1128910511',
+          type: 'video',
+        },
+      ],
+    },
+    {
+      title: 'Day 27: Mini-test 4',
+      details: [
+        {
+          ...miniTest4,
+          title: 'MINI-TEST 4',
+        },
+      ],
+    },
+    {
+      title: 'Day 28: Từ vựng về chủ đề Công việc và đồng nghiệp',
+      details: [
+        {
+          title: 'CÔNG VIỆC VÀ ĐỒNG NGHIỆP',
+          duration: '10:47',
+          vimeoID: '1128910572',
+          type: 'video',
+        },
+        {
+          title: 'PHƯƠNG TIỆN GIAO THÔNG',
+          duration: '15:32',
+          vimeoID: '1128910631',
+          type: 'video',
+        },
+        {
+          title: 'TRANG PHỤC',
+          duration: '19:33',
+          vimeoID: '1128910681',
+          type: 'video',
+        },
+      ],
+    },
+    {
+      title: 'Day 29: Từ vựng về chủ đề Công nghệ',
+      details: [
+        {
+          title: 'TECHNOLOGY AND COMMUNICATIONS',
+          duration: '13:04',
+          vimeoID: '1128910740',
+          type: 'video',
+        },
+      ],
+    },
+    {
+      title: 'Day 30: Mini test 5',
+      details: [
+        {
+          ...miniTest5,
+        },
+      ],
+    },
+    {
+      title: 'Day 31: Từ vựng về chủ đề Email',
+      details: [
+        {
+          title: 'EMAIL',
+          duration: '14:27',
+          vimeoID: '1128910786',
+          type: 'video',
+        },
+      ],
+    },
+    {
+      title: 'Day 32: Từ vựng về chủ đề Telephone',
+      details: [
+        {
+          title: 'TELEPHONE',
+          duration: '13:09',
+          vimeoID: '1128910838',
+          type: 'video',
+        },
+      ],
+    },
+    {
+      title: 'Day 33: Final test',
+      details: [
+        {
+          title: 'FINAL TEST',
+          type: 'grammar-test',
+          assessmentName: 'FINAL TEST',
+        },
+      ],
+    },
+    {
+      title: 'Day 34: Ôn tập Telephone',
+      details: [
+        {
+          title: 'ÔN TẬP - TELEPHONE',
+          duration: '13:09',
+          vimeoID: '1128910838',
+          type: 'video',
+          isReview: true,
+        },
+      ],
+    },
+    {
+      title: 'Day 35: Nghỉ ngơi',
+      details: [],
+    },
+
+    // mẫu từ vựng, xóa sau
     {
       title: 'Từ vựng cơ bản',
       details: [
