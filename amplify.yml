@@ -1,18 +1,37 @@
 version: 1
 frontend:
   phases:
+    # Giai đoạn trước khi Build: Cài đặt và Debug
     preBuild:
       commands:
-        # Lệnh cũ (bạn giữ nguyên)
-        - echo "===================> Đang chạy amplify.yml ở git"
+        # Lệnh Debug: Xác nhận file đang chạy từ nguồn mới
+        - echo "===================> Đang chạy cấu hình build mới <==================="
+        # Thiết lập Node.js 20 (cần cho Next.js 15)
         - nvm install 20
+        # Cài đặt pnpm
         - npm install -g pnpm
-        # Lệnh mới: Thêm console.log/echo
-        # 1. In ra giá trị biến môi trường trong quá trình build
-        - echo "Kiểm tra Biến Môi trường MONGODB_URI:"
-        - echo $MONGODB_URI
-        # 2. Hoặc chạy một đoạn mã Node.js nhỏ để gỡ lỗi:
+        # Debug: Kiểm tra phiên bản Node đang dùng
         - node -e 'console.log("Phiên bản Node đang dùng:", process.version);'
+        # Debug: Kiểm tra Biến Môi trường
+        - echo "Kiểm tra Biến Môi trường MONGODB_URI: $MONGODB_URI"
 
+        # Cài đặt các gói
         - pnpm install
-    # ... (các phần còn lại)
+
+    # Giai đoạn Build: Thực thi lệnh build của dự án Next.js
+    build:
+      commands:
+        - pnpm run build
+
+  # PHẦN ARTIFACTS (KHẮC PHỤC LỖI CUỐI)
+  artifacts:
+    # Thư mục đầu ra mặc định cho Next.js
+    baseDirectory: .next
+    files:
+      - '**/*'
+
+  # Cấu hình Cache: Tăng tốc độ build sau này
+  cache:
+    paths:
+      - node_modules/**/*
+      - ~/.pnpm-store/**/*
