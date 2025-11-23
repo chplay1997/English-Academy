@@ -1,35 +1,18 @@
 version: 1
-# Cấu hình cho Front-end (Amplify Hosting)
 frontend:
-  # Các giai đoạn của quá trình Build
   phases:
-    # Giai đoạn trước khi Build: Cài đặt các công cụ cần thiết
     preBuild:
       commands:
-        # 1. Cài đặt pnpm (bắt buộc vì nó không có sẵn)
+        # Lệnh cũ (bạn giữ nguyên)
+        - echo "===================> Đang chạy amplify.yml ở git"
+        - nvm install 20
         - npm install -g pnpm
-        # 2. Cài đặt các gói dependency bằng pnpm
+        # Lệnh mới: Thêm console.log/echo
+        # 1. In ra giá trị biến môi trường trong quá trình build
+        - echo "Kiểm tra Biến Môi trường MONGODB_URI:"
+        - echo $MONGODB_URI
+        # 2. Hoặc chạy một đoạn mã Node.js nhỏ để gỡ lỗi:
+        - node -e 'console.log("Phiên bản Node đang dùng:", process.version);'
+
         - pnpm install
-        # (Sử dụng lệnh pnpm install đơn giản nhất để tránh lỗi với lockfile)
-
-    # Giai đoạn Build: Thực thi lệnh build của dự án
-    build:
-      commands:
-        # Thay thế bằng lệnh build thực tế trong package.json của bạn
-        - pnpm run build
-        # Ví dụ: Nếu bạn dùng Next.js, lệnh này sẽ chạy "next build"
-
-  # Cấu hình Artifacts (đầu ra của quá trình Build)
-  artifacts:
-    # Thay thế ".next" bằng thư mục đầu ra của dự án bạn (ví dụ: dist, build, public)
-    baseDirectory: .next
-    files:
-      - '**/*'
-
-  # Cấu hình Cache: Tăng tốc độ build sau này
-  cache:
-    paths:
-      # Cache thư mục node_modules
-      - node_modules/**/*
-      # Cache thư mục pnpm-store (Quan trọng nếu bạn dùng pnpm)
-      - ~/.pnpm-store/**/*
+    # ... (các phần còn lại)
