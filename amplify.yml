@@ -1,0 +1,29 @@
+version: 1
+frontend:
+  phases:
+    # Giai đoạn trước khi Build
+    preBuild:
+      commands:
+        # Cài đặt pnpm (sử dụng npm đã có sẵn trên môi trường build)
+        - npm install -g pnpm
+        # Cài đặt các dependencies của dự án bằng pnpm
+        - pnpm install --frozen-lockfile
+    # Giai đoạn Build
+    build:
+      commands:
+        # Thay thế lệnh này bằng lệnh build của dự án bạn (ví dụ: Next.js, Vue)
+        # Nếu dùng Next.js
+        - pnpm run build
+        # Hoặc lệnh build khác tùy framework
+        # - pnpm build
+  # Thư mục chứa các file đã build (dist) để triển khai
+  artifacts:
+    baseDirectory: .next
+    # Thay thế bằng thư mục đầu ra của dự án bạn (ví dụ: build, dist)
+    files:
+      - '**/*'
+  # Thiết lập cài đặt cho các nhánh cụ thể (Branch)
+  cache:
+    paths:
+      # Cache thư mục node_modules để tăng tốc độ build
+      - node_modules/**/*
