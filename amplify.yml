@@ -10,8 +10,8 @@ frontend:
         # Configure pnpm for speed
         - pnpm config set store-dir /root/.pnpm-store
         - pnpm config set package-import-method copy
-        # CRITICAL: Only install production dependencies (skip devDependencies)
-        - pnpm install --prod --frozen-lockfile --prefer-offline
+        # Install ALL dependencies (devDeps needed for build, standalone handles runtime)
+        - pnpm install --frozen-lockfile --prefer-offline
     build:
       commands:
         # Build with standalone output (configured in next.config.ts)
