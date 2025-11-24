@@ -11,6 +11,12 @@ function getClientPromise(): Promise<MongoClient> {
   if (clientPromise) return clientPromise
 
   const uri = process.env.MONGODB_URI
+
+  // Debug: Check if env var is available
+  console.log('🔍 [MongoDB Debug] MONGODB_URI exists:', !!uri)
+  console.log('🔍 [MongoDB Debug] MONGODB_URI length:', uri?.length || 0)
+  console.log('🔍 All env vars:', process.env)
+
   if (!uri) throw new Error('❌ Missing MONGODB_URI')
 
   const options = {}

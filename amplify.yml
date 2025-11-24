@@ -3,10 +3,16 @@ frontend:
   phases:
     preBuild:
       commands:
+        # Clear old cache to ensure fresh env vars
+        - rm -rf .next node_modules/.cache
+        # Install and configure pnpm with specific store path
         - npm install -g corepack
         - corepack enable
-        - corepack prepare pnpm@latest --activate
-        - pnpm install
+        - corepack prepare pnpm@9 --activate
+        # Configure pnpm to use consistent store location
+        - pnpm config set store-dir .pnpm-store
+        # Install with frozen lockfile (faster, no resolution)
+        - pnpm install --frozen-lockfile --prefer-offline
     build:
       commands:
         - pnpm run build
@@ -16,8 +22,9 @@ frontend:
       - '**/*'
   cache:
     paths:
-      # Cache Next.js build cache (CRITICAL for faster builds!)
+      # Cache Next.js build cache (CRITICAL!)
       - .next/cache/**/*
-      # Cache pnpm store
-      - ~/.pnpm-store/**/*
+      # Cache pnpm store (use local path for reliability)
+      - .pnpm-store/**/*
+      # Cache node_modules
       - node_modules/**/*
