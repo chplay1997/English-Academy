@@ -32,12 +32,4 @@ function getClientPromise(): Promise<MongoClient> {
   return clientPromise
 }
 
-// Export a getter that lazily creates the client
-export default new Proxy({} as Promise<MongoClient>, {
-  get(_target, prop) {
-    const promise = getClientPromise()
-    const value = promise[prop as keyof Promise<MongoClient>]
-    // Bind function methods to the promise object
-    return typeof value === 'function' ? value.bind(promise) : value
-  },
-})
+export default getClientPromise()

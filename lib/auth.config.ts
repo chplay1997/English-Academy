@@ -1,11 +1,15 @@
 import { AuthOptions } from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter'
-import clientPromise from '@/lib/mongodb'
 import FacebookProvider from 'next-auth/providers/facebook'
 
+// Lazy-load clientPromise to avoid module-scope execution
+function getClientPromise() {
+  return import('@/lib/mongodb').then(mod => mod.default)
+}
+
 export const authOptions: AuthOptions = {
-  adapter: MongoDBAdapter(clientPromise),
+  adapter: MongoDBAdapter(getClientPromise()),
   secret: process.env.NEXTAUTH_SECRET!,
   providers: [
     GoogleProvider({
