@@ -1,6 +1,17 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
+  // Disable telemetry for faster builds
+  eslint: {
+    ignoreDuringBuilds: false, // Keep linting but can set to true for faster builds
+  },
+  typescript: {
+    ignoreBuildErrors: false, // Keep type checking but can set to true for faster builds
+  },
+
+  // Enable optimizations
+  swcMinify: true,
+
   images: {
     // List of domains from which images can be loaded from
     remotePatterns: [
