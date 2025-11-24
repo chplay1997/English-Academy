@@ -5,15 +5,15 @@ declare global {
   var _mongoClientPromise: Promise<MongoClient> | undefined
 }
 
-const uri = process.env.MONGODB_URI!
-if (!uri) throw new Error('❌ Missing MONGODB_URI')
+function getMongoClient() {
+  const uri = process.env.MONGODB_URI
+  if (!uri) throw new Error('❌ Missing MONGODB_URI')
 
-const options = {}
+  const options = {}
+  return new MongoClient(uri, options)
+}
 
-const client = new MongoClient(uri, options)
 let clientPromise: Promise<MongoClient>
-
-console.info('connect db now.......................', uri)
 
 if (process.env.NODE_ENV === 'development') {
   // Reuse client in dev mode to avoid multiple connections
@@ -21,10 +21,12 @@ if (process.env.NODE_ENV === 'development') {
     _mongoClientPromise?: Promise<MongoClient>
   }
   if (!globalWithMongo._mongoClientPromise) {
+    const client = getMongoClient()
     globalWithMongo._mongoClientPromise = client.connect()
   }
   clientPromise = globalWithMongo._mongoClientPromise
 } else {
+  const client = getMongoClient()
   clientPromise = client.connect()
 }
 
