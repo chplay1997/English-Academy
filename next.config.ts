@@ -12,9 +12,6 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
 
-  // Enable optimizations
-  swcMinify: true,
-
   // Optimize production builds
   poweredByHeader: false,
   compress: true,
