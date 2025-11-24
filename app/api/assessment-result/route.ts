@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { connectDB } from '@/lib/mongoose'
-import Assessment from '@/models/assessment.model'
+import Assessment, { IExercise, IQuestion } from '@/models/assessment.model'
 import AssessmentResult, { MAX_SCORE } from '@/models/assessmentResult.model'
 import { Types } from 'mongoose'
 import { getServerSession } from 'next-auth'
@@ -50,16 +50,25 @@ export async function POST(req: Request) {
     const evaluatedAnswers = []
 
     // Prepare question data and evaluate answers
+    type QuestionMapItem = {
+      _id: string
+      correctAnswerKey?: string
+      correctAnswerKeys?: string[]
+      exerciseType: string
+      questionNumber: number
+    }
+
     const allQuestionsMap = assessment.exercises
-      .flatMap((exercise: any) =>
-        exercise.questions.map((question: any) => ({
+      .flatMap((exercise: IExercise) =>
+        exercise.questions.map((question: IQuestion) => ({
           _id: String(question._id),
           correctAnswerKey: question.correctAnswerKey,
+          correctAnswerKeys: question.correctAnswerKeys,
           exerciseType: exercise.exerciseType,
           questionNumber: question.questionNumber,
         }))
       )
-      .reduce((acc: any, question: any) => {
+      .reduce((acc: Record<string, QuestionMapItem>, question: QuestionMapItem) => {
         acc[question._id] = question
         return acc
       }, {})
@@ -121,8 +130,9 @@ export async function POST(req: Request) {
       },
       { status: 200 }
     )
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('❌ Submit error:', error)
-    return NextResponse.json({ message: 'Server error', success: false, error: error.message }, { status: 500 })
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+    return NextResponse.json({ message: 'Server error', success: false, error: errorMessage }, { status: 500 })
   }
 }
