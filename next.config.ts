@@ -12,6 +12,16 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
 
+  // Fix MongoDB bundling issues on AWS Amplify
+  serverComponentsExternalPackages: ['mongodb', 'mongoose'],
+
+  // Experimental features for React 19 compatibility
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '2mb',
+    },
+  },
+
   // Optimize production builds
   poweredByHeader: false,
   compress: true,

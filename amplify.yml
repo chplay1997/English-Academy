@@ -5,10 +5,12 @@ frontend:
       commands:
         # Write environment variables to .env.production
         - env >> .env.production
-        # Install pnpm globally (fastest method)
-        - npm install -g pnpm@9 --force
+        # Use corepack (built-in, faster than npm install)
+        - corepack enable
+        - corepack prepare pnpm@latest --activate
+
         # Configure pnpm for speed
-        - pnpm config set store-dir /root/.pnpm-store
+        - pnpm config set store-dir .pnpm-store
         - pnpm config set package-import-method copy
         # Install ALL dependencies (devDeps needed for build, standalone handles runtime)
         - pnpm install --frozen-lockfile --prefer-offline
@@ -25,7 +27,7 @@ frontend:
     paths:
       # Cache Next.js build cache (most important!)
       - .next/cache/**/*
-      # Cache pnpm global store
-      - /root/.pnpm-store/**/*
+      # Cache pnpm local store
+      - .pnpm-store/**/*
       # Cache node_modules (for faster future builds)
       - node_modules/**/*
