@@ -23,6 +23,8 @@ export default function Assessment({ assessment, lessonId, setCourseState }: Ass
   const [showError, setShowError] = useState(false)
   const isTestMode = useTestMode()
 
+  console.log('test mode', isTestMode)
+
   const allQuestionIds = assessment.exercises.flatMap(exercise =>
     exercise.questions.map(question => String(question._id))
   )
