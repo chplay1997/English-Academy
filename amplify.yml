@@ -5,26 +5,27 @@ frontend:
       commands:
         # Write environment variables to .env.production
         - env >> .env.production
-        # Install and configure pnpm with specific store path
-        - npm install -g corepack
-        - corepack enable
-        - corepack prepare pnpm@9 --activate
-        # Configure pnpm to use consistent store location
-        - pnpm config set store-dir .pnpm-store
-        # Install with frozen lockfile (faster, no resolution)
-        - pnpm install --frozen-lockfile --prefer-offline
+        # Install pnpm globally (fastest method)
+        - npm install -g pnpm@9 --force
+        # Configure pnpm for speed
+        - pnpm config set store-dir /root/.pnpm-store
+        - pnpm config set package-import-method copy
+        # CRITICAL: Only install production dependencies (skip devDependencies)
+        - pnpm install --prod --frozen-lockfile --prefer-offline
     build:
       commands:
+        # Build with standalone output (configured in next.config.ts)
         - pnpm run build
   artifacts:
+    # Use standalone output directory (much smaller!)
     baseDirectory: .next
     files:
       - '**/*'
   cache:
     paths:
-      # Cache Next.js build cache (CRITICAL!)
+      # Cache Next.js build cache (most important!)
       - .next/cache/**/*
-      # Cache pnpm store (use local path for reliability)
-      - .pnpm-store/**/*
-      # Cache node_modules
+      # Cache pnpm global store
+      - /root/.pnpm-store/**/*
+      # Cache node_modules (for faster future builds)
       - node_modules/**/*

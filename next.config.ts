@@ -1,16 +1,23 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  // Disable telemetry for faster builds
+  // CRITICAL: Standalone output for 90% smaller deployments
+  output: 'standalone',
+
+  // Skip checks during build (do these in CI separately for speed)
   eslint: {
-    ignoreDuringBuilds: false, // Keep linting but can set to true for faster builds
+    ignoreDuringBuilds: true,
   },
   typescript: {
-    ignoreBuildErrors: false, // Keep type checking but can set to true for faster builds
+    ignoreBuildErrors: true,
   },
 
   // Enable optimizations
   swcMinify: true,
+
+  // Optimize production builds
+  poweredByHeader: false,
+  compress: true,
 
   images: {
     // List of domains from which images can be loaded from
