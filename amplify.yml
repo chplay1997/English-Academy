@@ -29,5 +29,3 @@ frontend:
       - .next/cache/**/*
       # Cache pnpm local store
       - .pnpm-store/**/*
-      # Cache node_modules (for faster future builds)
-      - node_modules/**/*
